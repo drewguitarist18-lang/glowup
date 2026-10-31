@@ -34,7 +34,7 @@ In any project:
 features/         the commands, plus features.json (the registry)
 install.ps1       Windows installer
 install.sh        macOS / Linux installer
-index.html        the website (styles.css, site.js)
+site/             the website (index.html, styles.css, site.js)
 tools/validate.mjs  checks the registry; run before pushing
 ```
 
@@ -44,19 +44,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Develop locally
 
-The site loads `features/features.json` with `fetch`, so open it through a server rather than by double-clicking `index.html`:
+The site reads the feature list from `features/features.json` on `main`, the same copy the installers download, so local registry edits show up there after they're pushed. Check them with the validator:
 
 ```bash
 node tools/validate.mjs
-npx serve .
+npx serve site
 ```
 
 ## Deploy
 
-GitHub Pages redeploys on every push to `main`. Vercel doesn't (its GitHub app can't see this repo), so deploy it from this folder:
+GitHub Pages publishes `site/` on every push to `main`. Vercel doesn't (its GitHub app can't see this repo), so deploy it from `site/`:
 
 ```bash
+cd site
 npx vercel deploy --prod
 ```
-
-`.vercelignore` keeps `tools/` and `.github/` out of the upload.
