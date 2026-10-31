@@ -1,5 +1,5 @@
-// The page's moving parts: the before/after slider, the shell tabs, copy buttons,
-// and the feature list from features/features.json on main. No build step.
+// The page's moving parts: the hero scorecard, the before/after slider, the shell tabs,
+// copy buttons, and the feature list from features/features.json on main. No build step.
 
 const REPO = "https://github.com/drewguitarist18-lang/glowup";
 const RAW = "https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main";
@@ -146,6 +146,105 @@ function wireCompare() {
   watcher.observe(compare);
 }
 
+const TIERS = [
+  { min: 90, key: "t5", name: "Production Grade" },
+  { min: 80, key: "t4", name: "Professional" },
+  { min: 60, key: "t3", name: "Launch-Ready" },
+  { min: 40, key: "t2", name: "Side Project" },
+  { min: 0, key: "t1", name: "Vibe Prototype" },
+];
+const tierOf = (score) => TIERS.find((t) => score >= t.min);
+
+// The hero scorecard replays the example run: each category moves from its before score
+// to its after score in the order glowup fixes them, and the total counts up behind it.
+// The HTML already shows the finished run, which is what reduced motion keeps.
+function wireScore() {
+  const card = document.getElementById("score");
+  if (!card) return;
+  const num = card.querySelector(".score-num");
+  const delta = card.querySelector(".score-delta");
+  const tier = card.querySelector(".score-tier");
+  const meter = card.querySelector(".meter");
+  const status = card.querySelector(".score-status");
+  const replay = card.querySelector(".replay");
+  const rows = [...card.querySelectorAll(".cats li")].map((li) => ({
+    li,
+    name: li.querySelector(".name").textContent,
+    out: li.querySelector("b"),
+    from: Number(li.dataset.from),
+    to: Number(li.dataset.to),
+  }));
+  const start = rows.reduce((sum, r) => sum + r.from, 0);
+  const end = rows.reduce((sum, r) => sum + r.to, 0);
+  const done = `Done · ${rows.length} commits`;
+
+  let shown = end;
+  let run = 0;
+  let timers = [];
+
+  const setRow = (row, value) => {
+    row.li.style.setProperty("--v", value);
+    row.li.dataset.tier = tierOf(value * 10).key;
+    row.out.textContent = value;
+  };
+  const setTotal = (value) => {
+    const t = tierOf(value);
+    shown = value;
+    num.textContent = value;
+    tier.textContent = t.name;
+    card.dataset.tier = t.key;
+    meter.style.setProperty("--v", Math.floor(value / 2) * 2);
+    delta.textContent = value > start ? `+${value - start}` : "";
+  };
+  const countTo = (target, ms, id) => {
+    const from = shown;
+    const t0 = performance.now();
+    const frame = (now) => {
+      if (id !== run) return;
+      const t = Math.min(1, (now - t0) / ms);
+      setTotal(Math.round(from + (target - from) * t));
+      if (t < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+
+  const play = () => {
+    const id = ++run;
+    timers.forEach(clearTimeout);
+    replay.hidden = true;
+    for (const row of rows) {
+      row.li.classList.remove("on");
+      setRow(row, row.from);
+    }
+    setTotal(start);
+    status.textContent = "Auditing";
+    let total = start;
+    timers = rows.map((row, i) => setTimeout(() => {
+      for (const r of rows) r.li.classList.remove("on");
+      row.li.classList.add("on");
+      status.textContent = `Fixing ${row.name}`;
+      setRow(row, row.to);
+      total += row.to - row.from;
+      countTo(total, 320, id);
+    }, 900 + i * 420));
+    timers.push(setTimeout(() => {
+      for (const r of rows) r.li.classList.remove("on");
+      status.textContent = done;
+      replay.hidden = false;
+    }, 900 + rows.length * 420 + 200));
+  };
+
+  replay.addEventListener("click", play);
+  if (reduceMotion) return;
+  if (!("IntersectionObserver" in window)) return play();
+  const watcher = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    watcher.disconnect();
+    play();
+  }, { threshold: 0.5 });
+  watcher.observe(card);
+}
+
 // The feature list is read from the same place the installers read it: the registry on main.
 async function renderFeatures() {
   const list = document.getElementById("feature-list");
@@ -196,4 +295,5 @@ function addItem() {
 wireShells();
 wireCopy();
 wireCompare();
+wireScore();
 renderFeatures();

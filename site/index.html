@@ -9,12 +9,12 @@
   <meta property="og:title" content="glowup · Make your vibe-coded app production-ready">
   <meta property="og:description" content="A Claude Code command that scores your project in ten categories, fixes them one commit at a time, and scores it again.">
   <meta property="og:url" content="https://glowup-swart-nu.vercel.app/">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0b0b0a">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -38,7 +38,7 @@
 <header class="site">
   <div class="wrap">
     <a class="brand" href="./">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#111"/><path d="M7 18h4v7H7zM14 13h4v12h-4zM21 7h4v18h-4z" fill="#fff"/></svg>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1c1c1a"/><path d="M7 18h4v7H7z" fill="#ef5a3c"/><path d="M14 13h4v12h-4z" fill="#ebc63a"/><path d="M21 7h4v18h-4z" fill="#45d483"/></svg>
       glowup
     </a>
     <nav aria-label="Sections">
@@ -56,11 +56,15 @@
 
   <section class="hero">
     <div class="wrap">
-      <h1>Make your <span class="nw">vibe-coded</span> app <span class="nw">production-ready.</span></h1>
+      <div class="eyebrow"><i></i>/glowup for Claude Code</div>
+      <h1>Make your <span class="nw squiggle">vibe-coded</span> app <span class="nw">production-ready.</span></h1>
+
+      <div class="hero-grid">
+      <div class="hero-copy">
       <p class="lede">
-        <code>/glowup</code> is a command for Claude Code. It scores your project out of 100 across ten
-        categories, fixes them one at a time starting with security, and then scores it again. Every
-        category it fixes is a separate commit on a <code>glowup</code> branch, so you can review or undo any of it.
+        A command that scores your project out of 100 across ten categories, fixes them one at a time
+        starting with security, and then scores it again. Every category it fixes is a separate commit on
+        a <code>glowup</code> branch, so you can review or undo any of it.
       </p>
 
       <div class="cmd install" data-os-box>
@@ -77,6 +81,35 @@
         Then run <code>/glowup</code> in a project, or <code>/glowup audit</code> to get the scorecard without
         changing anything. The whole command is <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">one Markdown file</a> you can read first.
       </p>
+      </div>
+
+      <!-- The example run's scorecard. It renders at the final score; site.js replays the run. -->
+      <aside class="score" id="score" data-tier="t4" aria-label="Example run: 38 out of 100 before, 86 after">
+        <div class="score-bar">
+          <span>invoicer</span>
+          <span class="score-status">Done · 10 commits</span>
+          <button type="button" class="replay">Replay</button>
+        </div>
+        <div class="score-body">
+          <div class="score-total"><b class="score-num">86</b><span class="of">/100</span><span class="score-delta">+48</span></div>
+          <div class="score-tier">Professional</div>
+          <div class="meter" style="--v:86" aria-hidden="true"><div class="meter-lit"><i></i></div></div>
+          <div class="meter-ticks" aria-hidden="true"><span style="left:0">0</span><span style="left:40%">40</span><span style="left:60%">60</span><span style="left:80%">80</span><span style="left:90%">90</span><span style="left:100%">100</span></div>
+          <ol class="cats">
+            <li data-from="3" data-to="9" data-tier="t5" style="--v:9"><span class="name">Security</span><span class="bar"><i></i></span><b>9</b></li>
+            <li data-from="4" data-to="9" data-tier="t5" style="--v:9"><span class="name">Backend &amp; API</span><span class="bar"><i></i></span><b>9</b></li>
+            <li data-from="5" data-to="9" data-tier="t5" style="--v:9"><span class="name">Database</span><span class="bar"><i></i></span><b>9</b></li>
+            <li data-from="3" data-to="9" data-tier="t5" style="--v:9"><span class="name">Error handling</span><span class="bar"><i></i></span><b>9</b></li>
+            <li data-from="5" data-to="8" data-tier="t4" style="--v:8"><span class="name">Structure</span><span class="bar"><i></i></span><b>8</b></li>
+            <li data-from="6" data-to="9" data-tier="t5" style="--v:9"><span class="name">Types &amp; quality</span><span class="bar"><i></i></span><b>9</b></li>
+            <li data-from="1" data-to="7" data-tier="t3" style="--v:7"><span class="name">Tests</span><span class="bar"><i></i></span><b>7</b></li>
+            <li data-from="2" data-to="9" data-tier="t5" style="--v:9"><span class="name">DevOps</span><span class="bar"><i></i></span><b>9</b></li>
+            <li data-from="5" data-to="8" data-tier="t4" style="--v:8"><span class="name">Observability</span><span class="bar"><i></i></span><b>8</b></li>
+            <li data-from="4" data-to="9" data-tier="t5" style="--v:9"><span class="name">UI polish</span><span class="bar"><i></i></span><b>9</b></li>
+          </ol>
+        </div>
+      </aside>
+      </div>
     </div>
   </section>
 
@@ -213,7 +246,7 @@
 
   <section class="block" id="how">
     <div class="wrap">
-      <h2>How it works</h2>
+      <h2><span class="idx">01</span>How it works</h2>
       <div class="body">
         <p class="intro">One command, three passes. It doesn't touch your code until the audit is done and it's working on a new branch.</p>
 
@@ -365,7 +398,7 @@
 
   <section class="block" id="categories">
     <div class="wrap">
-      <h2>Categories</h2>
+      <h2><span class="idx">02</span>Categories</h2>
       <div class="body">
         <p class="intro">Each category is scored from 0 to 10 against a fixed rubric, so the total is out of 100. They're listed here in the order they get fixed. The last column is the example run above.</p>
 
@@ -415,7 +448,7 @@
 
   <section class="block" id="usage">
     <div class="wrap">
-      <h2>Usage</h2>
+      <h2><span class="idx">03</span>Usage</h2>
       <div class="body">
         <table class="modes">
           <tbody>
@@ -440,7 +473,7 @@
 
   <section class="block" id="features">
     <div class="wrap">
-      <h2>Features</h2>
+      <h2><span class="idx">04</span>Features</h2>
       <div class="body">
         <p class="intro">Each feature is a Claude Code command. This list is read from <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/features.json"><code>features.json</code></a>, the same registry the installers use.</p>
         <ul class="pkgs" id="feature-list" aria-live="polite">
@@ -452,7 +485,7 @@
 
   <section class="block" id="contribute">
     <div class="wrap">
-      <h2>Contribute</h2>
+      <h2><span class="idx">05</span>Contribute</h2>
       <div class="body">
         <p class="intro">A new command is one Markdown file and one registry entry. There's no build step: the installers and this page both read the registry.</p>
 
@@ -501,7 +534,7 @@ OK: 2 feature(s) checked.</code></pre>
 
   <section class="block" id="install">
     <div class="wrap">
-      <h2>Install</h2>
+      <h2><span class="idx">06</span>Install</h2>
       <div class="body">
         <p class="intro">The installer reads the registry and copies every stable feature into <code>~/.claude/commands</code>. Run it again to update. If Claude Code is open, restart it.</p>
         <div class="plats">
@@ -532,6 +565,6 @@ OK: 2 feature(s) checked.</code></pre>
   </div>
 </footer>
 
-<script src="site.js?v=12"></script>
+<script src="site.js?v=13"></script>
 </body>
 </html>
