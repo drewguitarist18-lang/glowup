@@ -1,0 +1,15 @@
+{
+  "$comment": "The registry. The site and the installers both read this file. To add a feature, add an entry here and put its file next to this one. See CONTRIBUTING.md.",
+  "features": [
+    {
+      "id": "glowup",
+      "name": "Glow Up",
+      "command": "glowup",
+      "file": "glowup.md",
+      "summary": "Scores your app out of 100 across 10 categories, fixes them in priority order, and re-scores it. Before and after, with a git branch you can undo.",
+      "usage": "/glowup  ·  /glowup audit  ·  /glowup security",
+      "tags": ["audit", "security", "tests", "ui"],
+      "status": "stable"
+    }
+  ]
+}

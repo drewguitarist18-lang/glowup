@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glowup · Vibe-coded to professional</title>
+  <meta name="description" content="Glowup is a Claude Code command that scores your app out of 100, fixes it in priority order, and re-scores it. Install in one line.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">✨ Glowup</a>
+    <nav>
+      <a href="#install">Install</a>
+      <a href="#features">Features</a>
+      <a href="#score">Score</a>
+      <a href="#add">Add a feature</a>
+      <a href="https://github.com/drewguitarist18-lang/glowup" class="nav-gh">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">For Claude Code</p>
+      <h1>Turn your vibe-coded app into a <span class="grad">professional</span> one.</h1>
+      <p class="lede">
+        Type <code>/glowup</code>. It scores your project out of 100 across ten categories,
+        fixes the worst ones in priority order, and scores it again. You get a before and after,
+        and every change sits on its own git branch so you can undo it.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn primary" href="#install">Install in one line</a>
+        <a class="btn ghost" href="#score">See the scorecard</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="install" class="section">
+    <div class="wrap">
+      <h2>Install</h2>
+      <p class="muted">Copies the command into <code>~/.claude/commands/</code>. Run it once, then restart Claude Code if it's already open.</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" role="tab" data-os="win" aria-selected="true">Windows (PowerShell)</button>
+        <button class="tab" role="tab" data-os="unix" aria-selected="false">macOS / Linux / Git Bash</button>
+      </div>
+
+      <div class="codebox" data-panel="win">
+        <pre><code>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code></pre>
+        <button class="copy" data-copy="irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex">Copy</button>
+      </div>
+
+      <div class="codebox" data-panel="unix" hidden>
+        <pre><code>curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.sh | bash</code></pre>
+        <button class="copy" data-copy="curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.sh | bash">Copy</button>
+      </div>
+
+      <p class="muted small">Then, in any project: <code>/glowup audit</code> for a score and plan only, or <code>/glowup</code> for the full glow up. Run the installer again any time to pick up new features.</p>
+    </div>
+  </section>
+
+  <section id="features" class="section alt">
+    <div class="wrap">
+      <h2>Features</h2>
+      <p class="muted">Everything here is read from <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/features.json"><code>features/features.json</code></a>. The installer and this page use the same list.</p>
+      <div id="feature-grid" class="grid" aria-live="polite">
+        <p class="muted">Loading features…</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="score" class="section">
+    <div class="wrap">
+      <h2>The scorecard</h2>
+      <p class="muted">Each category is scored 0–10 from what the code actually shows, with a file and line for anything under 7.</p>
+
+      <div class="cats">
+        <div class="cat"><span>🗂️</span><b>Structure</b><small>Clear folders, no god files, no dead code</small></div>
+        <div class="cat"><span>🔐</span><b>Security</b><small>No secrets in code, env files, auth, injection-proof queries</small></div>
+        <div class="cat"><span>🧱</span><b>Backend &amp; API</b><small>Consistent routes, input validation, real status codes</small></div>
+        <div class="cat"><span>🗄️</span><b>Database</b><small>Real schema, migrations, indexes, no queries in loops</small></div>
+        <div class="cat"><span>🧯</span><b>Error handling</b><small>Caught at boundaries, nothing swallowed silently</small></div>
+        <div class="cat"><span>🔤</span><b>Types &amp; quality</b><small>Type hints, linter, formatter, no <code>any</code> soup</small></div>
+        <div class="cat"><span>🧪</span><b>Tests</b><small>Core logic and main routes covered, one command runs them</small></div>
+        <div class="cat"><span>🚀</span><b>DevOps</b><small>CI runs lint, tests and build. Reproducible setup</small></div>
+        <div class="cat"><span>📈</span><b>Observability</b><small>Structured logs, no stray prints, request logging</small></div>
+        <div class="cat"><span>💅</span><b>UI polish</b><small>Consistent type and spacing, loading and empty states, accessible</small></div>
+      </div>
+
+      <div class="tiers">
+        <div class="tier"><b>0–39</b> 🫧 Vibe Prototype</div>
+        <div class="tier"><b>40–59</b> 🛠️ Side Project</div>
+        <div class="tier"><b>60–79</b> 🚀 Launch-Ready</div>
+        <div class="tier"><b>80–89</b> 💼 Professional</div>
+        <div class="tier"><b>90–100</b> 🏆 Production Grade</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="add" class="section alt">
+    <div class="wrap">
+      <h2>Add a feature</h2>
+      <p class="muted">A feature is a Claude Code command: one Markdown file plus one entry in the registry. No build step.</p>
+
+      <ol class="steps">
+        <li>Write your command as <code>features/&lt;name&gt;.md</code>. Start it with a <code>description:</code> frontmatter line, like <code>glowup.md</code> does.</li>
+        <li>Add an entry to <code>features/features.json</code> with the <code>command</code>, <code>file</code>, <code>summary</code> and <code>status</code>. Use <code>"stable"</code> to ship it, or <code>"planned"</code> to list it without installing.</li>
+        <li>Run <code>node tools/validate.mjs</code> to check the registry and files.</li>
+        <li>Commit and push. The installers and this page pick it up automatically.</li>
+      </ol>
+
+      <div class="codebox">
+        <pre><code>node tools/validate.mjs</code></pre>
+        <button class="copy" data-copy="node tools/validate.mjs">Copy</button>
+      </div>
+
+      <p class="muted small">Full guide in <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Glowup</span>
+    <a href="https://github.com/drewguitarist18-lang/glowup">github.com/drewguitarist18-lang/glowup</a>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
