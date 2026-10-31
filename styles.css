@@ -95,9 +95,9 @@ h1 { font: 700 clamp(40px, 7.4vw, 92px)/1.02 var(--sans); letter-spacing: -.045e
 .dial .ticks { stroke: rgba(236,235,230,.16); stroke-width: 5; stroke-dasharray: 1.2 8.02; }
 .dial .arc { stroke: var(--k); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 653.45; stroke-dashoffset: 653.45;
   filter: drop-shadow(0 0 10px var(--k)) drop-shadow(0 0 26px color-mix(in srgb, var(--k) 60%, transparent));
-  transition: stroke .6s; }
+  }
 .dial-halo { position: absolute; inset: -40%; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--k) 26%, transparent), transparent 70%); transition: background .6s; }
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--k) 26%, transparent), transparent 70%); }
 .dial-halo::after { content: ""; position: absolute; inset: 22%; border-radius: 50%;
   background: conic-gradient(from var(--a), transparent 0deg, rgba(183,156,242,.35) 70deg, rgba(236,235,230,.5) 120deg, rgba(60,194,172,.3) 170deg, transparent 230deg);
   -webkit-mask: radial-gradient(closest-side, transparent 80%, #000 86%, transparent 100%); mask: radial-gradient(closest-side, transparent 80%, #000 86%, transparent 100%);
@@ -105,7 +105,7 @@ h1 { font: 700 clamp(40px, 7.4vw, 92px)/1.02 var(--sans); letter-spacing: -.045e
 .dial-face { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; }
 .dial-face b { font: 700 76px/1 var(--sans); letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
 .dial-face small { color: var(--faint); font-size: 13px; margin-top: 2px; }
-.dial-face .tier { margin-top: 10px; font: 600 12.5px var(--pixel); letter-spacing: .03em; color: var(--k); white-space: nowrap; transition: color .6s; }
+.dial-face .tier { margin-top: 10px; font: 600 12.5px var(--pixel); letter-spacing: .03em; color: var(--k); white-space: nowrap; }
 @property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 @keyframes orbit { to { --a: 360deg; } }
 
