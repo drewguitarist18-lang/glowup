@@ -14,25 +14,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- Icons for the demo app. Both versions use the same set, the way a real glow up would. -->
 <svg class="sprite" aria-hidden="true" focusable="false">
-  <symbol id="i-dash" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
-  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
-  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h.01M3 12h.01M3 18h.01M8 6h13M8 12h13M8 18h13"/></symbol>
-  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
-  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></symbol>
-  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="13" height="13" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
-  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
-  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
-  <symbol id="i-dollar" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
-  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7 13.5 15.5 8.5 10.5 2 17M16 7h6v6"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
 </svg>
 
@@ -87,7 +86,7 @@
       <!-- The example run's scorecard. It renders at the final score; site.js replays the run. -->
       <aside class="score" id="score" data-tier="t4" aria-label="Example run: 38 out of 100 before, 86 after">
         <div class="score-bar">
-          <span>tradelog</span>
+          <span>relay</span>
           <span class="score-status">Done · 10 commits</span>
           <button type="button" class="replay">Replay</button>
         </div>
@@ -120,186 +119,144 @@
         <div class="frame">
           <div class="chrome" aria-hidden="true">
             <span class="dots"><i></i><i></i><i></i></span>
-            <span class="url">localhost:3000/dashboard</span>
+            <span class="url">~/code/relay</span>
           </div>
 
           <div class="compare" id="compare">
 
-            <!-- Before: how a vibe-coded trading journal tends to look in 2025. Slick at a glance, broken in the details. -->
+            <!-- Before: a vibe-coded AI chat app as it tends to ship in 2025. The app looks slick at a
+                 glance; the repo and the checks show what's underneath. -->
             <div class="pane before" aria-hidden="true">
-              <aside class="side">
-                <div class="logo"><span class="zap"><svg class="i"><use href="#i-zap"/></svg></span><b>TradeLog</b></div>
-                <div class="search"><svg class="i"><use href="#i-search"/></svg>Search anything...</div>
-                <nav>
-                  <a class="on"><svg class="i"><use href="#i-dash"/></svg>Dashboard</a>
-                  <a><svg class="i"><use href="#i-book"/></svg>Journal</a>
-                  <a><svg class="i"><use href="#i-list"/></svg>Trades</a>
-                  <a><svg class="i"><use href="#i-target"/></svg>Playbooks</a>
-                  <a><svg class="i"><use href="#i-chart"/></svg>Reports</a>
-                  <a><svg class="i"><use href="#i-settings"/></svg>Settings</a>
-                </nav>
-                <div class="me"><i>👤</i><span><b>undefined</b><small>Free Plan · ✨ Upgrade</small></span></div>
-              </aside>
-              <div class="main">
-                <div class="head">
-                  <div class="title">
-                    <h3>Welcome back, undefined! <span class="emoji">📈</span></h3>
-                    <p>Here's how your trading is going today 🚀</p>
-                  </div>
-                  <div class="actions">
-                    <span class="btn ai">✨ AI Insights</span>
-                    <span class="btn new"><svg class="i"><use href="#i-plus"/></svg>Add Trade</span>
-                  </div>
-                </div>
-                <div class="kpis">
-                  <div class="kpi">
-                    <div class="kpi-top"><span>Total PnL</span><i class="ic purple"><svg class="i"><use href="#i-dollar"/></svg></i></div>
-                    <b>$4182.5</b>
-                    <small>+20.1% from last month</small>
-                  </div>
-                  <div class="kpi">
-                    <div class="kpi-top"><span>Win Rate</span><i class="ic green"><svg class="i"><use href="#i-target"/></svg></i></div>
-                    <b>0.59375%</b>
-                    <small>+20.1% from last month</small>
-                  </div>
-                  <div class="kpi k3">
-                    <div class="kpi-top"><span>Profit Factor</span><i class="ic pink"><svg class="i"><use href="#i-trend"/></svg></i></div>
-                    <b>Infinity</b>
-                    <small>+20.1% from last month</small>
-                  </div>
-                  <div class="kpi k4">
-                    <div class="kpi-top"><span>Avg R</span><i class="ic blue"><svg class="i"><use href="#i-chart"/></svg></i></div>
-                    <div class="loading"><span class="spin"></span>Loading...</div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="chart">
-                    <div class="chart-head"><h4>📈 Portfolio Performance</h4><div class="range"><span>7D</span><span class="on">30D</span><span>90D</span><span>ALL</span></div></div>
-                    <div class="plot">
-                      <i class="gl" style="top:16.36%"><span>54000</span></i>
-                      <i class="gl" style="top:52.73%"><span>52000</span></i>
-                      <i class="gl" style="top:89.09%"><span>50000</span></i>
-                      <svg viewBox="0 0 592 160" preserveAspectRatio="none"><defs><linearGradient id="fill-before" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#a855f7" stop-opacity=".55"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 142.5 L28.2 130.9 L56.4 139.6 L84.6 116.4 L112.8 104.7 L141 119.3 L169.1 96 L197.3 78.5 L225.5 93.1 L253.7 107.6 L281.9 87.3 L310.1 66.9 L338.3 52.4 L366.5 72.7 L394.7 58.2 L422.9 37.8 L451 49.5 L479.2 29.1 L507.4 14.5 L535.6 32 L563.8 24.7 L592 20.9 L592 160 L0 160 Z"/><path class="line" d="M0 142.5 L28.2 130.9 L56.4 139.6 L84.6 116.4 L112.8 104.7 L141 119.3 L169.1 96 L197.3 78.5 L225.5 93.1 L253.7 107.6 L281.9 87.3 L310.1 66.9 L338.3 52.4 L366.5 72.7 L394.7 58.2 L422.9 37.8 L451 49.5 L479.2 29.1 L507.4 14.5 L535.6 32 L563.8 24.7 L592 20.9"/></svg>
-                      <span class="pt" style="left:42.85%;top:67.25%"></span>
-                      <span class="tip" style="left:42.85%;top:67.25%"><b>Invalid Date</b>equity : 51200.000000000004</span>
+              <div class="ph">
+                <span class="repo"><svg class="i"><use href="#i-folder"/></svg>relay</span>
+                <span class="br"><svg class="i"><use href="#i-branch"/></svg>main</span>
+                <span class="gs"><b>38</b>/100 · Vibe Prototype</span>
+              </div>
+              <div class="pg">
+                <div class="tile app">
+                  <div class="tile-h"><span>App</span><code>localhost:3000/chat</code></div>
+                  <div class="win">
+                    <aside class="cs">
+                      <div class="brand"><span class="logo-x">✨</span><b>RelayAI</b></div>
+                      <span class="newc"><svg class="i"><use href="#i-plus"/></svg>New Chat 🚀</span>
+                      <span class="grp">Recent chats</span>
+                      <a class="on">New Chat</a>
+                      <a>New Chat</a>
+                      <a>New Chat</a>
+                      <a>undefined</a>
+                      <div class="me"><i>U</i><span>undefined</span></div>
+                    </aside>
+                    <div class="conv">
+                      <div class="ch"><b>New Chat</b><span class="model">🤖 claude-3-opus<svg class="i"><use href="#i-chev"/></svg></span></div>
+                      <div class="msgs">
+                        <div class="mu"><p>how do i debounce a search input in react</p><small>Invalid Date</small></div>
+                        <div class="ma"><i class="av">🤖</i><div class="txt">Sure! Here's how to **debounce** a search input 🚀
+
+```tsx
+const [q, setQ] = useState("")
+useEffect(() =&gt; {
+  const t = setTimeout(() =&gt; search(q), 300)<small>Invalid Date</small></div></div>
+                        <div class="ma typing"><i class="av">🤖</i><span class="dots3"><i></i>Thinking...</span></div>
+                      </div>
+                      <div class="toast"><svg class="i"><use href="#i-x"/></svg><span><b>Unhandled Runtime Error</b>TypeError: Cannot read properties of undefined (reading 'content')</span></div>
+                      <div class="composer"><span>Ask me anything... 🤖✨</span><small>NaN tokens</small><i class="send"><svg class="i"><use href="#i-up"/></svg></i></div>
                     </div>
-                    <div class="xl"><span>Invalid Date</span><span>Invalid Date</span><span>Invalid Date</span><span>Invalid Date</span><span>Invalid Date</span></div>
-                  </div>
-                  <div class="cal">
-                    <div class="chart-head"><h4>🗓️ Calendar</h4></div>
-                    <div class="cal-grid">
-                      <span class="wd">SUN</span><span class="wd">MON</span><span class="wd">TUE</span><span class="wd">WED</span><span class="wd">THU</span>
-                      <i>0</i><i>1</i><i>2</i><i>3</i><i>4</i>
-                      <i>5</i><i>6</i><i>7</i><i>8</i><i>9</i>
-                      <i>10</i><i>11</i><i>12</i><i>13</i><i>14</i>
-                      <i>15</i><i>16</i><i>17</i><i>18</i><i>19</i>
-                      <i>20</i><i>21</i><i>22</i><i>23</i><i>24</i>
-                    </div>
+                    <span class="devtool"><i>N</i><b>1 Issue</b></span>
                   </div>
                 </div>
-                <div class="tbl">
-                  <div class="tbl-head"><h4>Recent Trades</h4><span class="link">View All →</span></div>
-                  <div class="tr th"><span class="c-sym">SYMBOL</span><span class="c-side">SIDE</span><span class="c-setup">SETUP</span><span class="c-px">PRICE</span><span class="c-pnl">PNL</span><span class="c-r">R</span><span class="c-time">CLOSED</span></div>
-                  <div class="tr"><span class="c-sym">nvda<small class="sub">LONG · orb</small></span><span class="c-side"><em class="pill long">🚀 LONG</em></span><span class="c-setup">orb 🔥</span><span class="c-px">182.4 → 186.15</span><span class="c-pnl pos">+187.5</span><span class="c-r">1.5000000000000002R</span><span class="c-time">2026-10-30T14:42:11.000Z</span></div>
-                  <div class="tr"><span class="c-sym">TSLA<small class="sub">SHORT · VWAP fade</small></span><span class="c-side"><em class="pill short">📉 SHORT</em></span><span class="c-setup">VWAP fade</span><span class="c-px">452.1 → 455.3</span><span class="c-pnl neg">-64</span><span class="c-r">-0.6R</span><span class="c-time">2026-10-30T13:51:37.000Z</span></div>
-                  <div class="tr"><span class="c-sym">AMD<small class="sub">LONG · undefined</small></span><span class="c-side"><em class="pill long">🚀 LONG</em></span><span class="c-setup">undefined</span><span class="c-px">241.8 → undefined</span><span class="c-pnl">$NaN</span><span class="c-r">NaNR</span><span class="c-time">Invalid Date</span></div>
+                <div class="tile files">
+                  <div class="tile-h"><span>Repository</span><code>main</code></div>
+                  <ul class="tree">
+                    <li class="d"><span>app/</span></li>
+                    <li class="bad in"><span>page.tsx</span><em>1,186 lines</em></li>
+                    <li class="warn in"><span>page-old.tsx</span><em>unused</em></li>
+                    <li class="bad in"><span>api/chat/route.ts</span><em>no auth</em></li>
+                    <li class="d"><span>lib/</span></li>
+                    <li class="bad in"><span>ai.ts</span><em>key sent to browser</em></li>
+                    <li class="warn in"><span>utils2.ts</span><em>41 × any</em></li>
+                    <li class="bad"><span>.env</span><em>committed</em></li>
+                    <li class="warn"><span>package.json</span><em>no test script</em></li>
+                  </ul>
+                </div>
+                <div class="tile checks">
+                  <div class="tile-h"><span>Checks</span><code>4 failing</code></div>
+                  <ul class="ck">
+                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>Secrets</b><span>API key in client bundle</span></li>
+                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>Tests</b><span>no tests</span></li>
+                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>Lint</b><span>no linter</span></li>
+                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>CI</b><span>not set up</span></li>
+                  </ul>
                 </div>
               </div>
-              <span class="devtool"><i>N</i><b>1 Issue</b></span>
-              <div class="toast"><svg class="i"><use href="#i-x"/></svg><span>TypeError: Cannot read properties of undefined (reading 'map')</span></div>
             </div>
 
-            <!-- After: the same screen once the run is done. Same layout and features, correct numbers, a real design. -->
+            <!-- After: the same project once the run is done. The same chat app, a repo with tests and
+                 CI, and every check green. -->
             <div class="pane after" aria-hidden="true">
-              <aside class="side">
-                <div class="logo"><svg class="mark" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#12a36a"/><path d="m5 13 3.2-3.4 2.6 2.2L15 7" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Tradelog</b></div>
-                <div class="search"><svg class="i"><use href="#i-search"/></svg>Search<kbd>⌘K</kbd></div>
-                <nav>
-                  <a class="on"><svg class="i"><use href="#i-dash"/></svg>Dashboard</a>
-                  <a><svg class="i"><use href="#i-book"/></svg>Journal</a>
-                  <a><svg class="i"><use href="#i-list"/></svg>Trades<span class="count">32</span></a>
-                  <a><svg class="i"><use href="#i-target"/></svg>Playbooks</a>
-                  <a><svg class="i"><use href="#i-chart"/></svg>Reports</a>
-                  <a><svg class="i"><use href="#i-settings"/></svg>Settings</a>
-                </nav>
-                <div class="me"><i>JM</i><span><b>Jonah Mills</b><small>Pro plan</small></span></div>
-              </aside>
-              <div class="main">
-                <div class="head">
-                  <div class="title">
-                    <h3>Overview</h3>
-                    <p>Oct 1 – Oct 30, 2026 · 32 trades</p>
-                  </div>
-                  <div class="actions">
-                    <span class="sync"><i></i>Synced 2 min ago</span>
-                    <span class="btn ai"><svg class="i"><use href="#i-upload"/></svg>Import</span>
-                    <span class="btn new"><svg class="i"><use href="#i-plus"/></svg>Log trade</span>
-                  </div>
-                </div>
-                <div class="kpis">
-                  <div class="kpi">
-                    <span class="label">Net P&amp;L</span>
-                    <span class="value pos">+$4,182.50</span>
-                    <span class="note"><span class="pos">+8.37%</span></span>
-                    <svg class="viz spark" viewBox="0 0 592 160" preserveAspectRatio="none"><path d="M0 142.5 L28.2 130.9 L56.4 139.6 L84.6 116.4 L112.8 104.7 L141 119.3 L169.1 96 L197.3 78.5 L225.5 93.1 L253.7 107.6 L281.9 87.3 L310.1 66.9 L338.3 52.4 L366.5 72.7 L394.7 58.2 L422.9 37.8 L451 49.5 L479.2 29.1 L507.4 14.5 L535.6 32 L563.8 24.7 L592 20.9 L592 160 L0 160 Z"/><path class="line" d="M0 142.5 L28.2 130.9 L56.4 139.6 L84.6 116.4 L112.8 104.7 L141 119.3 L169.1 96 L197.3 78.5 L225.5 93.1 L253.7 107.6 L281.9 87.3 L310.1 66.9 L338.3 52.4 L366.5 72.7 L394.7 58.2 L422.9 37.8 L451 49.5 L479.2 29.1 L507.4 14.5 L535.6 32 L563.8 24.7 L592 20.9"/></svg>
-                  </div>
-                  <div class="kpi">
-                    <span class="label">Win rate</span>
-                    <span class="value">59.4%</span>
-                    <span class="note">19 wins · 13 losses</span>
-                    <svg class="viz ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15"/><circle class="on" cx="18" cy="18" r="15" stroke-dasharray="55.98 94.25" transform="rotate(-90 18 18)"/></svg>
-                  </div>
-                  <div class="kpi k3">
-                    <span class="label">Profit factor</span>
-                    <span class="value">2.10</span>
-                    <span class="note">Sep: 1.62</span>
-                    <span class="viz wl"><i style="width:100%"></i><i style="width:47.6%"></i></span>
-                  </div>
-                  <div class="kpi k4">
-                    <span class="label">Avg R</span>
-                    <span class="value">+0.48R</span>
-                    <span class="note">Per trade</span>
-                    <span class="viz hist"><i class="l" style="height:43%"></i><i class="l" style="height:86%"></i><i class="l" style="height:57%"></i><i style="height:43%"></i><i style="height:71%"></i><i style="height:100%"></i><i style="height:57%"></i></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="chart">
-                    <div class="chart-head">
-                      <div><span class="label">Account equity</span><div class="equity"><b>$54,182.50</b><span class="chg">+$4,182.50 (8.37%)</span></div></div>
-                      <div class="range"><span>1W</span><span class="on">1M</span><span>3M</span><span>YTD</span></div>
-                    </div>
-                    <div class="plot">
-                      <i class="gl" style="top:16.36%"><span>$54k</span></i>
-                      <i class="gl" style="top:52.73%"><span>$52k</span></i>
-                      <i class="gl" style="top:89.09%"><span>$50k</span></i>
-                      <svg viewBox="0 0 592 160" preserveAspectRatio="none"><defs><linearGradient id="fill-after" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#12a36a" stop-opacity=".24"/><stop offset="1" stop-color="#12a36a" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 142.5 L28.2 130.9 L56.4 139.6 L84.6 116.4 L112.8 104.7 L141 119.3 L169.1 96 L197.3 78.5 L225.5 93.1 L253.7 107.6 L281.9 87.3 L310.1 66.9 L338.3 52.4 L366.5 72.7 L394.7 58.2 L422.9 37.8 L451 49.5 L479.2 29.1 L507.4 14.5 L535.6 32 L563.8 24.7 L592 20.9 L592 160 L0 160 Z"/><path class="line" d="M0 142.5 L28.2 130.9 L56.4 139.6 L84.6 116.4 L112.8 104.7 L141 119.3 L169.1 96 L197.3 78.5 L225.5 93.1 L253.7 107.6 L281.9 87.3 L310.1 66.9 L338.3 52.4 L366.5 72.7 L394.7 58.2 L422.9 37.8 L451 49.5 L479.2 29.1 L507.4 14.5 L535.6 32 L563.8 24.7 L592 20.9"/></svg>
-                      <span class="end" style="left:100%;top:13.06%"></span>
-                    </div>
-                    <div class="xl"><span>Oct 1</span><span>Oct 9</span><span>Oct 16</span><span>Oct 23</span><span>Oct 30</span></div>
-                  </div>
-                  <div class="cal">
-                    <div class="chart-head">
-                      <div><span class="label">Daily P&amp;L · October</span><div class="equity"><b>14 green</b><span class="chg neg">7 red</span></div></div>
-                    </div>
-                    <div class="cal-grid">
-                      <span class="wd">Mon</span><span class="wd">Tue</span><span class="wd">Wed</span><span class="wd">Thu</span><span class="wd">Fri</span>
-                      <i class="o"><b>28</b></i><i class="o"><b>29</b></i><i class="o"><b>30</b></i><i class="z"><b>1</b>$0</i><i class="g1"><b>2</b>+$400</i>
-                      <i class="r1"><b>5</b>−$300</i><i class="g2"><b>6</b>+$800</i><i class="g1"><b>7</b>+$400</i><i class="r1"><b>8</b>−$500</i><i class="g2"><b>9</b>+$800</i>
-                      <i class="g2"><b>12</b>+$600</i><i class="r1"><b>13</b>−$500</i><i class="r1"><b>14</b>−$500</i><i class="g2"><b>15</b>+$700</i><i class="g2"><b>16</b>+$700</i>
-                      <i class="g1"><b>19</b>+$500</i><i class="r2"><b>20</b>−$700</i><i class="g1"><b>21</b>+$500</i><i class="g2"><b>22</b>+$700</i><i class="r1"><b>23</b>−$400</i>
-                      <i class="g2"><b>26</b>+$700</i><i class="g1"><b>27</b>+$500</i><i class="r2"><b>28</b>−$600</i><i class="g1"><b>29</b>+$250</i><i class="g1 today"><b>30</b>+$133</i>
+              <div class="ph">
+                <span class="repo"><svg class="i"><use href="#i-folder"/></svg>relay</span>
+                <span class="br"><svg class="i"><use href="#i-branch"/></svg>glowup<small> · 10 commits</small></span>
+                <span class="gs"><b>86</b>/100 · Professional</span>
+              </div>
+              <div class="pg">
+                <div class="tile app">
+                  <div class="tile-h"><span>App</span><code>localhost:3000/chat</code></div>
+                  <div class="win">
+                    <aside class="cs">
+                      <div class="brand"><svg class="mark" viewBox="0 0 20 20"><rect width="20" height="20" rx="6" fill="#18181b"/><path d="M6 7.5h8M6 11h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="14.2" cy="12.6" r="1.6" fill="#f97352"/></svg><b>Relay</b></div>
+                      <span class="newc"><svg class="i"><use href="#i-plus"/></svg>New chat</span>
+                      <span class="grp">Today</span>
+                      <a class="on">Debounce a search input</a>
+                      <a>Index for chat history</a>
+                      <span class="grp">Yesterday</span>
+                      <a>Release notes for v2.3</a>
+                      <div class="me"><i>MR</i><span>Maya Reyes</span></div>
+                    </aside>
+                    <div class="conv">
+                      <div class="ch"><b>Debounce a search input</b><span class="model">Sonnet 5.5<svg class="i"><use href="#i-chev"/></svg></span></div>
+                      <div class="msgs">
+                        <div class="mu"><p>How do I debounce a search input in React?</p></div>
+                        <div class="ma"><i class="av"><svg viewBox="0 0 20 20"><path d="M6 7.5h8M6 11h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="14.2" cy="12.6" r="1.6" fill="#f97352"/></svg></i><div class="txt">
+                          <p>Wait until the user stops typing, then search. A small <code>useDebounce</code> hook keeps it tidy:</p>
+                          <div class="snip"><div class="snip-h"><span>tsx</span><span><svg class="i"><use href="#i-copy"/></svg>Copy</span></div><pre><span class="k">function</span> <span class="f">useDebounce</span>&lt;<span class="t">T</span>&gt;(value: <span class="t">T</span>, ms = <span class="n">300</span>) {
+  <span class="k">const</span> [v, setV] = <span class="f">useState</span>(value);
+  <span class="f">useEffect</span>(() <span class="k">=&gt;</span> {
+    <span class="k">const</span> t = <span class="f">setTimeout</span>(() <span class="k">=&gt;</span> <span class="f">setV</span>(value), ms);
+    <span class="k">return</span> () <span class="k">=&gt;</span> <span class="f">clearTimeout</span>(t);
+  }, [value, ms]);
+  <span class="k">return</span> v;
+}</pre></div>
+                          <div class="acts"><svg class="i"><use href="#i-copy"/></svg><svg class="i"><use href="#i-redo"/></svg><span>2:14 PM</span></div>
+                        </div></div>
+                      </div>
+                      <div class="composer"><svg class="i"><use href="#i-clip"/></svg><span>Reply to Relay…</span><i class="send"><svg class="i"><use href="#i-up"/></svg></i></div>
                     </div>
                   </div>
                 </div>
-                <div class="tbl">
-                  <div class="tbl-head"><h4>Recent trades</h4><span class="link">View all</span></div>
-                  <div class="tr th"><span class="c-sym">Symbol</span><span class="c-side">Side</span><span class="c-setup">Setup</span><span class="c-px">Entry → Exit</span><span class="c-pnl">P&amp;L</span><span class="c-r">R</span><span class="c-time">Closed</span></div>
-                  <div class="tr"><span class="c-sym"><i class="tk nv">N</i><span class="nm"><b>NVDA</b><small class="sub">Long · ORB</small></span></span><span class="c-side"><em class="dir long">Long</em></span><span class="c-setup"><em class="tag orb">ORB</em></span><span class="c-px">182.40 → 186.15</span><span class="c-pnl pos">+$187.50</span><span class="c-r pos">+1.5R</span><span class="c-time">Oct 30, 10:42</span></div>
-                  <div class="tr"><span class="c-sym"><i class="tk ts">T</i><span class="nm"><b>TSLA</b><small class="sub">Short · VWAP fade</small></span></span><span class="c-side"><em class="dir short">Short</em></span><span class="c-setup"><em class="tag vwap">VWAP fade</em></span><span class="c-px">452.10 → 455.30</span><span class="c-pnl neg">−$64.00</span><span class="c-r neg">−0.6R</span><span class="c-time">Oct 30, 9:51</span></div>
-                  <div class="tr"><span class="c-sym"><i class="tk am">A</i><span class="nm"><b>AMD</b><small class="sub">Long · Breakout</small></span></span><span class="c-side"><em class="dir long">Long</em></span><span class="c-setup"><em class="tag brk">Breakout</em></span><span class="c-px">241.80 → 247.25</span><span class="c-pnl pos">+$545.00</span><span class="c-r pos">+2.2R</span><span class="c-time">Oct 29, 14:05</span></div>
+                <div class="tile files">
+                  <div class="tile-h"><span>Repository</span><code>glowup</code></div>
+                  <ul class="tree">
+                    <li class="add"><span>.github/workflows/ci.yml</span><em>new</em></li>
+                    <li class="d"><span>app/</span></li>
+                    <li class="ok in"><span>page.tsx</span><em>42 lines</em></li>
+                    <li class="ok in"><span>api/chat/route.ts</span><em>auth · zod · 429</em></li>
+                    <li class="add"><span>components/</span><em>9 files</em></li>
+                    <li class="ok"><span>lib/</span><em>server only</em></li>
+                    <li class="add"><span>prisma/migrations/</span><em>new</em></li>
+                    <li class="add"><span>tests/</span><em>28 tests</em></li>
+                    <li class="add"><span>.env.example</span><em>new</em></li>
+                  </ul>
+                </div>
+                <div class="tile checks">
+                  <div class="tile-h"><span>Checks</span><code>4 passing</code></div>
+                  <ul class="ck">
+                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>Secrets</b><span>none in the client bundle</span></li>
+                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>Tests</b><span>28 passed</span></li>
+                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>Lint</b><span>strict, 0 errors</span></li>
+                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>CI</b><span>lint, test, build</span></li>
+                  </ul>
                 </div>
               </div>
-              <span class="devtool"><i>N</i></span>
             </div>
 
             <div class="handle" id="handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
@@ -309,7 +266,7 @@
         </div>
         <figcaption class="caption">
           <span class="b">Before <b>38/100</b></span>
-          <span class="t">An example trading journal before and after one <code>/glowup</code> run. Drag to compare.</span>
+          <span class="t">An example AI chat app before and after one <code>/glowup</code> run: the app, the repo and the checks. Drag to compare.</span>
           <span class="a">After <b>86/100</b></span>
         </figcaption>
       </figure>
@@ -339,29 +296,29 @@
 
         <div class="fig-head">
           <h3>Example run</h3>
-          <p>A full run on the trading journal above. Long tool output is folded the way Claude Code folds it, and nine of the ten fix loops are trimmed.</p>
+          <p>A full run on the chat app above. Long tool output is folded the way Claude Code folds it, and nine of the ten fix loops are trimmed.</p>
         </div>
 <pre class="term"><span class="p">&gt;</span> <span class="u">/glowup</span>
 
 <i class="g ok">●</i> <b>Read</b>(package.json)
-  <i class="g d">⎿</i>  <span class="d">Read 61 lines</span>
+  <i class="g d">⎿</i>  <span class="d">Read 58 lines</span>
 
 <i class="g ok">●</i> <b>Search</b>(pattern: "NEXT_PUBLIC_|console\.log|: any", glob: "**/*.{ts,tsx}")
-  <i class="g d">⎿</i>  <span class="d">Found 71 matches in 17 files</span>
+  <i class="g d">⎿</i>  <span class="d">Found 74 matches in 19 files</span>
 
-<i class="g">●</i> Next.js 15 (App Router), TypeScript, Prisma on Postgres, pnpm, deployed on Vercel.
+<i class="g">●</i> Next.js 15 (App Router), TypeScript, Prisma on Postgres, the Anthropic SDK, pnpm, Vercel.
 
   <b>#   Category         Score  Evidence</b>
-  1   Structure          5    app/dashboard/page.tsx:1  904 lines, queries and UI mixed
-  2   Security           3    lib/broker.ts:4  Alpaca secret in NEXT_PUBLIC_ALPACA_SECRET
-  3   Backend &amp; API      4    app/api/trades/route.ts:9  no auth, saves the raw body
-  4   Database           5    app/dashboard/page.tsx:131  one query per trade for fills
-  5   Error handling     3    app/dashboard/page.tsx:58  failed fetch leaves a spinner
-  6   Types &amp; quality    6    lib/stats.ts:12  38 uses of any, no lint script
+  1   Structure          5    app/page.tsx:1  1,186 lines, chat, auth and UI in one file
+  2   Security           3    lib/ai.ts:3  API key in NEXT_PUBLIC_ANTHROPIC_KEY, .env committed
+  3   Backend &amp; API      4    app/api/chat/route.ts:7  no auth, model and max_tokens from the client
+  4   Database           5    app/page.tsx:212  loads every message of every chat on open
+  5   Error handling     3    app/page.tsx:88  a failed stream leaves "Thinking..." forever
+  6   Types &amp; quality    6    lib/utils2.ts:15  41 uses of any, no lint script
   7   Tests              1    package.json:9  test script is the npm placeholder
   8   DevOps             2    no .github/workflows, no .env.example
-  9   Observability      5    lib/stats.ts:30  23 stray console.log calls
-  10  UI polish          4    components/TradeTable.tsx:41  0.59375% win rate, raw ISO times
+  9   Observability      5    app/api/chat/route.ts:30  19 console.log calls, one logs every prompt
+  10  UI polish          4    components/Message.tsx:22  raw markdown, "Invalid Date" times
       <b>TOTAL             38/100</b>
 
   <b>Glow Score: 38/100 — 🫧 Vibe Prototype</b>
@@ -372,8 +329,11 @@
 <i class="g">●</i> The working tree was clean, so everything from here is on glowup. You can undo
   all of it with git checkout - or by deleting the branch. Starting with security.
 
-<i class="g ok">●</i> <b>Update</b>(lib/broker.ts)
-  <i class="g d">⎿</i>  <span class="d">Updated lib/broker.ts with 5 additions and 3 removals</span>
+<i class="g ok">●</i> <b>Update</b>(lib/ai.ts)
+  <i class="g d">⎿</i>  <span class="d">Updated lib/ai.ts with 4 additions and 3 removals</span>
+
+<i class="g ok">●</i> <b>Bash</b>(git rm --cached .env &amp;&amp; echo .env &gt;&gt; .gitignore)
+  <i class="g d">⎿</i>  <span class="d">rm '.env'</span>
 
 <i class="g ok">●</i> <b>Write</b>(.env.example)
   <i class="g d">⎿</i>  <span class="d">Wrote 6 lines to .env.example</span>
@@ -383,27 +343,28 @@
      <span class="d">✓ Linting and checking validity of types</span>
      <span class="d">… +14 lines (ctrl+r to expand)</span>
 
-<i class="g ok">●</i> <b>Bash</b>(git add -A &amp;&amp; git commit -m "glowup: security — server-side broker keys, API auth")
-  <i class="g d">⎿</i>  <span class="d">[glowup 4f1c2ab] glowup: security — server-side broker keys, API auth</span>
-     <span class="d">7 files changed, 64 insertions(+), 21 deletions(-)</span>
+<i class="g ok">●</i> <b>Bash</b>(git add -A &amp;&amp; git commit -m "glowup: security — server-side API key, .env out of git, API auth")
+  <i class="g d">⎿</i>  <span class="d">[glowup 4f1c2ab] glowup: security — server-side API key, .env out of git, API auth</span>
+     <span class="d">6 files changed, 52 insertions(+), 19 deletions(-)</span>
 
-  ✅ Security 3 → 9 — Alpaca keys moved server-side, .env.example, auth on /api routes
+  ✅ Security 3 → 9 — API key moved server-side, .env out of git, auth on /api routes
+  ⚠️ The old key is still in git history. Rotate it in the Anthropic Console.
 
 <span class="cut">  [ The same loop runs for the other nine categories. Their tool calls are trimmed here. ]</span>
 
-  ✅ Backend &amp; API 4 → 9 — zod validation, 400/401/404 responses, P&amp;L math moved to lib/
-  ✅ Database 5 → 9 — first migration, index on (userId, closedAt), one dashboard query
-  ✅ Error handling 3 → 9 — error boundary, JSON errors from the API, no hydration errors
-  ✅ Structure 5 → 8 — dashboard split into components/ and lib/, 3 dead files removed
-  ✅ Types &amp; quality 6 → 9 — strict mode, 38 any → 0, ESLint and Prettier set up
-  ✅ Tests 1 → 7 — Vitest, 31 tests for P&amp;L, win rate, R-multiples and the trade routes
+  ✅ Backend &amp; API 4 → 9 — zod validation, model allowlist, rate limit, 400/401/429 responses
+  ✅ Database 5 → 9 — first migration, index on (chatId, createdAt), messages paged 50 at a time
+  ✅ Error handling 3 → 9 — error boundary, stream errors shown with a retry, no hydration errors
+  ✅ Structure 5 → 8 — page.tsx split into components/ and lib/, 4 dead files removed
+  ✅ Types &amp; quality 6 → 9 — strict mode, 41 any → 0, ESLint and Prettier set up
+  ✅ Tests 1 → 7 — Vitest, 28 tests for the chat route, rate limiter and message paging
   ✅ DevOps 2 → 9 — GitHub Actions runs lint, test and build; GET /api/health
-  ✅ Observability 5 → 8 — pino logger, request logging in middleware.ts
-  ✅ UI polish 4 → 9 — money, percent and time formatting; loading, empty and error states
+  ✅ Observability 5 → 8 — pino logger, request logging, prompts no longer logged
+  ✅ UI polish 4 → 9 — rendered markdown, code highlighting, real times; empty and error states
 
 <i class="g ok">●</i> <b>Bash</b>(pnpm test)
   <i class="g d">⎿</i>  <span class="d"> Test Files  3 passed (3)</span>
-     <span class="d">      Tests  31 passed (31)</span>
+     <span class="d">      Tests  28 passed (28)</span>
 
 <i class="g">●</i> Done. Same rubric, scored again:
 
@@ -421,52 +382,52 @@
   ─────────────────────────────────
   <b>GLOW SCORE         38  →   86</b>   🫧 Vibe Prototype → 💼 Professional
 
-  To reach Production Grade: end-to-end tests for importing and logging a trade,
-  and rate limits on the API routes.
+  To reach Production Grade: end-to-end tests for signing in and streaming a reply,
+  and alerts on the error rate.
 
   Undo: git checkout main &amp;&amp; git branch -D glowup</pre>
 
         <div class="fig-head">
           <h3>One of those commits</h3>
-          <p>The Backend &amp; API commit, where it touches the route that logs a trade.</p>
+          <p>The Backend &amp; API commit, where it touches the route that streams a reply.</p>
         </div>
         <div class="diff">
           <div class="diff-head">
-            <span class="msg"><code class="sha">9c41d0e</code>glowup: backend &amp; api — zod validation, real status codes, P&amp;L math in lib/</span>
+            <span class="msg"><code class="sha">9c41d0e</code>glowup: backend &amp; api — zod validation, model allowlist, rate limit</span>
             <span class="files">5 files changed</span>
           </div>
-          <div class="diff-file"><span>app/api/trades/route.ts</span><span><span class="n-add">+20</span> <span class="n-del">−4</span></span></div>
+          <div class="diff-file"><span>app/api/chat/route.ts</span><span><span class="n-add">+20</span> <span class="n-del">−4</span></span></div>
 <pre><code><span class="ln">import { NextResponse } from "next/server";</span>
 <span class="ln add">import { z } from "zod";</span>
 <span class="ln">import { auth } from "@/lib/auth";</span>
-<span class="ln del">import { prisma } from "@/lib/db";</span>
-<span class="ln add">import { logTrade } from "@/lib/trades";</span>
+<span class="ln del">import { anthropic } from "@/lib/ai";</span>
+<span class="ln add">import { streamReply } from "@/lib/ai";</span>
+<span class="ln add">import { rateLimit } from "@/lib/rate-limit";</span>
 <span class="ln add"> </span>
-<span class="ln add">const NewTrade = z.object({</span>
-<span class="ln add">  symbol: z.string().regex(/^[A-Z.]{1,6}$/),</span>
-<span class="ln add">  side: z.enum(["long", "short"]),</span>
-<span class="ln add">  qty: z.number().positive(),</span>
-<span class="ln add">  entry: z.number().positive(),</span>
-<span class="ln add">  exit: z.number().positive(),</span>
-<span class="ln add">  stop: z.number().positive(),</span>
-<span class="ln add">  closedAt: z.coerce.date(),</span>
+<span class="ln add">const ChatRequest = z.object({</span>
+<span class="ln add">  chatId: z.string().cuid(),</span>
+<span class="ln add">  message: z.string().trim().min(1).max(8000),</span>
+<span class="ln add">  model: z.enum(["claude-sonnet-5-5", "claude-haiku-5-5"]),</span>
 <span class="ln add">});</span>
 <span class="ln"> </span>
 <span class="ln">export async function POST(req: Request) {</span>
 <span class="ln">  const session = await auth();</span>
 <span class="ln">  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });</span>
 <span class="ln"> </span>
-<span class="ln del">  const body = await req.json();</span>
-<span class="ln del">  const trade = await prisma.trade.create({ data: body });</span>
-<span class="ln del">  return NextResponse.json(trade);</span>
-<span class="ln add">  const input = NewTrade.safeParse(await req.json());</span>
+<span class="ln del">  const { messages, model, max_tokens } = await req.json();</span>
+<span class="ln del">  const stream = anthropic.messages.stream({ model, max_tokens, messages });</span>
+<span class="ln del">  return new Response(stream.toReadableStream());</span>
+<span class="ln add">  if (!(await rateLimit(session.user.id))) {</span>
+<span class="ln add">    return NextResponse.json({ error: "Too many requests" }, { status: 429 });</span>
+<span class="ln add">  }</span>
+<span class="ln add"> </span>
+<span class="ln add">  const input = ChatRequest.safeParse(await req.json());</span>
 <span class="ln add">  if (!input.success) {</span>
 <span class="ln add">    return NextResponse.json({ error: input.error.issues }, { status: 400 });</span>
 <span class="ln add">  }</span>
 <span class="ln add"> </span>
-<span class="ln add">  // R-multiple and P&amp;L are worked out on the server from entry, exit and stop.</span>
-<span class="ln add">  const trade = await logTrade(session.user.id, input.data);</span>
-<span class="ln add">  return NextResponse.json(trade, { status: 201 });</span>
+<span class="ln add">  // History is loaded on the server, so a client can't rewrite earlier turns.</span>
+<span class="ln add">  return streamReply(session.user.id, input.data);</span>
 <span class="ln">}</span></code></pre>
         </div>
       </div>
