@@ -3,26 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>glowup · Make your vibe-coded app production-ready</title>
-  <meta name="description" content="glowup is a Claude Code command that scores your project out of 100 across ten categories, fixes them one commit at a time on a glowup branch, and scores it again.">
+  <title>glowup · Your vibe-coded app deserves a glow up</title>
+  <meta name="description" content="glowup is a Claude Code command that scores your project out of 100, fixes it one category at a time on its own git branch, and scores it again.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="glowup · Make your vibe-coded app production-ready">
-  <meta property="og:description" content="A Claude Code command that scores your project in ten categories, fixes them one commit at a time, and scores it again.">
+  <meta property="og:title" content="glowup · Your vibe-coded app deserves a glow up">
+  <meta property="og:description" content="One Claude Code command scores your project out of 100, fixes it category by category on its own branch, and scores it again.">
   <meta property="og:url" content="https://glowup-swart-nu.vercel.app/">
-  <meta name="theme-color" content="#0b0b0a">
+  <meta name="theme-color" content="#101010">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- Icons for the demo app. Both versions use the same set, the way a real glow up would. -->
 <svg class="sprite" aria-hidden="true" focusable="false">
-  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
-  <symbol id="i-branch" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-cross" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
@@ -30,25 +28,25 @@
   <symbol id="i-redo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
   <symbol id="i-clip" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
 </svg>
 
 <header class="site">
   <div class="wrap">
     <a class="brand" href="./">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1c1c1a"/><path d="M7 18h4v7H7z" fill="#ef5a3c"/><path d="M14 13h4v12h-4z" fill="#ebc63a"/><path d="M21 7h4v18h-4z" fill="#45d483"/></svg>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1d1d1d"/><path d="M7 18h4v7H7z" fill="#ef5a3c"/><path d="M14 13h4v12h-4z" fill="#ebc63a"/><path d="M21 7h4v18h-4z" fill="#45d483"/></svg>
       glowup
     </a>
     <nav aria-label="Sections">
       <a href="#how">How it works</a>
       <a href="#categories">Categories</a>
       <a href="#usage">Usage</a>
-      <a href="#features">Features</a>
-      <a href="#contribute">Contribute</a>
-      <a class="gh" href="https://github.com/drewguitarist18-lang/glowup">GitHub</a>
     </nav>
+    <a class="pill pill-light pill-sm" href="https://github.com/drewguitarist18-lang/glowup">GitHub</a>
   </div>
 </header>
 
@@ -56,88 +54,65 @@
 
   <section class="hero">
     <div class="wrap">
-      <div class="eyebrow"><i></i>/glowup for Claude Code</div>
-      <h1>Make your <span class="nw squiggle">vibe-coded</span> app <span class="nw">production-ready.</span></h1>
+      <p class="eyebrow">Code review, then the fixes</p>
+      <h1>Your vibe-coded app<br> deserves a glow up.</h1>
+      <p class="lede">One Claude Code command scores your project out of 100, fixes it category by category on its own branch, and scores it again.</p>
 
-      <div class="hero-grid">
-      <div class="hero-copy">
-      <p class="lede">
-        A command that scores your project out of 100 across ten categories, fixes them one at a time
-        starting with security, and then scores it again. Every category it fixes is a separate commit on
-        a <code>glowup</code> branch, so you can review or undo any of it.
-      </p>
-
-      <div class="cmd install" data-os-box>
-        <div class="cmd-bar">
-          <div class="tabs" role="group" aria-label="Shell">
-            <button type="button" data-os="win" aria-pressed="true">PowerShell</button>
+      <div class="get">
+        <div class="cmd" data-os-box>
+          <div class="os" role="group" aria-label="Shell">
+            <button type="button" data-os="win" aria-pressed="true">Windows</button>
             <button type="button" data-os="unix" aria-pressed="false">macOS / Linux</button>
           </div>
-          <button type="button" class="copy">Copy</button>
+          <code data-cmd>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code>
+          <button type="button" class="copy" aria-label="Copy install command"><svg class="i"><use href="#i-copy"/></svg><span>Copy</span></button>
         </div>
-        <pre><code data-cmd>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code></pre>
       </div>
-      <p class="note">
-        Then run <code>/glowup</code> in a project, or <code>/glowup audit</code> to get the scorecard without
-        changing anything. The whole command is <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">one Markdown file</a> you can read first.
-      </p>
-      </div>
-
-      <!-- The example run's scorecard. It renders at the final score; site.js replays the run. -->
-      <aside class="score" id="score" data-tier="t4" aria-label="Example run: 38 out of 100 before, 86 after">
-        <div class="score-bar">
-          <span>relay</span>
-          <span class="score-status">Done · 10 commits</span>
-          <button type="button" class="replay">Replay</button>
-        </div>
-        <div class="score-body">
-          <div class="score-total"><b class="score-num">86</b><span class="of">/100</span><span class="score-delta">+48</span></div>
-          <div class="score-tier">Professional</div>
-          <div class="meter" style="--v:86" aria-hidden="true"><div class="meter-lit"><i></i></div></div>
-          <div class="meter-ticks" aria-hidden="true"><span style="left:0">0</span><span style="left:40%">40</span><span style="left:60%">60</span><span style="left:80%">80</span><span style="left:90%">90</span><span style="left:100%">100</span></div>
-          <ol class="cats">
-            <li data-from="3" data-to="9" data-tier="t5" style="--v:9"><span class="name">Security</span><span class="bar"><i></i></span><b>9</b></li>
-            <li data-from="4" data-to="9" data-tier="t5" style="--v:9"><span class="name">Backend &amp; API</span><span class="bar"><i></i></span><b>9</b></li>
-            <li data-from="5" data-to="9" data-tier="t5" style="--v:9"><span class="name">Database</span><span class="bar"><i></i></span><b>9</b></li>
-            <li data-from="3" data-to="9" data-tier="t5" style="--v:9"><span class="name">Error handling</span><span class="bar"><i></i></span><b>9</b></li>
-            <li data-from="5" data-to="8" data-tier="t4" style="--v:8"><span class="name">Structure</span><span class="bar"><i></i></span><b>8</b></li>
-            <li data-from="6" data-to="9" data-tier="t5" style="--v:9"><span class="name">Types &amp; quality</span><span class="bar"><i></i></span><b>9</b></li>
-            <li data-from="1" data-to="7" data-tier="t3" style="--v:7"><span class="name">Tests</span><span class="bar"><i></i></span><b>7</b></li>
-            <li data-from="2" data-to="9" data-tier="t5" style="--v:9"><span class="name">DevOps</span><span class="bar"><i></i></span><b>9</b></li>
-            <li data-from="5" data-to="8" data-tier="t4" style="--v:8"><span class="name">Observability</span><span class="bar"><i></i></span><b>8</b></li>
-            <li data-from="4" data-to="9" data-tier="t5" style="--v:9"><span class="name">UI polish</span><span class="bar"><i></i></span><b>9</b></li>
-          </ol>
-        </div>
-      </aside>
-      </div>
+      <ul class="trust">
+        <li>Free</li>
+        <li>One Markdown file you can read first</li>
+        <li>Every fix is its own commit</li>
+      </ul>
     </div>
-  </section>
 
-  <div class="demo">
-    <div class="wrap">
-      <figure class="figure">
-        <div class="frame">
-          <div class="chrome" aria-hidden="true">
-            <span class="dots"><i></i><i></i><i></i></span>
-            <span class="url">~/code/relay</span>
+    <!-- The studio: a replay of one /glowup run. The terminal on the left drives everything;
+         the score, the app, the checks and the timeline follow it. site.js plays it. -->
+    <div class="wrap wide">
+      <figure class="studio" id="studio" data-tier="t1" style="--wipe:0">
+        <div class="studio-bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="studio-title"><b>relay</b><span class="br"><svg class="i"><use href="#i-branch"/></svg><span data-branch>main</span></span></span>
+          <span class="status" data-status>Auditing</span>
+          <button type="button" class="playbtn" data-play aria-label="Pause"><svg class="i"><use href="#i-pause"/></svg></button>
+        </div>
+
+        <div class="studio-body">
+          <div class="term" aria-hidden="true">
+            <div class="term-lines" data-term></div>
           </div>
 
-          <div class="compare" id="compare">
+          <div class="preview">
+            <div class="scorebar">
+              <div class="score"><b data-score>38</b><span>/100</span></div>
+              <span class="tier" data-tier-name>Vibe Prototype</span>
+              <span class="delta" data-delta></span>
+              <ul class="checks" data-checks>
+                <li data-check="0"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>Secrets</li>
+                <li data-check="5"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>Lint</li>
+                <li data-check="6"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>Tests</li>
+                <li data-check="7"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>CI</li>
+              </ul>
+            </div>
 
-            <!-- Before: a vibe-coded AI chat app as it tends to ship in 2025. The app looks slick at a
-                 glance; the repo and the checks show what's underneath. -->
-            <div class="pane before" aria-hidden="true">
-              <div class="ph">
-                <span class="repo"><svg class="i"><use href="#i-folder"/></svg>relay</span>
-                <span class="br"><svg class="i"><use href="#i-branch"/></svg>main</span>
-                <span class="gs"><b>38</b>/100 · Vibe Prototype</span>
-              </div>
-              <div class="pg">
-                <div class="tile app">
-                  <div class="tile-h"><span>App</span><code>localhost:3000/chat</code></div>
+            <div class="appstage" aria-hidden="true">
+              <div class="url"><span>localhost:3000/chat</span></div>
+              <div class="apps">
+
+                <!-- Before: a vibe-coded AI chat app as it tends to ship. Slick at a glance, broken underneath. -->
+                <div class="pane before">
                   <div class="win">
                     <aside class="cs">
-                      <div class="brand"><span class="logo-x">✨</span><b>RelayAI</b></div>
+                      <div class="abrand"><span class="logo-x">✨</span><b>RelayAI</b></div>
                       <span class="newc"><svg class="i"><use href="#i-plus"/></svg>New Chat 🚀</span>
                       <span class="grp">Recent chats</span>
                       <a class="on">New Chat</a>
@@ -158,52 +133,17 @@ useEffect(() =&gt; {
   const t = setTimeout(() =&gt; search(q), 300)<small>Invalid Date</small></div></div>
                         <div class="ma typing"><i class="av">🤖</i><span class="dots3"><i></i>Thinking...</span></div>
                       </div>
-                      <div class="toast"><svg class="i"><use href="#i-x"/></svg><span><b>Unhandled Runtime Error</b>TypeError: Cannot read properties of undefined (reading 'content')</span></div>
+                      <div class="toast" data-toast><svg class="i"><use href="#i-x"/></svg><span><b>Unhandled Runtime Error</b>TypeError: Cannot read properties of undefined (reading 'content')</span></div>
                       <div class="composer"><span>Ask me anything... 🤖✨</span><small>NaN tokens</small><i class="send"><svg class="i"><use href="#i-up"/></svg></i></div>
                     </div>
-                    <span class="devtool"><i>N</i><b>1 Issue</b></span>
                   </div>
                 </div>
-                <div class="tile files">
-                  <div class="tile-h"><span>Repository</span><code>main</code></div>
-                  <ul class="tree">
-                    <li class="d"><span>app/</span></li>
-                    <li class="bad in"><span>page.tsx</span><em>1,186 lines</em></li>
-                    <li class="warn in"><span>page-old.tsx</span><em>unused</em></li>
-                    <li class="bad in"><span>api/chat/route.ts</span><em>no auth</em></li>
-                    <li class="d"><span>lib/</span></li>
-                    <li class="bad in"><span>ai.ts</span><em>key sent to browser</em></li>
-                    <li class="warn in"><span>utils2.ts</span><em>41 × any</em></li>
-                    <li class="bad"><span>.env</span><em>committed</em></li>
-                    <li class="warn"><span>package.json</span><em>no test script</em></li>
-                  </ul>
-                </div>
-                <div class="tile checks">
-                  <div class="tile-h"><span>Checks</span><code>4 failing</code></div>
-                  <ul class="ck">
-                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>Secrets</b><span>API key in client bundle</span></li>
-                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>Tests</b><span>no tests</span></li>
-                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>Lint</b><span>no linter</span></li>
-                    <li class="x"><svg class="i"><use href="#i-cross"/></svg><b>CI</b><span>not set up</span></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
 
-            <!-- After: the same project once the run is done. The same chat app, a repo with tests and
-                 CI, and every check green. -->
-            <div class="pane after" aria-hidden="true">
-              <div class="ph">
-                <span class="repo"><svg class="i"><use href="#i-folder"/></svg>relay</span>
-                <span class="br"><svg class="i"><use href="#i-branch"/></svg>glowup<small> · 10 commits</small></span>
-                <span class="gs"><b>86</b>/100 · Professional</span>
-              </div>
-              <div class="pg">
-                <div class="tile app">
-                  <div class="tile-h"><span>App</span><code>localhost:3000/chat</code></div>
+                <!-- After: the same app once the run is done. -->
+                <div class="pane after">
                   <div class="win">
                     <aside class="cs">
-                      <div class="brand"><svg class="mark" viewBox="0 0 20 20"><rect width="20" height="20" rx="6" fill="#18181b"/><path d="M6 7.5h8M6 11h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="14.2" cy="12.6" r="1.6" fill="#f97352"/></svg><b>Relay</b></div>
+                      <div class="abrand"><svg class="mark" viewBox="0 0 20 20"><rect width="20" height="20" rx="6" fill="#18181b"/><path d="M6 7.5h8M6 11h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="14.2" cy="12.6" r="1.6" fill="#f97352"/></svg><b>Relay</b></div>
                       <span class="newc"><svg class="i"><use href="#i-plus"/></svg>New chat</span>
                       <span class="grp">Today</span>
                       <a class="on">Debounce a search input</a>
@@ -233,376 +173,102 @@ useEffect(() =&gt; {
                     </div>
                   </div>
                 </div>
-                <div class="tile files">
-                  <div class="tile-h"><span>Repository</span><code>glowup</code></div>
-                  <ul class="tree">
-                    <li class="add"><span>.github/workflows/ci.yml</span><em>new</em></li>
-                    <li class="d"><span>app/</span></li>
-                    <li class="ok in"><span>page.tsx</span><em>42 lines</em></li>
-                    <li class="ok in"><span>api/chat/route.ts</span><em>auth · zod · 429</em></li>
-                    <li class="add"><span>components/</span><em>9 files</em></li>
-                    <li class="ok"><span>lib/</span><em>server only</em></li>
-                    <li class="add"><span>prisma/migrations/</span><em>new</em></li>
-                    <li class="add"><span>tests/</span><em>28 tests</em></li>
-                    <li class="add"><span>.env.example</span><em>new</em></li>
-                  </ul>
-                </div>
-                <div class="tile checks">
-                  <div class="tile-h"><span>Checks</span><code>4 passing</code></div>
-                  <ul class="ck">
-                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>Secrets</b><span>none in the client bundle</span></li>
-                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>Tests</b><span>28 passed</span></li>
-                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>Lint</b><span>strict, 0 errors</span></li>
-                    <li class="v"><svg class="i"><use href="#i-check"/></svg><b>CI</b><span>lint, test, build</span></li>
-                  </ul>
-                </div>
+
               </div>
             </div>
-
-            <div class="handle" id="handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-              <span class="knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></span>
-            </div>
           </div>
         </div>
-        <figcaption class="caption">
-          <span class="b">Before <b>38/100</b></span>
-          <span class="t">An example AI chat app before and after one <code>/glowup</code> run: the app, the repo and the checks. Drag to compare.</span>
-          <span class="a">After <b>86/100</b></span>
-        </figcaption>
+
+        <!-- The timeline: one cell per pass. Click a cell to jump there. -->
+        <div class="timeline">
+          <ol class="cells" data-cells></ol>
+          <span class="playhead" data-playhead aria-hidden="true"></span>
+        </div>
       </figure>
+      <p class="studio-note">A replay of one run on a sample AI chat app. Click the timeline to jump to any step.</p>
     </div>
-  </div>
+  </section>
 
-  <section class="block" id="how">
+  <section class="sec" id="how">
     <div class="wrap">
-      <h2><span class="idx">01</span>How it works</h2>
-      <div class="body">
-        <p class="intro">One command, three passes. It doesn't touch your code until the audit is done and it's working on a new branch.</p>
+      <p class="eyebrow">How it works</p>
+      <h2>Three passes. Nothing changes until the audit is done.</h2>
+      <ol class="steps">
+        <li><span class="n">01</span><h3>Audit</h3><p>Works out your stack and scores ten categories from 0 to 10. Every low score points to a file and line.</p></li>
+        <li><span class="n">02</span><h3>Fix</h3><p>Branches to <code>glowup</code> and fixes one category at a time, security first. Builds, tests and commits after each.</p></li>
+        <li><span class="n">03</span><h3>Re-score</h3><p>Scores it again with the same rubric and shows both scorecards side by side, plus what the next tier needs.</p></li>
+      </ol>
+    </div>
+  </section>
 
-        <ol class="steps">
-          <li>
-            <h3><span>1</span>Audit</h3>
-            <p>Reads your README, config and entry points to work out the stack, then scores ten categories from 0 to 10. Every score under 7 points to the file and line behind it.</p>
-          </li>
-          <li>
-            <h3><span>2</span>Fix</h3>
-            <p>Branches to <code>glowup</code>, then fixes one category at a time, security first. After each one it runs your build, tests and linter, then commits.</p>
-          </li>
-          <li>
-            <h3><span>3</span>Re-score</h3>
-            <p>Scores the project again with the same rubric and prints both scorecards side by side, with what changed and what the next tier needs.</p>
-          </li>
-        </ol>
+  <section class="sec" id="categories">
+    <div class="wrap">
+      <p class="eyebrow">Ten categories</p>
+      <h2>Scored out of 100. Fixed in this order.</h2>
+      <ol class="cats-grid">
+        <li><b>Security</b><span>No secrets in code, auth on private routes, no injection.</span></li>
+        <li><b>Backend &amp; API</b><span>Validated input, real status codes, thin handlers.</span></li>
+        <li><b>Database</b><span>Migrations, indexes, no queries in loops.</span></li>
+        <li><b>Error handling</b><span>Caught at the edges, messages people can act on.</span></li>
+        <li><b>Structure</b><span>Clear folders, no 1,000-line files, no dead code.</span></li>
+        <li><b>Types &amp; quality</b><span>Types on, linter and formatter set up, no <code>any</code> soup.</span></li>
+        <li><b>Tests</b><span>Core logic and main routes, one command runs them.</span></li>
+        <li><b>DevOps</b><span>CI runs lint, tests and build. A health check.</span></li>
+        <li><b>Observability</b><span>Structured logs, no stray <code>console.log</code>.</span></li>
+        <li><b>UI polish</b><span>Consistent spacing, loading, empty and error states.</span></li>
+      </ol>
+      <ol class="tiers" aria-label="Tiers">
+        <li class="t1"><span>0–39</span>Vibe Prototype</li>
+        <li class="t2"><span>40–59</span>Side Project</li>
+        <li class="t3"><span>60–79</span>Launch-Ready</li>
+        <li class="t4"><span>80–89</span>Professional</li>
+        <li class="t5"><span>90–100</span>Production Grade</li>
+      </ol>
+    </div>
+  </section>
 
-        <div class="fig-head">
-          <h3>Example run</h3>
-          <p>A full run on the chat app above. Long tool output is folded the way Claude Code folds it, and nine of the ten fix loops are trimmed.</p>
-        </div>
-<pre class="term"><span class="p">&gt;</span> <span class="u">/glowup</span>
+  <section class="sec" id="usage">
+    <div class="wrap">
+      <p class="eyebrow">Usage</p>
+      <h2>Run it in any project.</h2>
+      <div class="modes">
+        <div><code>/glowup</code><p>The full run: audit, fix all ten, re-score.</p></div>
+        <div><code>/glowup audit</code><p>Just the scorecard and a fix plan. Changes nothing.</p></div>
+        <div><code>/glowup security</code><p>Fix one category. Works with any of the ten.</p></div>
+      </div>
+      <p class="fine">It keeps your stack, never deletes features or commits secrets, and asks first if you have uncommitted changes. Undo a whole run with <code>git branch -D glowup</code>.</p>
+    </div>
+  </section>
 
-<i class="g ok">●</i> <b>Read</b>(package.json)
-  <i class="g d">⎿</i>  <span class="d">Read 58 lines</span>
-
-<i class="g ok">●</i> <b>Search</b>(pattern: "NEXT_PUBLIC_|console\.log|: any", glob: "**/*.{ts,tsx}")
-  <i class="g d">⎿</i>  <span class="d">Found 74 matches in 19 files</span>
-
-<i class="g">●</i> Next.js 15 (App Router), TypeScript, Prisma on Postgres, the Anthropic SDK, pnpm, Vercel.
-
-  <b>#   Category         Score  Evidence</b>
-  1   Structure          5    app/page.tsx:1  1,186 lines, chat, auth and UI in one file
-  2   Security           3    lib/ai.ts:3  API key in NEXT_PUBLIC_ANTHROPIC_KEY, .env committed
-  3   Backend &amp; API      4    app/api/chat/route.ts:7  no auth, model and max_tokens from the client
-  4   Database           5    app/page.tsx:212  loads every message of every chat on open
-  5   Error handling     3    app/page.tsx:88  a failed stream leaves "Thinking..." forever
-  6   Types &amp; quality    6    lib/utils2.ts:15  41 uses of any, no lint script
-  7   Tests              1    package.json:9  test script is the npm placeholder
-  8   DevOps             2    no .github/workflows, no .env.example
-  9   Observability      5    app/api/chat/route.ts:30  19 console.log calls, one logs every prompt
-  10  UI polish          4    components/Message.tsx:22  raw markdown, "Invalid Date" times
-      <b>TOTAL             38/100</b>
-
-  <b>Glow Score: 38/100 — 🫧 Vibe Prototype</b>
-
-<i class="g ok">●</i> <b>Bash</b>(git status --porcelain &amp;&amp; git checkout -b glowup)
-  <i class="g d">⎿</i>  <span class="d">Switched to a new branch 'glowup'</span>
-
-<i class="g">●</i> The working tree was clean, so everything from here is on glowup. You can undo
-  all of it with git checkout - or by deleting the branch. Starting with security.
-
-<i class="g ok">●</i> <b>Update</b>(lib/ai.ts)
-  <i class="g d">⎿</i>  <span class="d">Updated lib/ai.ts with 4 additions and 3 removals</span>
-
-<i class="g ok">●</i> <b>Bash</b>(git rm --cached .env &amp;&amp; echo .env &gt;&gt; .gitignore)
-  <i class="g d">⎿</i>  <span class="d">rm '.env'</span>
-
-<i class="g ok">●</i> <b>Write</b>(.env.example)
-  <i class="g d">⎿</i>  <span class="d">Wrote 6 lines to .env.example</span>
-
-<i class="g ok">●</i> <b>Bash</b>(pnpm lint &amp;&amp; pnpm build)
-  <i class="g d">⎿</i>  <span class="d">✓ Compiled successfully in 6.1s</span>
-     <span class="d">✓ Linting and checking validity of types</span>
-     <span class="d">… +14 lines (ctrl+r to expand)</span>
-
-<i class="g ok">●</i> <b>Bash</b>(git add -A &amp;&amp; git commit -m "glowup: security — server-side API key, .env out of git, API auth")
-  <i class="g d">⎿</i>  <span class="d">[glowup 4f1c2ab] glowup: security — server-side API key, .env out of git, API auth</span>
-     <span class="d">6 files changed, 52 insertions(+), 19 deletions(-)</span>
-
-  ✅ Security 3 → 9 — API key moved server-side, .env out of git, auth on /api routes
-  ⚠️ The old key is still in git history. Rotate it in the Anthropic Console.
-
-<span class="cut">  [ The same loop runs for the other nine categories. Their tool calls are trimmed here. ]</span>
-
-  ✅ Backend &amp; API 4 → 9 — zod validation, model allowlist, rate limit, 400/401/429 responses
-  ✅ Database 5 → 9 — first migration, index on (chatId, createdAt), messages paged 50 at a time
-  ✅ Error handling 3 → 9 — error boundary, stream errors shown with a retry, no hydration errors
-  ✅ Structure 5 → 8 — page.tsx split into components/ and lib/, 4 dead files removed
-  ✅ Types &amp; quality 6 → 9 — strict mode, 41 any → 0, ESLint and Prettier set up
-  ✅ Tests 1 → 7 — Vitest, 28 tests for the chat route, rate limiter and message paging
-  ✅ DevOps 2 → 9 — GitHub Actions runs lint, test and build; GET /api/health
-  ✅ Observability 5 → 8 — pino logger, request logging, prompts no longer logged
-  ✅ UI polish 4 → 9 — rendered markdown, code highlighting, real times; empty and error states
-
-<i class="g ok">●</i> <b>Bash</b>(pnpm test)
-  <i class="g d">⎿</i>  <span class="d"> Test Files  3 passed (3)</span>
-     <span class="d">      Tests  28 passed (28)</span>
-
-<i class="g">●</i> Done. Same rubric, scored again:
-
-                   <b>BEFORE   AFTER</b>
-  Structure           5  →    8
-  Security            3  →    9
-  Backend &amp; API       4  →    9
-  Database            5  →    9
-  Error handling      3  →    9
-  Types &amp; quality     6  →    9
-  Tests               1  →    7
-  DevOps              2  →    9
-  Observability       5  →    8
-  UI polish           4  →    9
-  ─────────────────────────────────
-  <b>GLOW SCORE         38  →   86</b>   🫧 Vibe Prototype → 💼 Professional
-
-  To reach Production Grade: end-to-end tests for signing in and streaming a reply,
-  and alerts on the error rate.
-
-  Undo: git checkout main &amp;&amp; git branch -D glowup</pre>
-
-        <div class="fig-head">
-          <h3>One of those commits</h3>
-          <p>The Backend &amp; API commit, where it touches the route that streams a reply.</p>
-        </div>
-        <div class="diff">
-          <div class="diff-head">
-            <span class="msg"><code class="sha">9c41d0e</code>glowup: backend &amp; api — zod validation, model allowlist, rate limit</span>
-            <span class="files">5 files changed</span>
+  <section class="cta">
+    <div class="wrap">
+      <h2>Give it a glow up.</h2>
+      <div class="get">
+        <div class="cmd" data-os-box>
+          <div class="os" role="group" aria-label="Shell">
+            <button type="button" data-os="win" aria-pressed="true">Windows</button>
+            <button type="button" data-os="unix" aria-pressed="false">macOS / Linux</button>
           </div>
-          <div class="diff-file"><span>app/api/chat/route.ts</span><span><span class="n-add">+20</span> <span class="n-del">−4</span></span></div>
-<pre><code><span class="ln">import { NextResponse } from "next/server";</span>
-<span class="ln add">import { z } from "zod";</span>
-<span class="ln">import { auth } from "@/lib/auth";</span>
-<span class="ln del">import { anthropic } from "@/lib/ai";</span>
-<span class="ln add">import { streamReply } from "@/lib/ai";</span>
-<span class="ln add">import { rateLimit } from "@/lib/rate-limit";</span>
-<span class="ln add"> </span>
-<span class="ln add">const ChatRequest = z.object({</span>
-<span class="ln add">  chatId: z.string().cuid(),</span>
-<span class="ln add">  message: z.string().trim().min(1).max(8000),</span>
-<span class="ln add">  model: z.enum(["claude-sonnet-5-5", "claude-haiku-5-5"]),</span>
-<span class="ln add">});</span>
-<span class="ln"> </span>
-<span class="ln">export async function POST(req: Request) {</span>
-<span class="ln">  const session = await auth();</span>
-<span class="ln">  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });</span>
-<span class="ln"> </span>
-<span class="ln del">  const { messages, model, max_tokens } = await req.json();</span>
-<span class="ln del">  const stream = anthropic.messages.stream({ model, max_tokens, messages });</span>
-<span class="ln del">  return new Response(stream.toReadableStream());</span>
-<span class="ln add">  if (!(await rateLimit(session.user.id))) {</span>
-<span class="ln add">    return NextResponse.json({ error: "Too many requests" }, { status: 429 });</span>
-<span class="ln add">  }</span>
-<span class="ln add"> </span>
-<span class="ln add">  const input = ChatRequest.safeParse(await req.json());</span>
-<span class="ln add">  if (!input.success) {</span>
-<span class="ln add">    return NextResponse.json({ error: input.error.issues }, { status: 400 });</span>
-<span class="ln add">  }</span>
-<span class="ln add"> </span>
-<span class="ln add">  // History is loaded on the server, so a client can't rewrite earlier turns.</span>
-<span class="ln add">  return streamReply(session.user.id, input.data);</span>
-<span class="ln">}</span></code></pre>
+          <code data-cmd>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code>
+          <button type="button" class="copy" aria-label="Copy install command"><svg class="i"><use href="#i-copy"/></svg><span>Copy</span></button>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="block" id="categories">
-    <div class="wrap">
-      <h2><span class="idx">02</span>Categories</h2>
-      <div class="body">
-        <p class="intro">Each category is scored from 0 to 10 against a fixed rubric, so the total is out of 100. They're listed here in the order they get fixed. The last column is the example run above.</p>
-
-        <table class="rubric">
-          <thead>
-            <tr><th class="n">#</th><th>Category</th><th>What a 10 looks like</th><th class="ex">Example</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="n">1</td><td class="cat">Security</td><td class="desc">No secrets in the code, a <code>.env</code> with a matching <code>.env.example</code>, auth on private routes, no SQL or XSS injection, CORS configured.</td><td class="ex"><span class="lo">3</span> → <span class="hi">9</span></td></tr>
-            <tr><td class="n">2</td><td class="cat">Backend &amp; API</td><td class="desc">Consistent REST or RPC routes, input validated with zod or pydantic, correct status codes, no business logic in route handlers.</td><td class="ex"><span class="lo">4</span> → <span class="hi">9</span></td></tr>
-            <tr><td class="n">3</td><td class="cat">Database</td><td class="desc">A real schema with migrations, indexes on the columns you look things up by, no queries inside loops, one connection set up once.</td><td class="ex"><span class="lo">5</span> → <span class="hi">9</span></td></tr>
-            <tr><td class="n">4</td><td class="cat">Error handling</td><td class="desc">Errors caught at the boundaries, messages a user can act on, nothing swallowed silently.</td><td class="ex"><span class="lo">3</span> → <span class="hi">9</span></td></tr>
-            <tr><td class="n">5</td><td class="cat">Structure</td><td class="desc">Clear folders for routes, services, data and UI. No 500-line files, no dead code.</td><td class="ex"><span class="lo">5</span> → <span class="hi">8</span></td></tr>
-            <tr><td class="n">6</td><td class="cat">Types &amp; quality</td><td class="desc">TypeScript or type hints, a linter and formatter configured, no <code>any</code> soup.</td><td class="ex"><span class="lo">6</span> → <span class="hi">9</span></td></tr>
-            <tr><td class="n">7</td><td class="cat">Tests</td><td class="desc">Tests for the core logic and the main API routes, run by one command.</td><td class="ex"><span class="lo">1</span> → <span class="hi">7</span></td></tr>
-            <tr><td class="n">8</td><td class="cat">DevOps</td><td class="desc">CI on GitHub Actions running lint, tests and build. A reproducible setup and a health check.</td><td class="ex"><span class="lo">2</span> → <span class="hi">9</span></td></tr>
-            <tr><td class="n">9</td><td class="cat">Observability</td><td class="desc">Structured logging and request logs. No stray <code>console.log</code> or <code>print</code> calls.</td><td class="ex"><span class="lo">5</span> → <span class="hi">8</span></td></tr>
-            <tr><td class="n">10</td><td class="cat">UI polish</td><td class="desc">Consistent spacing, type and color. Loading, empty and error states. Responsive, with accessible labels.</td><td class="ex"><span class="lo">4</span> → <span class="hi">9</span></td></tr>
-          </tbody>
-          <tfoot>
-            <tr><td class="n"></td><td class="cat">Total</td><td class="desc"></td><td class="ex"><span class="lo">38</span> → <span class="hi">86</span></td></tr>
-          </tfoot>
-        </table>
-
-        <h3 class="sub-h">Tiers</h3>
-        <div class="ruler" aria-hidden="true">
-          <div class="track"><i style="left:0;width:40%"></i><i style="left:40%;width:20%"></i><i style="left:60%;width:20%"></i><i style="left:80%;width:10%"></i><i style="left:90%;width:10%"></i></div>
-          <span class="pin pb" style="left:38%"><b>38</b> before</span>
-          <span class="pin pa" style="left:86%"><b>86</b> after</span>
-          <span class="tick t0" style="left:0">0</span>
-          <span class="tick" style="left:40%">40</span>
-          <span class="tick" style="left:60%">60</span>
-          <span class="tick" style="left:80%">80</span>
-          <span class="tick" style="left:90%">90</span>
-          <span class="tick t100" style="left:100%">100</span>
-        </div>
-        <ol class="tier-list">
-          <li><span>0–39</span>Vibe Prototype</li>
-          <li><span>40–59</span>Side Project</li>
-          <li><span>60–79</span>Launch-Ready</li>
-          <li><span>80–89</span>Professional</li>
-          <li><span>90–100</span>Production Grade</li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="usage">
-    <div class="wrap">
-      <h2><span class="idx">03</span>Usage</h2>
-      <div class="body">
-        <table class="modes">
-          <tbody>
-            <tr><th scope="row"><code>/glowup</code></th><td>Full run: audit, fix all ten categories in order, re-score.</td></tr>
-            <tr><th scope="row"><code>/glowup audit</code></th><td>Scorecard plus the ten fixes worth the most, security first. Changes nothing.</td></tr>
-            <tr><th scope="row"><code>/glowup &lt;category&gt;</code></th><td>Fixes one category, for example <code>/glowup security</code>, <code>/glowup tests</code> or <code>/glowup ui</code>.</td></tr>
-          </tbody>
-        </table>
-
-        <h3 class="sub-h">Guardrails</h3>
-        <ul class="rules">
-          <li>If you have uncommitted changes, it asks before it starts. Then it works on a new <code>glowup</code> branch. Outside a git repo, it runs <code>git init</code> and commits what's there first.</li>
-          <li>After each category it runs the build, tests and linter you already have, and fixes anything it broke before moving on.</li>
-          <li>It keeps your stack. No rewrites into a different framework.</li>
-          <li>It never deletes features, changes what the app does, adds paid services or commits secrets.</li>
-          <li>When a fix needs a decision only you can make, like which auth provider to use, it picks the standard free option and tells you.</li>
-        </ul>
-        <p class="undo">Undo a whole run with <code>git checkout main &amp;&amp; git branch -D glowup</code>.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="features">
-    <div class="wrap">
-      <h2><span class="idx">04</span>Features</h2>
-      <div class="body">
-        <p class="intro">Each feature is a Claude Code command. This list is read from <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/features.json"><code>features.json</code></a>, the same registry the installers use.</p>
-        <ul class="pkgs" id="feature-list" aria-live="polite">
-          <li class="state">Loading features.json…</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="contribute">
-    <div class="wrap">
-      <h2><span class="idx">05</span>Contribute</h2>
-      <div class="body">
-        <p class="intro">A new command is one Markdown file and one registry entry. There's no build step: the installers and this page both read the registry.</p>
-
-        <ol class="howto">
-          <li>
-            <h3>Write the command</h3>
-            <p>Create <code>features/&lt;name&gt;.md</code> with a <code>description:</code> line in its frontmatter. Use <code>$ARGUMENTS</code> where the user's input should go.</p>
-<pre class="code"><code>---
-description: One line that says what the command does
-argument-hint: [optional | args]
----
-
-# Your command
-
-Steps Claude should follow when someone types /your-command.</code></pre>
-          </li>
-          <li>
-            <h3>Register it</h3>
-            <p>Add an entry to <code>features/features.json</code>. <code>"stable"</code> gets installed; <code>"planned"</code> is only listed here.</p>
-<pre class="code"><code>{
-  "id": "my-feature",
-  "name": "My Feature",
-  "command": "my-feature",
-  "file": "my-feature.md",
-  "summary": "What it does, in a sentence or two.",
-  "usage": "/my-feature  ·  /my-feature &lt;arg&gt;",
-  "tags": ["tag-one", "tag-two"],
-  "status": "stable"
-}</code></pre>
-          </li>
-          <li>
-            <h3>Check it</h3>
-<pre class="code"><code><span class="c">$</span> node tools/validate.mjs
-OK: 2 feature(s) checked.</code></pre>
-            <p>It fails on a duplicate id or command, a missing field or file, or frontmatter without a description.</p>
-          </li>
-          <li>
-            <h3>Open a pull request</h3>
-            <p>Once it's merged into <code>main</code>, the Pages workflow runs the same check and republishes the site. Anyone who runs the installer again gets the new command.</p>
-          </li>
-        </ol>
-        <p class="more"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/CONTRIBUTING.md">The full guide is in CONTRIBUTING.md</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="install">
-    <div class="wrap">
-      <h2><span class="idx">06</span>Install</h2>
-      <div class="body">
-        <p class="intro">The installer reads the registry and copies every stable feature into <code>~/.claude/commands</code>. Run it again to update. If Claude Code is open, restart it.</p>
-        <div class="plats">
-          <div class="cmd">
-            <div class="cmd-bar"><span class="cmd-label">Windows <span>PowerShell</span></span><button type="button" class="copy">Copy</button></div>
-            <pre><code>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code></pre>
-          </div>
-          <div class="cmd">
-            <div class="cmd-bar"><span class="cmd-label">macOS, Linux, Git Bash <span>needs curl and Node.js</span></span><button type="button" class="copy">Copy</button></div>
-            <pre><code>curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.sh | bash</code></pre>
-          </div>
-        </div>
-        <p class="undo">To uninstall, delete <code>~/.claude/commands/glowup.md</code>.</p>
-      </div>
+      <p class="fine">Then open Claude Code in a project and type <code>/glowup</code>. <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the command</a> first if you like.</p>
     </div>
   </section>
 </main>
 
 <footer class="foot">
   <div class="wrap">
-    <span>glowup is an independent command for Claude Code. It isn't affiliated with Anthropic.</span>
+    <span>An independent command for Claude Code. Not affiliated with Anthropic.</span>
     <nav aria-label="Links">
       <a href="https://github.com/drewguitarist18-lang/glowup">GitHub</a>
-      <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/CONTRIBUTING.md">Contributing</a>
-      <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/features.json">features.json</a>
+      <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/CONTRIBUTING.md">Add a command</a>
       <a href="https://lithnode.com">Lithnode</a>
     </nav>
   </div>
 </footer>
 
-<script src="site.js?v=13"></script>
+<script src="site.js?v=20"></script>
 </body>
 </html>

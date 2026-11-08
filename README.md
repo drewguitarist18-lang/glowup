@@ -44,7 +44,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Develop locally
 
-The site reads the feature list from `features/features.json` on `main`, the same copy the installers download, so local registry edits show up there after they're pushed. Check them with the validator:
+The installers read the feature list from `features/features.json` on `main`, so registry edits reach users once they're pushed. Check them with the validator, and preview the site locally:
 
 ```bash
 node tools/validate.mjs
