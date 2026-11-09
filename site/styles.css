@@ -320,11 +320,59 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .plan-rec .btn-wide:hover { background: #5b82ff; }
 .plan-rec li::before { color: var(--link); }
 .plan.mine .badge { display: inline-block !important; }
-.dl { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; padding: 26px 40px; border-radius: 18px; background: #18181a; }
-.dl > div > b { font: 600 20px/1.2 var(--head); letter-spacing: -.3px; }
-.dl p { margin-top: 6px; color: var(--mute); font-size: 14.5px; }
-.dl-btns { display: flex; gap: 10px; flex: none; }
-.dl p b { font-weight: 600; color: var(--fg-2); }
+/* The installer download: copy and steps on the left, a looping "file lands in the folder" scene on the right. */
+.dl { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 20px; padding: 40px; border-radius: 22px; overflow: hidden; isolation: isolate;
+  background: radial-gradient(120% 90% at 100% 0%, rgba(74, 116, 245, .22), transparent 55%), radial-gradient(80% 70% at 0% 100%, rgba(217, 119, 87, .10), transparent 60%), #151517;
+  box-shadow: inset 0 0 0 1px var(--line-2); }
+.dl::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(70% 80% at 80% 40%, #000, transparent 75%); -webkit-mask-image: radial-gradient(70% 80% at 80% 40%, #000, transparent 75%); }
+.dl [data-dl-only] { display: none; }
+.dl[data-os="win"] [data-dl-only="win"], .dl[data-os="mac"] [data-dl-only="mac"] { display: inline; }
+.dl-eye { display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1 var(--body); letter-spacing: .6px; text-transform: uppercase; color: var(--link); }
+.dl-eye i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(95, 184, 120, .6); animation: dl-ping 2s infinite; }
+.dl h3 { margin: 12px 0 18px; font: 600 30px/1.1 var(--head); letter-spacing: -.8px; }
+.dl-tabs { display: inline-flex; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--line); }
+.dl-tabs button { height: 32px; padding: 0 16px; border: 0; border-radius: 999px; background: none; color: var(--mute); font: 600 13.5px/1 var(--body); cursor: pointer; transition: background-color .2s, color .2s; }
+.dl-tabs button[aria-selected="true"] { background: var(--fg); color: #0b0b0c; }
+.dl-steps { list-style: none; counter-reset: s; margin: 22px 0 26px; padding: 0; display: grid; gap: 12px; }
+.dl-steps li { counter-increment: s; position: relative; padding-left: 38px; color: var(--mute); font-size: 14.5px; line-height: 1.5; }
+.dl-steps li::before { content: counter(s); position: absolute; left: 0; top: -1px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: rgba(74, 116, 245, .16); color: var(--link); font: 700 12px/1 var(--body); }
+.dl-steps b { color: var(--fg); font-weight: 600; margin-right: 4px; }
+.dl-go { position: relative; overflow: hidden; height: 54px; padding: 0 28px; background: var(--blue); color: #fff; font-size: 16px; box-shadow: 0 10px 40px -10px rgba(74, 116, 245, .8); }
+.dl-go:hover { background: #5b82ff; transform: translateY(-1px); }
+.dl-go > :not(.dl-fill) { position: relative; }
+.dl-fill { position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; background: rgba(255, 255, 255, .22); }
+.dl-go.going .dl-fill { transition: transform .9s cubic-bezier(.3, .7, .2, 1); transform: scaleX(1); }
+.dl-go.done { background: var(--green); box-shadow: 0 10px 40px -10px rgba(95, 184, 120, .8); }
+.dl-alt { margin-top: 14px; color: var(--mute-2); font-size: 13.5px; }
+.dl-alt button { border: 0; padding: 0; background: none; color: var(--link); font: inherit; font-weight: 600; cursor: pointer; }
+
+.dl-win { border-radius: 14px; background: rgba(12, 12, 13, .85); box-shadow: inset 0 0 0 1px var(--line-2), 0 30px 80px -20px rgba(0, 0, 0, .8); backdrop-filter: blur(6px); }
+.dl-bar { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-bottom: 1px solid var(--line); font: 600 11.5px/1 var(--body); color: var(--mute); }
+.dl-bar i { width: 9px; height: 9px; border-radius: 50%; background: #2c2c30; }
+.dl-bar span { margin-left: 8px; }
+.dl-stage { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 34px 26px 26px; }
+.dl-node { display: grid; justify-items: center; gap: 10px; }
+.dl-node small { font: 500 11px/1 var(--mono); color: var(--mute-2); white-space: nowrap; }
+.dl-file { position: relative; width: 54px; height: 66px; border-radius: 8px 16px 8px 8px; display: grid; place-items: end center; padding-bottom: 10px; background: linear-gradient(160deg, #2a2a2f, #1c1c20); box-shadow: inset 0 0 0 1px var(--line-2); font: 700 11px/1 var(--mono); color: var(--fg-2); animation: dl-lift 4.8s infinite; }
+.dl-path { position: relative; height: 2px; background: repeating-linear-gradient(90deg, var(--line-2) 0 6px, transparent 6px 12px); }
+.dl-dot { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--link); box-shadow: 0 0 14px 4px rgba(124, 156, 255, .7); opacity: 0; animation: dl-fly 4.8s infinite; }
+.dl-folder { position: relative; width: 78px; height: 58px; border-radius: 6px 10px 10px 10px; background: linear-gradient(170deg, #2b3555, #1d2440); box-shadow: inset 0 0 0 1px rgba(124, 156, 255, .3); animation: dl-glow 4.8s infinite; }
+.dl-folder::before { content: ""; position: absolute; left: 0; top: -8px; width: 32px; height: 10px; border-radius: 5px 5px 0 0; background: #2b3555; }
+.dl-md { position: absolute; left: 50%; top: 50%; translate: -50% -50%; padding: 4px 7px; border-radius: 5px; background: var(--fg); color: #0b0b0c; font: 700 11px/1 var(--mono); opacity: 0; animation: dl-drop 4.8s infinite; }
+.dl-ok { position: absolute; right: -8px; bottom: -8px; width: 24px; height: 24px; padding: 4px; border-radius: 50%; background: var(--green); fill: none; stroke: #0b0b0c; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(.4); animation: dl-check 4.8s infinite; }
+.dl-term { display: flex; align-items: center; gap: 8px; margin: 0 14px 14px; padding: 12px 14px; border-radius: 9px; background: #18181a; font: 500 13px/1 var(--mono); color: var(--fg); }
+.dl-p { color: var(--cc-orange); }
+.dl-type { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; animation: dl-type 4.8s steps(7) infinite; }
+.dl-caret { width: 7px; height: 15px; margin-left: -4px; background: var(--fg-2); animation: dl-blink 1s steps(1) infinite; }
+
+@keyframes dl-ping { 70%, 100% { box-shadow: 0 0 0 8px rgba(95, 184, 120, 0); } }
+@keyframes dl-lift { 0%, 8% { transform: none; } 14% { transform: translateY(-6px); } 22%, 100% { transform: none; } }
+@keyframes dl-fly { 0%, 12% { left: 0; opacity: 0; } 15% { opacity: 1; } 40% { left: 100%; opacity: 1; } 44%, 100% { left: 100%; opacity: 0; } }
+@keyframes dl-glow { 0%, 40% { box-shadow: inset 0 0 0 1px rgba(124, 156, 255, .3); } 46% { box-shadow: inset 0 0 0 1px rgba(124, 156, 255, .9), 0 0 30px rgba(74, 116, 245, .6); } 60%, 100% { box-shadow: inset 0 0 0 1px rgba(124, 156, 255, .3); } }
+@keyframes dl-drop { 0%, 40% { opacity: 0; translate: -50% -110%; } 48% { opacity: 1; translate: -50% -50%; } 92% { opacity: 1; translate: -50% -50%; } 100% { opacity: 0; translate: -50% -50%; } }
+@keyframes dl-check { 0%, 48% { opacity: 0; transform: scale(.4); } 54% { opacity: 1; transform: scale(1.15); } 58%, 92% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1); } }
+@keyframes dl-type { 0%, 58% { width: 0; } 74%, 94% { width: 7ch; } 100% { width: 0; } }
+@keyframes dl-blink { 50% { opacity: 0; } }
 .plan-top { display: flex; justify-content: space-between; align-items: center; }
 .plan-top b { font: 600 24px/1.2 var(--head); letter-spacing: -.4px; }
 .badge { font-size: 12px; font-weight: 600; color: #aebfff; padding: 6px 12px; border-radius: 999px; background: rgba(74, 116, 245, .18); }
@@ -409,8 +457,10 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
   .ways h2 { font-size: 26px; }
   .tiles { grid-template-columns: 1fr; gap: 36px; }
   .plan { padding: 28px 22px; }
-  .dl { flex-direction: column; align-items: stretch; padding: 24px 22px; }
-  .dl-btns { flex-direction: column; }
+  .dl { grid-template-columns: 1fr; gap: 28px; padding: 28px 20px; }
+  .dl h3 { font-size: 26px; }
+  .dl-go { width: 100%; }
+  .dl-stage { padding: 28px 16px 22px; }
   .plan-big { font-size: 38px; }
   .foot > .wrap:first-child { grid-template-columns: 1fr 1fr; }
 }

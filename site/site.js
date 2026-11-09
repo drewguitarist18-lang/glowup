@@ -35,10 +35,36 @@
   document.querySelector(`[data-os-card="${isWin ? 'win' : 'unix'}"]`)?.classList.add('mine');
 
   // The installer download: this visitor's system goes first and gets its own how-to.
-  const os = isWin ? 'win' : 'mac';
-  document.querySelectorAll('[data-dl-note]').forEach((p) => { p.hidden = p.dataset.dlNote !== os; });
-  const mineDl = document.querySelector(`[data-dl="${os}"]`);
-  if (mineDl) { mineDl.classList.replace('btn-dark', 'btn-light'); mineDl.parentElement.prepend(mineDl); }
+  const dl = document.querySelector('.dl');
+  if (dl) {
+    const FILES = { win: ['downloads/Install-Glowup.cmd', 'Download for Windows'], mac: ['downloads/Install-Glowup-mac.zip', 'Download for Mac'] };
+    const go = dl.querySelector('[data-dl-go]');
+    const label = dl.querySelector('[data-dl-label]');
+    let timer;
+    const setOs = (os) => {
+      dl.dataset.os = os;
+      dl.querySelectorAll('[data-dl-tab]').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.dlTab === os)));
+      go.href = FILES[os][0];
+      label.textContent = FILES[os][1];
+      go.classList.remove('going', 'done');
+      clearTimeout(timer);
+    };
+    setOs(isWin ? 'win' : 'mac');
+    dl.querySelectorAll('[data-dl-tab]').forEach((t) => t.addEventListener('click', () => setOs(t.dataset.dlTab)));
+    dl.querySelector('[data-dl-swap]')?.addEventListener('click', () => setOs(dl.dataset.os === 'win' ? 'mac' : 'win'));
+    // The browser does the download; the button fills, then says what to do next.
+    go.addEventListener('click', () => {
+      clearTimeout(timer);
+      go.classList.remove('done');
+      go.classList.add('going');
+      label.textContent = 'Downloading…';
+      timer = setTimeout(() => {
+        go.classList.add('done');
+        label.textContent = 'Saved. Now double-click it';
+        timer = setTimeout(() => setOs(dl.dataset.os), 5000);
+      }, 900);
+    });
+  }
 
   // ---------- the replay ----------
   const studio = document.getElementById('studio');

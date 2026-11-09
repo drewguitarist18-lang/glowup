@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="styles.css?v=44">
+  <link rel="stylesheet" href="styles.css?v=45">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -339,15 +339,42 @@
           </ul>
         </div>
       </div>
-      <div class="dl">
-        <div>
-          <b>Or download the installer</b>
-          <p data-dl-note="win">Double-click it and it puts <code>/glowup</code> in the right folder. Windows may say it doesn’t recognise the file: click <b>More info</b>, then <b>Run anyway</b>.</p>
-          <p data-dl-note="mac" hidden>Open the zip, then double-click <b>Install Glowup</b>. If macOS blocks it, go to System Settings → Privacy &amp; Security and click <b>Open Anyway</b>.</p>
+      <div class="dl" data-os="win">
+        <div class="dl-copy">
+          <span class="dl-eye"><i></i>No terminal needed</span>
+          <h3>Download the installer</h3>
+          <div class="dl-tabs" role="tablist" aria-label="Your system">
+            <button type="button" role="tab" data-dl-tab="win" aria-selected="true">Windows</button>
+            <button type="button" role="tab" data-dl-tab="mac" aria-selected="false">Mac</button>
+          </div>
+          <ol class="dl-steps">
+            <li><b>Download</b> <span data-dl-only="win"><code>Install-Glowup.cmd</code></span><span data-dl-only="mac"><code>Install-Glowup-mac.zip</code></span></li>
+            <li><b>Double-click it</b> <span data-dl-only="win">If Windows warns you, click More info → Run anyway.</span><span data-dl-only="mac">Open the zip first. If macOS blocks it: Privacy &amp; Security → Open Anyway.</span></li>
+            <li><b>Type <code>/glowup</code></b> in Claude Code. Restart it first if it was open.</li>
+          </ol>
+          <a class="btn dl-go" href="downloads/Install-Glowup.cmd" download data-dl-go>
+            <span class="dl-fill" aria-hidden="true"></span>
+            <svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>
+            <span data-dl-label>Download for Windows</span>
+          </a>
+          <p class="dl-alt">On a <span data-dl-only="win">Mac</span><span data-dl-only="mac">Windows PC</span>? <button type="button" data-dl-swap>Get that one</button></p>
         </div>
-        <div class="dl-btns">
-          <a class="btn btn-dark" href="downloads/Install-Glowup.cmd" download data-dl="win"><span>Download for Windows</span><svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
-          <a class="btn btn-dark" href="downloads/Install-Glowup-mac.zip" download data-dl="mac"><span>Download for Mac</span><svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+        <div class="dl-viz" aria-hidden="true">
+          <div class="dl-win">
+            <div class="dl-bar"><i></i><i></i><i></i><span>Installing Glowup</span></div>
+            <div class="dl-stage">
+              <div class="dl-node dl-src">
+                <div class="dl-file"><span data-dl-only="win">.cmd</span><span data-dl-only="mac">.zip</span></div>
+                <small>Downloads</small>
+              </div>
+              <div class="dl-path"><span class="dl-dot"></span></div>
+              <div class="dl-node dl-dst">
+                <div class="dl-folder"><span class="dl-md">.md</span><svg class="dl-ok" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                <small>~/.claude/commands</small>
+              </div>
+            </div>
+            <div class="dl-term"><span class="dl-p">&gt;</span> <span class="dl-type">/glowup</span><span class="dl-caret"></span></div>
+          </div>
         </div>
       </div>
       <p class="fine-l"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the whole command before you run it</a></p>
@@ -393,6 +420,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=44"></script>
+<script src="site.js?v=45"></script>
 </body>
 </html>
