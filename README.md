@@ -28,7 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/in
 
 This copies each stable feature into `~/.claude/commands/`. Restart Claude Code if it was open.
 
-Or by hand: download [`features/glowup.md`](https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/features/glowup.md) into `~/.claude/commands/`.
+Or download a double-click installer from the site: [Windows](https://glowup-swart-nu.vercel.app/downloads/Install-Glowup.cmd) (`Install-Glowup.cmd`, runs `install.ps1`) or [Mac](https://glowup-swart-nu.vercel.app/downloads/Install-Glowup-mac.zip) (a zipped `Install Glowup.command`). The Mac zip is built from `installers/` by `python tools/build_installers.py`, which keeps the file executable.
 
 ## Use
 

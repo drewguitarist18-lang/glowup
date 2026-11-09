@@ -321,9 +321,10 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .plan-rec li::before { color: var(--link); }
 .plan.mine .badge { display: inline-block !important; }
 .dl { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; padding: 26px 40px; border-radius: 18px; background: #18181a; }
-.dl b { font: 600 20px/1.2 var(--head); letter-spacing: -.3px; }
+.dl > div > b { font: 600 20px/1.2 var(--head); letter-spacing: -.3px; }
 .dl p { margin-top: 6px; color: var(--mute); font-size: 14.5px; }
-.dl .btn { flex: none; }
+.dl-btns { display: flex; gap: 10px; flex: none; }
+.dl p b { font-weight: 600; color: var(--fg-2); }
 .plan-top { display: flex; justify-content: space-between; align-items: center; }
 .plan-top b { font: 600 24px/1.2 var(--head); letter-spacing: -.4px; }
 .badge { font-size: 12px; font-weight: 600; color: #aebfff; padding: 6px 12px; border-radius: 999px; background: rgba(74, 116, 245, .18); }
@@ -409,6 +410,7 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
   .tiles { grid-template-columns: 1fr; gap: 36px; }
   .plan { padding: 28px 22px; }
   .dl { flex-direction: column; align-items: stretch; padding: 24px 22px; }
+  .dl-btns { flex-direction: column; }
   .plan-big { font-size: 38px; }
   .foot > .wrap:first-child { grid-template-columns: 1fr 1fr; }
 }

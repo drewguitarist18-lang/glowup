@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="styles.css?v=43">
+  <link rel="stylesheet" href="styles.css?v=44">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -341,10 +341,14 @@
       </div>
       <div class="dl">
         <div>
-          <b>Or download the file</b>
-          <p>Save <code>glowup.md</code> into <code>~/.claude/commands</code> (on Windows, <code>%USERPROFILE%\.claude\commands</code>), then restart Claude Code.</p>
+          <b>Or download the installer</b>
+          <p data-dl-note="win">Double-click it and it puts <code>/glowup</code> in the right folder. Windows may say it doesn’t recognise the file: click <b>More info</b>, then <b>Run anyway</b>.</p>
+          <p data-dl-note="mac" hidden>Open the zip, then double-click <b>Install Glowup</b>. If macOS blocks it, go to System Settings → Privacy &amp; Security and click <b>Open Anyway</b>.</p>
         </div>
-        <a class="btn btn-dark" href="https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/features/glowup.md" download="glowup.md" data-download><span>Download glowup.md</span><svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+        <div class="dl-btns">
+          <a class="btn btn-dark" href="downloads/Install-Glowup.cmd" download data-dl="win"><span>Download for Windows</span><svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+          <a class="btn btn-dark" href="downloads/Install-Glowup-mac.zip" download data-dl="mac"><span>Download for Mac</span><svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+        </div>
       </div>
       <p class="fine-l"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the whole command before you run it</a></p>
     </div>
@@ -389,6 +393,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=43"></script>
+<script src="site.js?v=44"></script>
 </body>
 </html>

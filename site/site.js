@@ -34,21 +34,11 @@
   // The install card for this visitor's system gets the badge.
   document.querySelector(`[data-os-card="${isWin ? 'win' : 'unix'}"]`)?.classList.add('mine');
 
-  // Download glowup.md straight from GitHub. A cross-origin link ignores `download` and would
-  // just open the text, so fetch it and save a blob; if that fails, the plain link still works.
-  document.querySelectorAll('[data-download]').forEach((a) => a.addEventListener('click', async (e) => {
-    e.preventDefault();
-    try {
-      const r = await fetch(a.href, { cache: 'no-store' });
-      if (!r.ok) throw new Error(r.status);
-      const url = URL.createObjectURL(new Blob([await r.text()], { type: 'text/markdown' }));
-      const tmp = Object.assign(document.createElement('a'), { href: url, download: 'glowup.md' });
-      document.body.append(tmp); tmp.click(); tmp.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 4000);
-      const label = a.querySelector('span'), was = label.textContent;
-      label.textContent = 'Downloaded'; setTimeout(() => { label.textContent = was; }, 1800);
-    } catch { location.href = a.href; }
-  }));
+  // The installer download: this visitor's system goes first and gets its own how-to.
+  const os = isWin ? 'win' : 'mac';
+  document.querySelectorAll('[data-dl-note]').forEach((p) => { p.hidden = p.dataset.dlNote !== os; });
+  const mineDl = document.querySelector(`[data-dl="${os}"]`);
+  if (mineDl) { mineDl.classList.replace('btn-dark', 'btn-light'); mineDl.parentElement.prepend(mineDl); }
 
   // ---------- the replay ----------
   const studio = document.getElementById('studio');
