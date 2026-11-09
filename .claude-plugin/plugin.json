@@ -1,0 +1,10 @@
+{
+  "name": "glowup",
+  "description": "Glow up a vibe-coded app into a professional one: score it out of 100, fix it category by category on its own git branch, and score it again.",
+  "version": "1.0.0",
+  "author": { "name": "drewguitarist18-lang", "url": "https://github.com/drewguitarist18-lang" },
+  "homepage": "https://glowup-swart-nu.vercel.app",
+  "repository": "https://github.com/drewguitarist18-lang/glowup",
+  "keywords": ["audit", "security", "tests", "ui", "refactor"],
+  "commands": ["./features/glowup.md"]
+}

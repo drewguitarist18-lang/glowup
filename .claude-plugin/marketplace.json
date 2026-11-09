@@ -1,0 +1,13 @@
+{
+  "name": "glowup",
+  "owner": { "name": "drewguitarist18-lang", "url": "https://github.com/drewguitarist18-lang" },
+  "metadata": { "description": "Glowup: turn a vibe-coded app into a professional one." },
+  "plugins": [
+    {
+      "name": "glowup",
+      "source": "./",
+      "description": "Score your app out of 100, fix it category by category on its own git branch, and score it again.",
+      "category": "development"
+    }
+  ]
+}

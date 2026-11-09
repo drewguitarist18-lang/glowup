@@ -6,7 +6,15 @@ Site: https://glowup-swart-nu.vercel.app (mirror: https://drewguitarist18-lang.g
 
 ## Install
 
-Windows (PowerShell):
+Easiest, inside Claude Code:
+
+```
+/plugin install glowup --marketplace drewguitarist18-lang/glowup
+```
+
+On older Claude Code versions, run `/plugin marketplace add drewguitarist18-lang/glowup` first, then `/plugin install glowup@glowup`. The repo root is the plugin: `.claude-plugin/plugin.json` points at `features/glowup.md`, so there is only one copy of the command.
+
+Or with a script. Windows (PowerShell):
 
 ```powershell
 irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex
@@ -19,6 +27,8 @@ curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/in
 ```
 
 This copies each stable feature into `~/.claude/commands/`. Restart Claude Code if it was open.
+
+Or by hand: download [`features/glowup.md`](https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/features/glowup.md) into `~/.claude/commands/`.
 
 ## Use
 

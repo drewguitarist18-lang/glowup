@@ -6,6 +6,7 @@
   'use strict';
 
   const CMD = {
+    plugin: '/plugin install glowup --marketplace drewguitarist18-lang/glowup',
     win: 'irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex',
     unix: 'curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.sh | bash',
   };
@@ -27,11 +28,27 @@
     setTimeout(() => { label.textContent = was; btn.classList.remove('done'); }, 1600);
   }
   document.querySelectorAll('[data-copy-install]').forEach((b) =>
-    b.addEventListener('click', () => copy(CMD[isWin ? 'win' : 'unix'], b)));
+    b.addEventListener('click', () => copy(CMD.plugin, b)));
   document.querySelectorAll('[data-copy]').forEach((b) =>
     b.addEventListener('click', () => copy(CMD[b.dataset.copy], b)));
-  // The install card for this visitor's system gets the highlight.
+  // The install card for this visitor's system gets the badge.
   document.querySelector(`[data-os-card="${isWin ? 'win' : 'unix'}"]`)?.classList.add('mine');
+
+  // Download glowup.md straight from GitHub. A cross-origin link ignores `download` and would
+  // just open the text, so fetch it and save a blob; if that fails, the plain link still works.
+  document.querySelectorAll('[data-download]').forEach((a) => a.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      const r = await fetch(a.href, { cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status);
+      const url = URL.createObjectURL(new Blob([await r.text()], { type: 'text/markdown' }));
+      const tmp = Object.assign(document.createElement('a'), { href: url, download: 'glowup.md' });
+      document.body.append(tmp); tmp.click(); tmp.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      const label = a.querySelector('span'), was = label.textContent;
+      label.textContent = 'Downloaded'; setTimeout(() => { label.textContent = was; }, 1800);
+    } catch { location.href = a.href; }
+  }));
 
   // ---------- the replay ----------
   const studio = document.getElementById('studio');

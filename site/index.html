@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="styles.css?v=42">
+  <link rel="stylesheet" href="styles.css?v=43">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -300,8 +300,20 @@
   <section class="sec" id="install">
     <div class="wrap">
       <h2 class="h2">Install</h2>
-      <p class="sub">Free, and it’s one Markdown file. Run the installer again to update.</p>
+      <p class="sub">Free, and it’s one Markdown file. Install it inside Claude Code, with a script, or by hand.</p>
       <div class="plans">
+        <div class="plan plan-rec">
+          <p class="plan-top"><b>Claude Code plugin</b><span class="badge">Easiest</span></p>
+          <p class="plan-sub">Type it in Claude Code. No terminal, no files.</p>
+          <p class="plan-big">/glowup <span>from inside Claude Code</span></p>
+          <pre><code data-cmd="plugin">/plugin install glowup --marketplace drewguitarist18-lang/glowup</code></pre>
+          <button type="button" class="btn btn-wide" data-copy="plugin"><span>Copy command</span></button>
+          <ul>
+            <li>Updates come through <code>/plugin</code></li>
+            <li>Remove it any time with <code>/plugin uninstall glowup</code></li>
+            <li>Older Claude Code: <code>/plugin marketplace add drewguitarist18-lang/glowup</code>, then <code>/plugin install glowup@glowup</code></li>
+          </ul>
+        </div>
         <div class="plan" data-os-card="win">
           <p class="plan-top"><b>Windows</b><span class="badge" hidden>Your system</span></p>
           <p class="plan-sub">PowerShell</p>
@@ -326,6 +338,13 @@
             <li>Uninstall by deleting that one file</li>
           </ul>
         </div>
+      </div>
+      <div class="dl">
+        <div>
+          <b>Or download the file</b>
+          <p>Save <code>glowup.md</code> into <code>~/.claude/commands</code> (on Windows, <code>%USERPROFILE%\.claude\commands</code>), then restart Claude Code.</p>
+        </div>
+        <a class="btn btn-dark" href="https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/features/glowup.md" download="glowup.md" data-download><span>Download glowup.md</span><svg class="i" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
       </div>
       <p class="fine-l"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the whole command before you run it</a></p>
     </div>
@@ -370,6 +389,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=42"></script>
+<script src="site.js?v=43"></script>
 </body>
 </html>
