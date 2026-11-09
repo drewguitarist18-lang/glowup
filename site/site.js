@@ -1,317 +1,251 @@
-// The page's moving parts: the studio replay, the shell switch and the copy buttons. No build step.
+// glowup site: the studio replay, the timeline and the copy buttons. No build step.
 //
-// The studio is a pure function of time. render(t) works out everything on screen at moment t
-// (terminal lines, score, tier, checks, the app wipe, the timeline), so playing, looping and
-// jumping from the timeline all go through the same code.
+// The replay is a pure function of time: render(t) works out the whole studio at moment t, so
+// the timeline can jump anywhere and reduced motion can just show the end.
+(() => {
+  'use strict';
 
-const RAW = "https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main";
-const COMMANDS = {
-  win: `irm ${RAW}/install.ps1 | iex`,
-  unix: `curl -fsSL ${RAW}/install.sh | bash`,
-};
-const PLATFORM = navigator.userAgentData?.platform || navigator.platform || "";
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// ---------- Install box ----------
-
-function wireShells() {
-  const isWindows = /Win/i.test(PLATFORM);
-  const boxes = [...document.querySelectorAll("[data-os-box]")];
-  const pick = (os) => {
-    for (const box of boxes) {
-      box.querySelector("[data-cmd]").textContent = COMMANDS[os];
-      for (const b of box.querySelectorAll("button[data-os]")) b.setAttribute("aria-pressed", String(b.dataset.os === os));
-    }
+  const CMD = {
+    win: 'irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex',
+    unix: 'curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.sh | bash',
   };
-  for (const b of document.querySelectorAll("button[data-os]")) b.addEventListener("click", () => pick(b.dataset.os));
-  pick(isWindows ? "win" : "unix");
-}
+  const isWin = /win/i.test(navigator.userAgentData?.platform || navigator.platform || '');
 
-function wireCopy() {
-  const shortcut = /Mac|iPhone|iPad/i.test(PLATFORM) ? "Press ⌘C" : "Press Ctrl+C";
-  for (const btn of document.querySelectorAll("button.copy")) {
-    const label = btn.querySelector("span");
-    let timer;
-    btn.addEventListener("click", async () => {
-      const code = btn.closest(".cmd").querySelector("[data-cmd]");
-      try {
-        await navigator.clipboard.writeText(code.textContent);
-        label.textContent = "Copied";
-      } catch {
-        // No clipboard access: select it so it can be copied by hand.
-        const range = document.createRange();
-        range.selectNodeContents(code);
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        label.textContent = shortcut;
-      }
-      clearTimeout(timer);
-      timer = setTimeout(() => { label.textContent = "Copy"; }, 1600);
-    });
+  // ---------- copy buttons ----------
+  async function copy(text, btn) {
+    try { await navigator.clipboard.writeText(text); }
+    catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.append(ta); ta.select();
+      try { document.execCommand('copy'); } catch {}
+      ta.remove();
+    }
+    const label = btn.querySelector('span');
+    const was = label.textContent;
+    label.textContent = 'Copied';
+    btn.classList.add('done');
+    setTimeout(() => { label.textContent = was; btn.classList.remove('done'); }, 1600);
   }
-}
+  document.querySelectorAll('[data-copy-install]').forEach((b) =>
+    b.addEventListener('click', () => copy(CMD[isWin ? 'win' : 'unix'], b)));
+  document.querySelectorAll('[data-copy]').forEach((b) =>
+    b.addEventListener('click', () => copy(CMD[b.dataset.copy], b)));
+  // The install card for this visitor's system gets the highlight.
+  document.querySelector(`[data-os-card="${isWin ? 'win' : 'unix'}"]`)?.classList.add('mine');
 
-// ---------- The run ----------
+  // ---------- the replay ----------
+  const studio = document.getElementById('studio');
+  if (!studio) return;
 
-const TIERS = [
-  { min: 90, key: "t5", name: "Production Grade" },
-  { min: 80, key: "t4", name: "Professional" },
-  { min: 60, key: "t3", name: "Launch-Ready" },
-  { min: 40, key: "t2", name: "Side Project" },
-  { min: 0, key: "t1", name: "Vibe Prototype" },
-];
-const tierOf = (score) => TIERS.find((t) => score >= t.min);
+  // Ten categories in fix order; from/to add up to 38 and 86. x/y place the issue pin on the app.
+  const CATS = [
+    { name: 'Security', from: 2, to: 9, file: 'lib/supabase.ts', del: 'SERVICE_KEY in client', add: 'anon key + RLS', msg: 'move service key server-side', issue: 'service key in the bundle', x: 84, y: 9, left: true },
+    { name: 'Backend & API', short: 'Backend', from: 4, to: 9, file: 'api/checkout/route.ts', del: 'await req.json()', add: 'Checkout.parse(body)', msg: 'validate checkout input', issue: 'trusts req.body', x: 63, y: 60 },
+    { name: 'Database', from: 5, to: 9, file: 'migrations/0007.sql', del: null, add: 'index orders(user_id)', msg: 'index lookups, drop N+1', issue: 'query inside a loop', x: 28, y: 82 },
+    { name: 'Error handling', short: 'Errors', from: 3, to: 8, file: 'dashboard/page.tsx', del: 'catch {}', add: '<ErrorState retry />', msg: 'error state with retry', issue: 'empty catch {}', x: 73, y: 82, left: true },
+    { name: 'Structure', from: 5, to: 9, file: 'app/page.tsx', del: '1,240 lines', add: 'components/landing/*', msg: 'split the 1,240-line page', issue: 'page.tsx is 1,240 lines', x: 13, y: 9 },
+    { name: 'Types & quality', short: 'Types', from: 4, to: 9, file: 'tsconfig.json', del: '"strict": false', add: '"strict": true', msg: 'strict mode, 0 any', issue: '37 × any', x: 20, y: 42 },
+    { name: 'Tests', from: 1, to: 8, file: 'tests/checkout.test.ts', del: null, add: '24 tests', msg: 'vitest for checkout and auth', issue: 'no tests', x: 88, y: 52, left: true },
+    { name: 'DevOps', from: 2, to: 8, file: '.github/workflows/ci.yml', del: null, add: 'lint · test · build', msg: 'CI on every push', issue: 'no CI', x: 47, y: 9 },
+    { name: 'Observability', short: 'Logs', from: 6, to: 8, file: 'lib/log.ts', del: 'console.log ×61', add: 'log.info(event)', msg: 'structured logs', issue: 'console.log × 61', x: 50, y: 82 },
+    { name: 'UI polish', short: 'UI', from: 6, to: 9, file: 'app/(landing)/*', del: 'gradients, emoji', add: 'one type scale', msg: 'drop the template look', issue: 'template look', x: 50, y: 30 },
+  ];
+  const START = CATS.reduce((s, c) => s + c.from, 0);
+  const END = CATS.reduce((s, c) => s + c.to, 0);
+  const TIERS = [[90, 'Production Grade'], [80, 'Professional'], [60, 'Launch-Ready'], [40, 'Side Project'], [0, 'Vibe Prototype']];
+  const tierOf = (s) => TIERS.find(([min]) => s >= min)[1];
 
-// The ten categories in the order glowup fixes them, as they went on the sample app.
-const CATS = [
-  { name: "Security", short: "Security", from: 3, to: 9, tool: "Update(lib/ai.ts)", note: "API key moved server-side, .env out of git" },
-  { name: "Backend & API", short: "Backend", from: 4, to: 9, tool: "Update(app/api/chat/route.ts)", note: "zod validation, model allowlist, rate limit" },
-  { name: "Database", short: "Database", from: 5, to: 9, tool: "Write(prisma/migrations/0001_init.sql)", note: "first migration, index on (chatId, createdAt)" },
-  { name: "Error handling", short: "Errors", from: 3, to: 9, tool: "Write(app/error.tsx)", note: "error boundary, failed streams show a retry" },
-  { name: "Structure", short: "Structure", from: 5, to: 8, tool: "Bash(git mv app/page.tsx components/Chat.tsx)", note: "1,186-line page split into components/" },
-  { name: "Types & quality", short: "Types", from: 6, to: 9, tool: "Update(tsconfig.json)", note: "strict mode, 41 any → 0, ESLint + Prettier" },
-  { name: "Tests", short: "Tests", from: 1, to: 7, tool: "Write(tests/chat.test.ts)", note: "Vitest, 28 tests for the chat route" },
-  { name: "DevOps", short: "DevOps", from: 2, to: 9, tool: "Write(.github/workflows/ci.yml)", note: "CI runs lint, test and build" },
-  { name: "Observability", short: "Logs", from: 5, to: 8, tool: "Write(lib/log.ts)", note: "pino logger, prompts no longer logged" },
-  { name: "UI polish", short: "UI polish", from: 4, to: 9, tool: "Update(components/Message.tsx)", note: "rendered markdown, real times, empty states" },
-];
-const START = CATS.reduce((s, c) => s + c.from, 0); // 38
-const END = CATS.reduce((s, c) => s + c.to, 0);     // 86
+  // timing, ms
+  const AUDIT = 5200, FIX = 2600, RESCORE = 3000, HOLD = 5000;
+  const FIX_AT = (i) => AUDIT + i * FIX;
+  const SCORED_AT = (i) => FIX_AT(i) + FIX * 0.78;
+  const RESCORE_AT = FIX_AT(CATS.length);
+  const DONE_AT = RESCORE_AT + RESCORE;
+  const LOOP = DONE_AT + HOLD;
+  const SCORED = AUDIT - 1100;           // when the first score lands
+  const PIN_AT = (i) => 1500 + i * 260;  // pins pop in during the audit
+  const UI = CATS.length - 1;
+  const WIPE_FROM = FIX_AT(UI) + 500, WIPE_MS = 1300;
 
-// Timing, in ms. Cells on the timeline: Audit, the ten fixes, Re-score.
-const AUDIT = 3600;
-const FIX = 1500;
-const RESCORE = 3000;
-const HOLD = 4200;
-const FIX_AT = (i) => AUDIT + i * FIX;           // when fix i starts
-const SCORED_AT = (i) => FIX_AT(i) + FIX * 0.62; // when its score lands
-const RESCORE_AT = FIX_AT(CATS.length);
-const DONE = RESCORE_AT + RESCORE;
-const LOOP = DONE + HOLD;
-const WIPE = 900;                                // the after app wiping in, during UI polish
-
-const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const pad = (s, n) => s + " ".repeat(Math.max(0, n - s.length));
-
-// Every terminal line, with the time it appears.
-const LINES = (() => {
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const L = [];
-  const add = (t, html) => L.push({ t, html });
-  add(0, `<span class="p">&gt;</span> <span class="u">/glowup</span>`);
-  add(500, ``);
-  add(600, `<span class="ok">●</span> <span class="w">Read</span>(package.json)`);
-  add(800, `  <span class="d">⎿  Read 58 lines</span>`);
-  add(1200, `<span class="ok">●</span> <span class="w">Search</span>(NEXT_PUBLIC_|console.log|: any)`);
-  add(1400, `  <span class="d">⎿  Found 74 matches in 19 files</span>`);
-  add(1900, `<span class="ok">●</span> Next.js 15, Prisma, Anthropic SDK, pnpm.`);
-  add(2500, `  <span class="w">Glow Score: <span class="lo">38</span>/100 · Vibe Prototype</span>`);
-  add(3000, `<span class="ok">●</span> <span class="w">Bash</span>(git checkout -b glowup)`);
-  add(3250, `  <span class="d">⎿  Switched to a new branch 'glowup'</span>`);
+  const add = (t, cls, html) => L.push({ t, cls, html });
+  add(0, 'you', '/glowup');
+  add(500, 'gap', '');
+  add(700, 'dot say', 'Auditing first, then one fix per category.');
+  add(1300, 'dot', '<span class="tool">Read</span>(package.json)');
+  add(1700, 'out', 'Next.js · Supabase · 212 files');
+  add(2300, 'dot', '<span class="tool">Search</span>(secrets, any, logs)');
+  add(2700, 'out', '61 matches in 23 files');
+  add(3200, 'dot', '<span class="tool">Bash</span>(npm test)');
+  add(3600, 'out', 'Error: no test specified');
+  add(SCORED, 'dot say', 'Glow Score <span class="hl">38/100</span>');
+  add(4700, 'dot', '<span class="tool">Bash</span>(git switch -c glowup)');
   CATS.forEach((c, i) => {
     const t = FIX_AT(i);
-    const [verb, ...rest] = c.tool.split("(");
-    add(t + 60, ``);
-    add(t + 120, `<span class="ok">●</span> <span class="w">${esc(verb)}</span>(${esc(rest.join("("))}`);
-    add(SCORED_AT(i), `  ✅ ${esc(c.name)} <span class="lo">${c.from}</span> → <span class="hi">${c.to}</span> <span class="d">— ${esc(c.note)}</span>`);
+    add(t, 'gap', '');
+    add(t + 100, 'dot', `<span class="tool">Update</span>(${esc(c.file)})`);
+    if (c.del) add(t + 500, 'del', '- ' + esc(c.del));
+    add(t + 700, 'add', '+ ' + esc(c.add));
+    add(t + 1400, 'dot', `<span class="tool">Bash</span>(git commit)`);
+    add(SCORED_AT(i), 'out', `${esc(c.name)} ${c.from} → <span class="up">${c.to}</span>`);
   });
-  const t = RESCORE_AT;
-  add(t + 100, ``);
-  add(t + 200, `<span class="ok">●</span> Done. Same rubric, scored again:`);
-  add(t + 900, `  <span class="w">${pad("GLOW SCORE", 18)}<span class="lo">${START}</span>  →  <span class="hi">${END}</span></span>`);
-  add(t + 1200, `  Vibe Prototype → Professional`);
-  add(t + 1700, ``);
-  add(t + 1800, `  <span class="d">Undo: git checkout main &amp;&amp; git branch -D glowup</span>`);
-  return L;
-})();
+  add(RESCORE_AT, 'gap', '');
+  add(RESCORE_AT + 100, 'dot', '<span class="tool">Bash</span>(lint && test && build)');
+  add(RESCORE_AT + 900, 'out', '24 passed · build ok');
+  add(RESCORE_AT + 1800, 'dot say', `Glow Score <span class="hl">${START} → ${END}</span> <span class="up">+${END - START}</span>`);
+  add(RESCORE_AT + 2400, 'out', '10 commits on glowup');
 
-// Checks in the preview flip to passing when their category is fixed.
-const CHECK_FOR = { 0: "Secrets", 5: "Lint", 6: "Tests", 7: "CI" };
+  // ---------- DOM ----------
+  const $ = (s) => studio.querySelector(s);
+  const el = {
+    lines: $('[data-lines]'), spin: $('[data-spin]'), spinText: $('[data-spin-text]'), star: $('[data-star]'),
+    score: $('[data-score]'), tier: $('[data-tier]'), delta: $('[data-delta]'), pill: $('[data-score-pill]'),
+    branch: $('[data-branch]'), stepName: $('[data-step-name]'), stepOf: $('[data-step-of]'),
+    toolNum: $('[data-tool-num]'), toolName: $('[data-tool-name]'), toolFiles: $('[data-tool-files]'), toolTime: $('[data-tool-time]'),
+    after: $('[data-after]'), pins: $('[data-pins]'), rows: $('[data-rows]'),
+    cells: $('[data-cells]'), ruler: $('[data-ruler]'), wave: $('[data-wave]'), head: $('[data-playhead]'), phLabel: $('[data-ph-label]'),
+    clock: $('[data-clock]'), total: $('[data-total]'), play: $('[data-play]'),
+  };
+  const fmt = (ms) => { const s = ms / 1000; return `${String(Math.floor(s / 60)).padStart(2, '0')}:${(s % 60).toFixed(1).padStart(4, '0')}`; };
+  el.total.textContent = fmt(LOOP).slice(0, 5);
 
-function stateAt(t) {
-  let score = START;
-  let fixed = -1;
-  for (let i = 0; i < CATS.length; i++) {
-    const at = SCORED_AT(i);
-    if (t >= at) {
-      // Count up over 300ms once the fix lands.
-      const k = Math.min(1, (t - at) / 300);
-      score += Math.round((CATS[i].to - CATS[i].from) * k);
-      fixed = i;
+  el.rows.innerHTML = CATS.map((c) => `<li><span>${esc(c.name)}</span><b>${c.from}</b><span class="track"><span class="fill"></span></span></li>`).join('');
+  const rows = [...el.rows.children];
+
+  el.pins.innerHTML = CATS.map((c, i) =>
+    `<span class="pin${c.x > 55 ? ' left' : ''}" style="left:${c.x}%;top:${c.y}%"><i>${i + 1}</i><b>${esc(c.name)}<span>${esc(c.issue)}</span></b></span>`).join('');
+  const pins = [...el.pins.children];
+
+  const STEPS = [{ label: 'Audit', at: 0, end: AUDIT, files: '212 files' },
+    ...CATS.map((c, i) => ({ label: c.short || c.name, name: c.name, at: FIX_AT(i), end: FIX_AT(i + 1), files: c.file })),
+    { label: 'Re-score', at: RESCORE_AT, end: LOOP, files: 'lint · test · build' }];
+  el.cells.innerHTML = STEPS.map((s) => `<li style="flex:${s.end - s.at} 1 0"><button type="button">${esc(s.label)}<i></i></button></li>`).join('');
+  const cells = [...el.cells.querySelectorAll('button')];
+  cells.forEach((b, i) => b.addEventListener('click', () => { seek(STEPS[i].at + 1); play(); }));
+
+  for (let s = 0; s <= LOOP / 1000; s += 5) {
+    el.ruler.insertAdjacentHTML('beforeend', `<span style="left:${(s * 1000 / LOOP) * 100}%">${s}s</span>`);
+  }
+  // "Diff size": a quiet bed with a spike at each commit. Seeded so it never changes.
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const BARS = 150;
+  let bars = '';
+  for (let k = 0; k < BARS; k++) {
+    const tm = (k / BARS) * LOOP;
+    let h = 0.14 + rnd() * 0.16;
+    CATS.forEach((_, i) => { const d = Math.abs(tm - (FIX_AT(i) + 900)) / 450; if (d < 1) h = Math.max(h, (1 - d) * (0.6 + rnd() * 0.4)); });
+    if (tm > DONE_AT) h *= 0.35;
+    bars += `<i style="height:${Math.round(h * 100)}%"></i>`;
+  }
+  el.wave.insertAdjacentHTML('beforeend', bars);
+
+  const SPIN = ['✻', '✽', '✶', '✳', '✢', '·'];
+  let shown = -1;
+
+  function render(t) {
+    // terminal
+    let n = 0;
+    while (n < L.length && L[n].t <= t) n++;
+    if (n !== shown) {
+      const fresh = n > shown && n - shown <= 2;
+      el.lines.innerHTML = L.slice(Math.max(0, n - 34), n).map((l, k, arr) =>
+        `<p class="${l.cls}${fresh && k >= arr.length - (n - shown) ? ' new' : ''}">${l.html}</p>`).join('');
+      shown = n;
+    }
+
+    const fixing = CATS.findIndex((_, i) => t >= FIX_AT(i) && t < FIX_AT(i + 1));
+    const step = STEPS.findIndex((s) => t >= s.at && t < s.end);
+    const S = STEPS[step] || STEPS[STEPS.length - 1];
+
+    // score
+    let score = START;
+    CATS.forEach((c, i) => {
+      const done = t >= SCORED_AT(i);
+      if (done) score += c.to - c.from;
+      const r = rows[i];
+      r.classList.toggle('done', done);
+      r.classList.toggle('now', i === fixing);
+      r.children[1].innerHTML = done ? `<s>${c.from}</s>${c.to}` : (t >= SCORED ? c.from : '–');
+      r.querySelector('.fill').style.width = (t < SCORED ? 0 : (done ? c.to : c.from) * 10) + '%';
+
+      const p = pins[i];
+      p.classList.toggle('open', t >= PIN_AT(i) && !done);
+      p.classList.toggle('on', i === fixing && !done);
+      p.classList.toggle('fixed', done);
+    });
+    const scored = t >= SCORED;
+    el.score.textContent = scored ? score : '—';
+    el.tier.textContent = scored ? tierOf(score) : 'Auditing…';
+    el.delta.textContent = score > START ? `+${score - START}` : '';
+    el.pill.textContent = !scored ? '— /100' : score > START ? `${START} → ${score}` : `${score} /100`;
+
+    // the app's look changes when UI polish lands
+    const wipe = Math.max(0, Math.min(1, (t - WIPE_FROM) / WIPE_MS));
+    el.after.style.setProperty('--wipe', wipe);
+    el.after.style.setProperty('--edge', wipe > 0 && wipe < 1 ? 1 : 0);
+
+    // chrome
+    el.branch.textContent = t >= 4700 ? 'glowup' : 'main';
+    el.stepName.textContent = S.name || S.label;
+    el.stepOf.textContent = `Step ${step + 1} of ${STEPS.length}`;
+    el.toolNum.textContent = String(step + 1).padStart(2, '0');
+    el.toolName.textContent = S.name || S.label;
+    el.toolFiles.textContent = S.files;
+    el.toolTime.textContent = ((t - S.at) / 1000).toFixed(1) + ' s';
+    el.clock.textContent = fmt(t);
+
+    let busy = '';
+    if (t < SCORED) busy = 'Auditing…';
+    else if (fixing >= 0 && t < SCORED_AT(fixing)) busy = `Fixing ${CATS[fixing].name}…`;
+    else if (t >= RESCORE_AT && t < RESCORE_AT + 1800) busy = 'Re-scoring…';
+    el.spin.classList.toggle('idle', !busy);
+    if (busy) el.spinText.textContent = busy;
+    el.star.textContent = SPIN[Math.floor(t / 140) % SPIN.length];
+
+    // timeline
+    cells.forEach((b, i) => { b.classList.toggle('now', i === step); b.classList.toggle('past', i < step); });
+    const box = el.head.parentElement.getBoundingClientRect();
+    const r = cells[step]?.getBoundingClientRect();
+    if (r && box.width) {
+      const frac = Math.min(1, (t - S.at) / (S.end - S.at));
+      el.head.style.left = (r.left - box.left + frac * r.width) + 'px';
+      el.phLabel.textContent = (t / 1000).toFixed(1) + 's';
     }
   }
-  let cell; // 0 audit, 1..10 fixes, 11 re-score
-  if (t < AUDIT) cell = 0;
-  else if (t < RESCORE_AT) cell = 1 + Math.floor((t - AUDIT) / FIX);
-  else cell = 11;
-  // Where the playhead sits: across the cell in proportion to time spent in it.
-  let frac;
-  if (cell === 0) frac = t / AUDIT;
-  else if (cell === 11) frac = Math.min(1, (t - RESCORE_AT) / RESCORE);
-  else frac = (t - FIX_AT(cell - 1)) / FIX;
-  const uiAt = FIX_AT(9) + FIX * 0.3;
-  const wipe = Math.max(0, Math.min(1, (t - uiAt) / WIPE));
-  let status;
-  if (cell === 0) status = t < 3000 ? "Auditing" : "Branching to glowup";
-  else if (cell === 11) status = t < DONE ? "Re-scoring" : `Done · ${CATS.length} commits`;
-  else status = `Fixing ${CATS[cell - 1].name}`;
-  return { score, fixed, cell, frac, wipe, status, branch: t >= 3250 ? "glowup" : "main" };
-}
 
-function wireStudio() {
-  const studio = document.getElementById("studio");
-  if (!studio) return;
-  const q = (sel) => studio.querySelector(sel);
-  const term = q("[data-term]");
-  const scoreEl = q("[data-score]");
-  const tierEl = q("[data-tier-name]");
-  const deltaEl = q("[data-delta]");
-  const statusEl = q("[data-status]");
-  const branchEl = q("[data-branch]");
-  const toast = q("[data-toast]");
-  const playBtn = q("[data-play]");
-  const playhead = q("[data-playhead]");
-  const cellsEl = q("[data-cells]");
-  const checks = [...studio.querySelectorAll("[data-check]")];
+  // ---------- clock ----------
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t = 0, last = 0, playing = !reduce, visible = true, raf = 0;
 
-  // Build the timeline.
-  const cellDefs = [
-    { label: "Audit", sc: `${START}/100` },
-    ...CATS.map((c) => ({ label: c.short, from: c.from, to: c.to })),
-    { label: "Re-score", sc: `${START} → ${END}` },
-  ];
-  const cells = cellDefs.map((d, i) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.setAttribute("aria-label", i === 0 ? "Jump to the audit" : i === 11 ? "Jump to the re-score" : `Jump to ${CATS[i - 1].name}`);
-    const sc = d.sc ?? `${d.from} → <b>${d.to}</b>`;
-    btn.innerHTML = `<span class="nm">${esc(d.label)}</span><span class="sc">${sc}</span><i class="fill"></i>`;
-    const li = document.createElement("li");
-    if (i >= 1 && i <= 10) li.dataset.tier = tierOf(d.to * 10).key;
-    else li.dataset.tier = i === 0 ? "t1" : tierOf(END).key;
-    li.append(btn);
-    cellsEl.append(li);
-    btn.addEventListener("click", () => {
-      const at = i === 0 ? 0 : i === 11 ? RESCORE_AT : FIX_AT(i - 1);
-      seek(at);
-      play();
-    });
-    return li;
-  });
-
-  let shownLines = -1;
-  let last = {};
-  const render = (t) => {
-    const s = stateAt(t);
-
-    // Terminal: rebuild only when the number of visible lines changes.
-    let n = 0;
-    while (n < LINES.length && LINES[n].t <= t) n++;
-    if (n !== shownLines) {
-      const grew = n === shownLines + 1;
-      term.innerHTML = LINES.slice(0, n).map((l, i) => {
-        const cls = [grew && i === n - 1 ? "new" : "", i === n - 1 ? "cur" : ""].filter(Boolean).join(" ");
-        return `<div${cls ? ` class="${cls}"` : ""}>${l.html}</div>`;
-      }).join("");
-      shownLines = n;
-    }
-
-    if (s.score !== last.score) {
-      const tier = tierOf(s.score);
-      scoreEl.textContent = s.score;
-      tierEl.textContent = tier.name;
-      studio.dataset.tier = tier.key;
-      deltaEl.textContent = s.score > START ? `+${s.score - START}` : "";
-    }
-    if (s.status !== last.status) statusEl.textContent = s.status;
-    if (s.branch !== last.branch) branchEl.textContent = s.branch;
-    if (s.wipe !== last.wipe) studio.style.setProperty("--wipe", s.wipe.toFixed(3));
-    toast.classList.toggle("gone", s.fixed >= 3);
-
-    if (s.fixed !== last.fixed) {
-      for (const li of checks) {
-        const pass = s.fixed >= Number(li.dataset.check);
-        if (pass && !li.classList.contains("pass") && last.fixed !== undefined) {
-          li.classList.add("flip");
-          setTimeout(() => li.classList.remove("flip"), 450);
-        }
-        li.classList.toggle("pass", pass);
-      }
-    }
-    if (s.cell !== last.cell || s.fixed !== last.fixed) {
-      cells.forEach((li, i) => {
-        const done = i === 0 ? t >= AUDIT : i === 11 ? t >= DONE : s.fixed >= i - 1;
-        li.classList.toggle("done", done);
-        li.classList.toggle("now", i === s.cell && t < DONE);
-      });
-    }
-
-    // Playhead: the centre of the current cell's track position.
-    const cell = cells[s.cell];
-    const box = cellsEl.getBoundingClientRect();
-    const r = cell.getBoundingClientRect();
-    const tl = playhead.parentElement.getBoundingClientRect();
-    playhead.style.left = `${r.left - tl.left + r.width * Math.min(1, s.frac)}px`;
-    playhead.style.top = `${r.top - tl.top - 3}px`;
-    playhead.style.height = `${r.height + 6}px`;
-    playhead.hidden = box.width === 0;
-
-    last = s;
-  };
-
-  // Playback clock.
-  let t = 0;
-  let playing = false;
-  let visible = false;
-  let raf = 0;
-  let prev = 0;
-  const tick = (now) => {
-    const dt = Math.min(100, now - prev);
-    prev = now;
-    t += dt;
-    if (t >= LOOP) { t = 0; shownLines = -1; }
+  function tick(now) {
+    raf = 0;
+    if (!playing || !visible || document.hidden) { last = 0; return; }
+    if (last) t += Math.min(64, now - last);
+    last = now;
+    if (t >= LOOP) { t = 0; shown = -1; }
     render(t);
     raf = requestAnimationFrame(tick);
-  };
-  const run = () => {
-    cancelAnimationFrame(raf);
-    if (playing && visible && !document.hidden) {
-      prev = performance.now();
-      raf = requestAnimationFrame(tick);
-    }
-  };
-  const setIcon = () => {
-    playBtn.querySelector("use").setAttribute("href", playing ? "#i-pause" : "#i-play");
-    playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
-  };
-  const play = () => { playing = true; setIcon(); run(); };
-  const pause = () => { playing = false; setIcon(); run(); };
-  const seek = (at) => { t = at; shownLines = -1; render(t); };
-
-  playBtn.addEventListener("click", () => {
-    if (playing) return pause();
-    if (t >= DONE) seek(0);
-    play();
-  });
-  document.addEventListener("visibilitychange", run);
-  window.addEventListener("resize", () => render(t));
-
-  if (reduceMotion) {
-    // Show the finished run, still. The timeline still jumps.
-    seek(DONE);
-    pause();
-    return;
   }
-  render(0);
-  playing = true;
-  setIcon();
-  if (!("IntersectionObserver" in window)) { visible = true; return run(); }
-  new IntersectionObserver((entries) => {
-    visible = entries.some((e) => e.isIntersecting);
-    run();
-  }, { threshold: 0.25 }).observe(studio);
-}
+  const wake = () => { if (!raf && playing) raf = requestAnimationFrame(tick); };
+  function seek(ms) { t = Math.max(0, Math.min(LOOP - 1, ms)); shown = -1; render(t); }
+  function setIcon() {
+    el.play.querySelector('[data-icon-pause]').hidden = !playing;
+    el.play.querySelector('[data-icon-play]').hidden = playing;
+    el.play.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+  function play() { playing = true; setIcon(); wake(); }
+  el.play.addEventListener('click', () => {
+    playing = !playing;
+    if (playing && t >= DONE_AT) seek(0);
+    setIcon(); wake();
+  });
 
-wireShells();
-wireCopy();
-wireStudio();
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; wake(); }).observe(studio);
+  document.addEventListener('visibilitychange', wake);
+  addEventListener('resize', () => render(t));
+
+  if (reduce) { t = DONE_AT + 100; setIcon(); render(t); }
+  else { render(0); wake(); }
+})();

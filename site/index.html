@@ -9,44 +9,34 @@
   <meta property="og:title" content="glowup · Your vibe-coded app deserves a glow up">
   <meta property="og:description" content="One Claude Code command scores your project out of 100, fixes it category by category on its own branch, and scores it again.">
   <meta property="og:url" content="https://glowup-swart-nu.vercel.app/">
-  <meta name="theme-color" content="#101010">
+  <meta name="theme-color" content="#101011">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500&display=swap">
+  <link rel="stylesheet" href="styles.css?v=40">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- Icons for the demo app. Both versions use the same set, the way a real glow up would. -->
-<svg class="sprite" aria-hidden="true" focusable="false">
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-  <symbol id="i-cross" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
-  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
-  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="13" height="13" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
-  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
-  <symbol id="i-clip" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
-  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="i-branch" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
-</svg>
-
 <header class="site">
   <div class="wrap">
     <a class="brand" href="./">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1d1d1d"/><path d="M7 18h4v7H7z" fill="#ef5a3c"/><path d="M14 13h4v12h-4z" fill="#ebc63a"/><path d="M21 7h4v18h-4z" fill="#45d483"/></svg>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 19h5v8H5zM13.5 12h5v15h-5zM22 5h5v22h-5z" fill="currentColor"/></svg>
       glowup
     </a>
     <nav aria-label="Sections">
-      <a href="#how">How it works</a>
-      <a href="#categories">Categories</a>
-      <a href="#usage">Usage</a>
+      <a href="#ways">Usage</a>
+      <a href="#checks">What it checks</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/drewguitarist18-lang/glowup">GitHub</a>
     </nav>
-    <a class="pill pill-light pill-sm" href="https://github.com/drewguitarist18-lang/glowup">GitHub</a>
+    <div class="head-r">
+      <a class="head-link" href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read it</a>
+      <a class="btn btn-light btn-sm" href="#install">Install</a>
+    </div>
   </div>
 </header>
 
@@ -56,219 +46,332 @@
     <div class="wrap">
       <p class="eyebrow">Code review, then the fixes</p>
       <h1>Your vibe-coded app<br> deserves a glow up.</h1>
-      <p class="lede">One Claude Code command scores your project out of 100, fixes it category by category on its own branch, and scores it again.</p>
-
-      <div class="get">
-        <div class="cmd" data-os-box>
-          <div class="os" role="group" aria-label="Shell">
-            <button type="button" data-os="win" aria-pressed="true">Windows</button>
-            <button type="button" data-os="unix" aria-pressed="false">macOS / Linux</button>
-          </div>
-          <code data-cmd>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code>
-          <button type="button" class="copy" aria-label="Copy install command"><svg class="i"><use href="#i-copy"/></svg><span>Copy</span></button>
-        </div>
+      <p class="lede">One Claude Code command scores your project out of 100, fixes it one category at a time on its own branch, and scores it again.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-light" data-copy-install><span>Copy install command</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <a class="btn btn-dark" href="#checks">What it checks</a>
       </div>
-      <ul class="trust">
-        <li>Free</li>
-        <li>One Markdown file you can read first</li>
-        <li>Every fix is its own commit</li>
-      </ul>
+      <p class="trust"><span>Free</span><b>Every fix is its own commit</b><span>Undo with one command</span></p>
     </div>
 
-    <!-- The studio: a replay of one /glowup run. The terminal on the left drives everything;
-         the score, the app, the checks and the timeline follow it. site.js plays it. -->
-    <div class="wrap wide">
-      <figure class="studio" id="studio" data-tier="t1" style="--wipe:0">
-        <div class="studio-bar">
-          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="studio-title"><b>relay</b><span class="br"><svg class="i"><use href="#i-branch"/></svg><span data-branch>main</span></span></span>
-          <span class="status" data-status>Auditing</span>
-          <button type="button" class="playbtn" data-play aria-label="Pause"><svg class="i"><use href="#i-pause"/></svg></button>
+    <!-- The product shot: Claude Code on the left, your app in the middle, the score on the
+         right, the run on a timeline. site.js plays it on a loop; click the timeline to jump. -->
+    <div class="wrap">
+      <figure class="studio" id="studio">
+        <div class="topbar">
+          <div class="tb-l">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 19h5v8H5zM13.5 12h5v15h-5zM22 5h5v22h-5z" fill="currentColor"/></svg>
+            <b>my-app</b>
+            <span class="tb-br" data-branch>main</span>
+          </div>
+          <div class="tb-c"><span class="chev">‹</span><b data-step-name>Audit</b><span class="tb-of" data-step-of>Step 1 of 12</span><span class="chev">›</span></div>
+          <div class="tb-r">
+            <span class="tb-pill" data-score-pill>— /100</span>
+            <span class="tb-btn">Open PR <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
         </div>
 
-        <div class="studio-body">
-          <div class="term" aria-hidden="true">
-            <div class="term-lines" data-term></div>
+        <div class="body">
+          <!-- left: Claude Code -->
+          <div class="cc" aria-hidden="true">
+            <p class="rail-h"><span class="star">✻</span> Claude Code</p>
+            <div class="cc-log"><div class="lines" data-lines></div></div>
+            <div class="spin" data-spin><span class="star" data-star>✻</span> <span data-spin-text>Auditing…</span></div>
           </div>
 
-          <div class="preview">
-            <div class="scorebar">
-              <div class="score"><b data-score>38</b><span>/100</span></div>
-              <span class="tier" data-tier-name>Vibe Prototype</span>
-              <span class="delta" data-delta></span>
-              <ul class="checks" data-checks>
-                <li data-check="0"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>Secrets</li>
-                <li data-check="5"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>Lint</li>
-                <li data-check="6"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>Tests</li>
-                <li data-check="7"><svg class="i x"><use href="#i-cross"/></svg><svg class="i v"><use href="#i-check"/></svg>CI</li>
-              </ul>
-            </div>
-
-            <div class="appstage" aria-hidden="true">
-              <div class="url"><span>localhost:3000/chat</span></div>
-              <div class="apps">
-
-                <!-- Before: a vibe-coded AI chat app as it tends to ship. Slick at a glance, broken underneath. -->
-                <div class="pane before">
-                  <div class="win">
-                    <aside class="cs">
-                      <div class="abrand"><span class="logo-x">✨</span><b>RelayAI</b></div>
-                      <span class="newc"><svg class="i"><use href="#i-plus"/></svg>New Chat 🚀</span>
-                      <span class="grp">Recent chats</span>
-                      <a class="on">New Chat</a>
-                      <a>New Chat</a>
-                      <a>New Chat</a>
-                      <a>undefined</a>
-                      <div class="me"><i>U</i><span>undefined</span></div>
-                    </aside>
-                    <div class="conv">
-                      <div class="ch"><b>New Chat</b><span class="model">🤖 claude-3-opus<svg class="i"><use href="#i-chev"/></svg></span></div>
-                      <div class="msgs">
-                        <div class="mu"><p>how do i debounce a search input in react</p><small>Invalid Date</small></div>
-                        <div class="ma"><i class="av">🤖</i><div class="txt">Sure! Here's how to **debounce** a search input 🚀
-
-```tsx
-const [q, setQ] = useState("")
-useEffect(() =&gt; {
-  const t = setTimeout(() =&gt; search(q), 300)<small>Invalid Date</small></div></div>
-                        <div class="ma typing"><i class="av">🤖</i><span class="dots3"><i></i>Thinking...</span></div>
-                      </div>
-                      <div class="toast" data-toast><svg class="i"><use href="#i-x"/></svg><span><b>Unhandled Runtime Error</b>TypeError: Cannot read properties of undefined (reading 'content')</span></div>
-                      <div class="composer"><span>Ask me anything... 🤖✨</span><small>NaN tokens</small><i class="send"><svg class="i"><use href="#i-up"/></svg></i></div>
+          <!-- middle: your app -->
+          <div class="stage">
+            <div class="browser" aria-hidden="true">
+              <div class="b-bar"><span class="b-dots"><i></i><i></i><i></i></span><span class="b-url">localhost:3000</span></div>
+              <div class="app">
+                <!-- before: the template look -->
+                <div class="v v-before">
+                  <div class="bn"><b>⚡ Tally<em>AI</em></b><span>Features</span><span>Pricing</span><span>Blog</span><i>Sign up 🚀</i></div>
+                  <div class="bh">
+                    <p class="bbadge">✨ Powered by AI</p>
+                    <p class="bt">Revolutionize Your Invoicing</p>
+                    <p class="bs">Unleash the power of AI to supercharge your workflow and 10x your productivity.</p>
+                    <p class="bbtn">Get Started Free →</p>
+                  </div>
+                  <div class="bc"><p><span>🚀</span>Blazing fast</p><p><span>🔒</span>Secure</p><p><span>🤖</span>AI-powered</p></div>
+                </div>
+                <!-- after: the glowed-up look -->
+                <div class="v v-after" data-after>
+                  <div class="an"><b>Tally</b><span>Product</span><span>Pricing</span><span>Customers</span><i>Sign in</i></div>
+                  <div class="ah">
+                    <div class="al">
+                      <p class="at">Invoices that get paid on time.</p>
+                      <p class="as">Send one in a minute. Tally chases the late ones for you.</p>
+                      <p class="acta"><span>Start free</span><em>See pricing →</em></p>
+                    </div>
+                    <div class="ar">
+                      <p class="arh"><b>Invoices</b><span>March</span></p>
+                      <p class="row"><span>Northwind</span><b>$4,200</b><i class="ok">Paid</i></p>
+                      <p class="row"><span>Bluebird Co.</span><b>$1,850</b><i class="due">Due</i></p>
+                      <p class="row"><span>Harbor Studio</span><b>$960</b><i class="ok">Paid</i></p>
+                      <p class="row"><span>Kite &amp; Pine</span><b>$2,400</b><i class="late">Late</i></p>
                     </div>
                   </div>
+                  <div class="af"><p><b>9 days</b><span>faster to get paid</span></p><p><b>$2.4M</b><span>invoiced last month</span></p><p><b>2,000</b><span>freelancers and studios</span></p></div>
                 </div>
-
-                <!-- After: the same app once the run is done. -->
-                <div class="pane after">
-                  <div class="win">
-                    <aside class="cs">
-                      <div class="abrand"><svg class="mark" viewBox="0 0 20 20"><rect width="20" height="20" rx="6" fill="#18181b"/><path d="M6 7.5h8M6 11h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="14.2" cy="12.6" r="1.6" fill="#f97352"/></svg><b>Relay</b></div>
-                      <span class="newc"><svg class="i"><use href="#i-plus"/></svg>New chat</span>
-                      <span class="grp">Today</span>
-                      <a class="on">Debounce a search input</a>
-                      <a>Index for chat history</a>
-                      <span class="grp">Yesterday</span>
-                      <a>Release notes for v2.3</a>
-                      <div class="me"><i>MR</i><span>Maya Reyes</span></div>
-                    </aside>
-                    <div class="conv">
-                      <div class="ch"><b>Debounce a search input</b><span class="model">Sonnet 5.5<svg class="i"><use href="#i-chev"/></svg></span></div>
-                      <div class="msgs">
-                        <div class="mu"><p>How do I debounce a search input in React?</p></div>
-                        <div class="ma"><i class="av"><svg viewBox="0 0 20 20"><path d="M6 7.5h8M6 11h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="14.2" cy="12.6" r="1.6" fill="#f97352"/></svg></i><div class="txt">
-                          <p>Wait until the user stops typing, then search. A small <code>useDebounce</code> hook keeps it tidy:</p>
-                          <div class="snip"><div class="snip-h"><span>tsx</span><span><svg class="i"><use href="#i-copy"/></svg>Copy</span></div><pre><span class="k">function</span> <span class="f">useDebounce</span>&lt;<span class="t">T</span>&gt;(value: <span class="t">T</span>, ms = <span class="n">300</span>) {
-  <span class="k">const</span> [v, setV] = <span class="f">useState</span>(value);
-  <span class="f">useEffect</span>(() <span class="k">=&gt;</span> {
-    <span class="k">const</span> t = <span class="f">setTimeout</span>(() <span class="k">=&gt;</span> <span class="f">setV</span>(value), ms);
-    <span class="k">return</span> () <span class="k">=&gt;</span> <span class="f">clearTimeout</span>(t);
-  }, [value, ms]);
-  <span class="k">return</span> v;
-}</pre></div>
-                          <div class="acts"><svg class="i"><use href="#i-copy"/></svg><svg class="i"><use href="#i-redo"/></svg><span>2:14 PM</span></div>
-                        </div></div>
-                      </div>
-                      <div class="composer"><svg class="i"><use href="#i-clip"/></svg><span>Reply to Relay…</span><i class="send"><svg class="i"><use href="#i-up"/></svg></i></div>
-                    </div>
-                  </div>
-                </div>
-
+                <div class="pins" data-pins></div>
               </div>
             </div>
+            <div class="toolbar" aria-hidden="true">
+              <span class="tl-name"><b data-tool-num>01</b> <span data-tool-name>Audit</span> <em data-tool-files>212 files</em></span>
+              <span class="chip">+ Diff</span><span class="chip">Tests</span><span class="chip"><i class="sw"></i>Branch</span><span class="chip">↺ Revert</span><span class="chip" data-tool-time>0.0 s</span>
+            </div>
+            <div class="ask" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>Ask Claude for a change…</div>
+          </div>
+
+          <!-- right: the score -->
+          <aside class="panel" aria-label="Glow Score">
+            <p class="panel-h"><span>Glow Score</span><span class="x">×</span></p>
+            <div class="total"><b data-score>—</b><span>/100</span></div>
+            <p class="tier"><span data-tier>Auditing</span><em data-delta></em></p>
+            <ol class="rows" data-rows></ol>
+          </aside>
+        </div>
+
+        <div class="timeline">
+          <div class="transport">
+            <button type="button" class="play" data-play aria-label="Pause">
+              <svg class="i" viewBox="0 0 24 24" data-icon-pause><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor" stroke="none"/></svg>
+              <svg class="i" viewBox="0 0 24 24" data-icon-play hidden><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg>
+            </button>
+            <span class="clock"><b data-clock>00:00.0</b> / <span data-total>00:42</span></span>
+            <span class="tr-r">Commits</span>
+          </div>
+          <div class="tracks">
+            <div class="ruler" data-ruler></div>
+            <ol class="clips" data-cells></ol>
+            <div class="wave" data-wave><span class="wave-l">Diff size</span></div>
+            <span class="playhead" data-playhead aria-hidden="true"><em data-ph-label>0.0s</em></span>
           </div>
         </div>
-
-        <!-- The timeline: one cell per pass. Click a cell to jump there. -->
-        <div class="timeline">
-          <ol class="cells" data-cells></ol>
-          <span class="playhead" data-playhead aria-hidden="true"></span>
-        </div>
       </figure>
-      <p class="studio-note">A replay of one run on a sample AI chat app. Click the timeline to jump to any step.</p>
     </div>
   </section>
 
-  <section class="sec" id="how">
+  <section class="sec" id="ways">
     <div class="wrap">
-      <p class="eyebrow">How it works</p>
-      <h2>Three passes. Nothing changes until the audit is done.</h2>
-      <ol class="steps">
-        <li><span class="n">01</span><h3>Audit</h3><p>Works out your stack and scores ten categories from 0 to 10. Every low score points to a file and line.</p></li>
-        <li><span class="n">02</span><h3>Fix</h3><p>Branches to <code>glowup</code> and fixes one category at a time, security first. Builds, tests and commits after each.</p></li>
-        <li><span class="n">03</span><h3>Re-score</h3><p>Scores it again with the same rubric and shows both scorecards side by side, plus what the next tier needs.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="sec" id="categories">
-    <div class="wrap">
-      <p class="eyebrow">Ten categories</p>
-      <h2>Scored out of 100. Fixed in this order.</h2>
-      <ol class="cats-grid">
-        <li><b>Security</b><span>No secrets in code, auth on private routes, no injection.</span></li>
-        <li><b>Backend &amp; API</b><span>Validated input, real status codes, thin handlers.</span></li>
-        <li><b>Database</b><span>Migrations, indexes, no queries in loops.</span></li>
-        <li><b>Error handling</b><span>Caught at the edges, messages people can act on.</span></li>
-        <li><b>Structure</b><span>Clear folders, no 1,000-line files, no dead code.</span></li>
-        <li><b>Types &amp; quality</b><span>Types on, linter and formatter set up, no <code>any</code> soup.</span></li>
-        <li><b>Tests</b><span>Core logic and main routes, one command runs them.</span></li>
-        <li><b>DevOps</b><span>CI runs lint, tests and build. A health check.</span></li>
-        <li><b>Observability</b><span>Structured logs, no stray <code>console.log</code>.</span></li>
-        <li><b>UI polish</b><span>Consistent spacing, loading, empty and error states.</span></li>
-      </ol>
-      <ol class="tiers" aria-label="Tiers">
-        <li class="t1"><span>0–39</span>Vibe Prototype</li>
-        <li class="t2"><span>40–59</span>Side Project</li>
-        <li class="t3"><span>60–79</span>Launch-Ready</li>
-        <li class="t4"><span>80–89</span>Professional</li>
-        <li class="t5"><span>90–100</span>Production Grade</li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="sec" id="usage">
-    <div class="wrap">
-      <p class="eyebrow">Usage</p>
-      <h2>Run it in any project.</h2>
-      <div class="modes">
-        <div><code>/glowup</code><p>The full run: audit, fix all ten, re-score.</p></div>
-        <div><code>/glowup audit</code><p>Just the scorecard and a fix plan. Changes nothing.</p></div>
-        <div><code>/glowup security</code><p>Fix one category. Works with any of the ten.</p></div>
+      <div class="ways">
+        <div>
+          <h2><span>Glow up</span> the whole app.</h2>
+          <p><code>/glowup</code> audits, fixes all ten categories one commit at a time on a <code>glowup</code> branch, and scores it again.</p>
+          <p class="links"><a href="#studio">Watch a run</a><a href="#install">Install it</a></p>
+        </div>
+        <div>
+          <h2><span>Just get</span> the score.</h2>
+          <p><code>/glowup audit</code> prints the scorecard and the ten fixes worth the most, security first. It changes nothing.</p>
+          <p class="links"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the rubric</a><a href="#tiers">See the tiers</a></p>
+        </div>
+        <div>
+          <h2><span>Fix</span> one category.</h2>
+          <p><code>/glowup security</code>, <code>/glowup tests</code>, <code>/glowup ui</code>. Any of the ten on its own, with the same branch and commits.</p>
+          <p class="links"><a href="#checks">See the categories</a></p>
+        </div>
       </div>
-      <p class="fine">It keeps your stack, never deletes features or commits secrets, and asks first if you have uncommitted changes. Undo a whole run with <code>git branch -D glowup</code>.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="checks">
+    <div class="wrap">
+      <h2 class="h2">What it checks</h2>
+      <p class="sub">Ten categories, scored 0 to 10 and fixed in this order. Every low score points to a file and a line.</p>
+      <ol class="tiles">
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">Secrets</p>
+            <p class="t-row"><code>SUPABASE_SERVICE_KEY</code><span class="t-tag">client bundle</span></p>
+            <p class="t-row"><code>STRIPE_SECRET</code><span class="t-tag">.env.example</span></p>
+            <p class="t-btn hot">Move to server</p>
+            <svg class="cur" style="left:62%;top:74%" viewBox="0 0 16 16"><path d="M2 1l11 7-5 1 3 5-2 1-3-5-4 3z"/></svg>
+          </div>
+          <h3>Security</h3><p>No secrets in the code, auth on private routes, no injection.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h"><span><b class="t-verb">POST</b>/api/checkout</span></p>
+            <p class="t-code">{ "priceId": 42 }</p>
+            <p class="t-row"><span>Response</span><span class="t-tag">400 · priceId must be a string</span></p>
+          </div>
+          <h3>Backend &amp; API</h3><p>Validated input, real status codes, thin route handlers.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">Indexes <span class="t-add">+ Add</span></p>
+            <p class="t-row"><code>orders (user_id)</code><span>new</span></p>
+            <p class="t-row"><code>invoices (due_at)</code><span>new</span></p>
+            <p class="t-row"><span>Dashboard query</span><span><s>840 ms</s> 12 ms</span></p>
+          </div>
+          <h3>Database</h3><p>Migrations, indexes on lookups, one connection.</p>
+        </li>
+        <li>
+          <div class="tile t-center" aria-hidden="true">
+            <p class="t-big">Couldn’t load invoices</p>
+            <p class="t-small">The server didn’t answer. Your data is safe.</p>
+            <p class="t-btn">Try again</p>
+            <svg class="cur" style="left:57%;top:76%" viewBox="0 0 16 16"><path d="M2 1l11 7-5 1 3 5-2 1-3-5-4 3z"/></svg>
+          </div>
+          <h3>Error handling</h3><p>Caught at the edges, with messages people can act on.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">app/</p>
+            <p class="t-file"><s>page.tsx</s><span>1,240 lines</span></p>
+            <p class="t-file">components/landing/<span>9 files</span></p>
+            <p class="t-file sub">Hero.tsx<span>64</span></p>
+            <p class="t-file sub">Pricing.tsx<span>88</span></p>
+          </div>
+          <h3>Structure</h3><p>Clear folders, no giant files, no dead code.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">tsconfig.json</p>
+            <p class="t-row"><span>strict</span><span class="t-sw on"><i></i></span></p>
+            <p class="t-row"><span>noUnusedLocals</span><span class="t-sw on"><i></i></span></p>
+            <p class="t-row"><span><code>any</code></span><span><s>37</s> 0</span></p>
+          </div>
+          <h3>Types &amp; quality</h3><p>Types on, a linter and formatter that actually run.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">vitest <span class="t-add">24 passed</span></p>
+            <p class="t-test">✓ rejects a bad priceId</p>
+            <p class="t-test">✓ signs in with a magic link</p>
+            <p class="t-test">✓ marks an invoice paid</p>
+            <p class="t-test dim">✓ 21 more</p>
+          </div>
+          <h3>Tests</h3><p>Core logic and main routes, run by one command.</p>
+        </li>
+        <li>
+          <div class="tile t-center" aria-hidden="true">
+            <p class="t-pipe"><span>Lint ✓</span><i></i><span>Test ✓</span><i></i><span>Build ✓</span></p>
+            <p class="t-small">ci.yml · on every push · 1m 12s</p>
+          </div>
+          <h3>DevOps</h3><p>CI on every push, a reproducible setup, a health check.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">Logs</p>
+            <p class="t-log"><span>info</span>checkout.created</p>
+            <p class="t-log"><span>info</span>invoice.sent</p>
+            <p class="t-log warn"><span>warn</span>stripe.retry 2/3</p>
+            <p class="t-log"><span>info</span>invoice.paid</p>
+          </div>
+          <h3>Observability</h3><p>Logs you can search, nothing stray left in.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">Dashboard <span class="t-seg"><b>Loading</b><span>Empty</span><span>Error</span></span></p>
+            <p class="t-skel w1"></p><p class="t-skel w2"></p><p class="t-skel w3"></p>
+            <svg class="cur" style="left:44%;top:16%" viewBox="0 0 16 16"><path d="M2 1l11 7-5 1 3 5-2 1-3-5-4 3z"/></svg>
+          </div>
+          <h3>UI polish</h3><p>Consistent spacing and type, every state handled.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">Glow Score</p>
+            <p class="t-score"><s>38</s><b>86</b><span>Professional</span></p>
+            <p class="t-bars"><i style="--v:.9"></i><i style="--v:.9"></i><i style="--v:.9"></i><i style="--v:.8"></i><i style="--v:.9"></i><i style="--v:.9"></i><i style="--v:.8"></i><i style="--v:.8"></i><i style="--v:.8"></i><i style="--v:.9"></i></p>
+          </div>
+          <h3>Before and after</h3><p>Scored at the start and the end, so you see what changed.</p>
+        </li>
+        <li>
+          <div class="tile" aria-hidden="true">
+            <p class="t-h">glowup branch</p>
+            <p class="t-commit"><i></i>glowup: CI on every push</p>
+            <p class="t-commit hl"><i></i>glowup: strict mode, 0 any<span>Revert</span></p>
+            <p class="t-commit"><i></i>glowup: split the 1,240-line page</p>
+            <svg class="cur" style="left:84%;top:58%" viewBox="0 0 16 16"><path d="M2 1l11 7-5 1 3 5-2 1-3-5-4 3z"/></svg>
+          </div>
+          <h3>One commit per fix</h3><p>Keep what you like. Revert any fix with one command.</p>
+        </li>
+      </ol>
+      <ol class="tiers" id="tiers" aria-label="Tiers">
+        <li><span>0–39</span>Vibe Prototype</li>
+        <li><span>40–59</span>Side Project</li>
+        <li><span>60–79</span>Launch-Ready</li>
+        <li><span>80–89</span>Professional</li>
+        <li><span>90–100</span>Production Grade</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="install">
+    <div class="wrap">
+      <h2 class="h2">Install</h2>
+      <p class="sub">Free, and it’s one Markdown file. Run the installer again to update.</p>
+      <div class="plans">
+        <div class="plan" data-os-card="win">
+          <p class="plan-top"><b>Windows</b><span class="badge" hidden>Your system</span></p>
+          <p class="plan-sub">PowerShell</p>
+          <p class="plan-big">/glowup <span>in one line</span></p>
+          <pre><code data-cmd="win">irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code></pre>
+          <button type="button" class="btn btn-wide" data-copy="win"><span>Copy command</span></button>
+          <ul>
+            <li>Copies <code>glowup.md</code> into <code>~/.claude/commands</code></li>
+            <li>Restart Claude Code, then type <code>/glowup</code></li>
+            <li>Uninstall by deleting that one file</li>
+          </ul>
+        </div>
+        <div class="plan" data-os-card="unix">
+          <p class="plan-top"><b>macOS and Linux</b><span class="badge" hidden>Your system</span></p>
+          <p class="plan-sub">Terminal or Git Bash. Needs curl and Node.js.</p>
+          <p class="plan-big">/glowup <span>in one line</span></p>
+          <pre><code data-cmd="unix">curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.sh | bash</code></pre>
+          <button type="button" class="btn btn-wide" data-copy="unix"><span>Copy command</span></button>
+          <ul>
+            <li>Copies <code>glowup.md</code> into <code>~/.claude/commands</code></li>
+            <li>Restart Claude Code, then type <code>/glowup</code></li>
+            <li>Uninstall by deleting that one file</li>
+          </ul>
+        </div>
+      </div>
+      <p class="fine-l"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the whole command before you run it</a></p>
     </div>
   </section>
 
   <section class="cta">
     <div class="wrap">
-      <h2>Give it a glow up.</h2>
-      <div class="get">
-        <div class="cmd" data-os-box>
-          <div class="os" role="group" aria-label="Shell">
-            <button type="button" data-os="win" aria-pressed="true">Windows</button>
-            <button type="button" data-os="unix" aria-pressed="false">macOS / Linux</button>
-          </div>
-          <code data-cmd>irm https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/install.ps1 | iex</code>
-          <button type="button" class="copy" aria-label="Copy install command"><svg class="i"><use href="#i-copy"/></svg><span>Copy</span></button>
-        </div>
-      </div>
-      <p class="fine">Then open Claude Code in a project and type <code>/glowup</code>. <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the command</a> first if you like.</p>
+      <h2>Ready to glow up your app?</h2>
+      <button type="button" class="btn btn-light" data-copy-install><span>Copy install command</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
   </section>
 </main>
 
 <footer class="foot">
   <div class="wrap">
+    <div class="foot-brand">
+      <a class="brand" href="./"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 19h5v8H5zM13.5 12h5v15h-5zM22 5h5v22h-5z" fill="currentColor"/></svg>glowup</a>
+      <p><b>Score it, fix it, score it again.</b><br>A free command for Claude Code. It asks before touching uncommitted work and never commits secrets.</p>
+      <a class="btn btn-dark btn-sm" href="#install">Install →</a>
+    </div>
+    <div class="foot-col">
+      <h2>Product</h2>
+      <a href="#install">Install</a>
+      <a href="#checks">What it checks</a>
+      <a href="#ways">Usage</a>
+      <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the command</a>
+    </div>
+    <div class="foot-col">
+      <h2>Project</h2>
+      <a href="https://github.com/drewguitarist18-lang/glowup">GitHub ↗</a>
+      <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/CONTRIBUTING.md">Add a command ↗</a>
+      <a href="https://github.com/drewguitarist18-lang/glowup/issues">Report an issue ↗</a>
+    </div>
+    <div class="foot-col">
+      <h2>More</h2>
+      <a href="https://lithnode.com">Lithnode ↗</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 glowup</span>
     <span>An independent command for Claude Code. Not affiliated with Anthropic.</span>
-    <nav aria-label="Links">
-      <a href="https://github.com/drewguitarist18-lang/glowup">GitHub</a>
-      <a href="https://github.com/drewguitarist18-lang/glowup/blob/main/CONTRIBUTING.md">Add a command</a>
-      <a href="https://lithnode.com">Lithnode</a>
-    </nav>
   </div>
 </footer>
 
-<script src="site.js?v=20"></script>
+<script src="site.js?v=40"></script>
 </body>
 </html>
