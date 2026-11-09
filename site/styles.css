@@ -142,6 +142,8 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 /* after: the glowed-up look */
 .v-after { background: #101011; color: #f5f5f7; font-family: var(--body); text-align: center; clip-path: inset(0 calc(100% - var(--wipe, 0) * 100%) 0 0); }
 .v-after::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--wipe, 0) * 100%); width: 2px; background: var(--blue); box-shadow: 0 0 18px var(--blue); opacity: var(--edge, 0); }
+.v-after::before { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; background: radial-gradient(70% 60% at 50% 38%, rgba(124, 156, 255, .5), transparent 70%), rgba(255, 255, 255, .14); opacity: var(--flash, 0); }
+.ah, .ashot { transform: translateY(calc((1 - var(--pop, 1)) * 5cqh)) scale(calc(.96 + .04 * var(--pop, 1))); opacity: calc(.15 + .85 * var(--pop, 1)); }
 .an { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 2.6cqh 4.4cqw; font-size: 1.55cqw; color: #a1a1a6; }
 .an b { display: flex; align-items: center; gap: .5em; font: 600 2.1cqw/1 var(--head); color: #f5f5f7; letter-spacing: -.02em; }
 .an-logo { width: 1.1em; height: 1.1em; border-radius: .3em; background: #f5f5f7; display: inline-block; }

@@ -56,7 +56,7 @@
   const tierOf = (s) => TIERS.find(([min]) => s >= min)[1];
 
   // timing, ms
-  const AUDIT = 5200, FIX = 2600, RESCORE = 3000, HOLD = 5000;
+  const AUDIT = 5200, FIX = 1500, RESCORE = 2600, HOLD = 9000;
   const FIX_AT = (i) => AUDIT + i * FIX;
   const SCORED_AT = (i) => FIX_AT(i) + FIX * 0.78;
   const RESCORE_AT = FIX_AT(CATS.length);
@@ -65,7 +65,7 @@
   const SCORED = AUDIT - 1100;           // when the first score lands
   const PIN_AT = (i) => 1500 + i * 260;  // pins pop in during the audit
   const UI = CATS.length - 1;
-  const WIPE_FROM = FIX_AT(UI) + 500, WIPE_MS = 1300;
+  const WIPE_FROM = FIX_AT(UI) + 300, WIPE_MS = 650, POP_MS = 700;
 
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const L = [];
@@ -85,16 +85,16 @@
     const t = FIX_AT(i);
     add(t, 'gap', '');
     add(t + 100, 'dot', `<span class="tool">Update</span>(${esc(c.file)})`);
-    if (c.del) add(t + 500, 'del', '- ' + esc(c.del));
-    add(t + 700, 'add', '+ ' + esc(c.add));
-    add(t + 1400, 'dot', `<span class="tool">Bash</span>(git commit)`);
+    if (c.del) add(t + 300, 'del', '- ' + esc(c.del));
+    add(t + 450, 'add', '+ ' + esc(c.add));
+    add(t + 950, 'dot', `<span class="tool">Bash</span>(git commit)`);
     add(SCORED_AT(i), 'out', `${esc(c.name)} ${c.from} → <span class="up">${c.to}</span>`);
   });
   add(RESCORE_AT, 'gap', '');
   add(RESCORE_AT + 100, 'dot', '<span class="tool">Bash</span>(lint && test && build)');
-  add(RESCORE_AT + 900, 'out', '24 passed · build ok');
-  add(RESCORE_AT + 1800, 'dot say', `Glow Score <span class="hl">${START} → ${END}</span> <span class="up">+${END - START}</span>`);
-  add(RESCORE_AT + 2400, 'out', '10 commits on glowup');
+  add(RESCORE_AT + 700, 'out', '24 passed · build ok');
+  add(RESCORE_AT + 1300, 'dot say', `Glow Score <span class="hl">${START} → ${END}</span> <span class="up">+${END - START}</span>`);
+  add(RESCORE_AT + 1900, 'out', '10 commits on glowup');
 
   // ---------- DOM ----------
   const $ = (s) => studio.querySelector(s);
@@ -135,7 +135,7 @@
   for (let k = 0; k < BARS; k++) {
     const tm = (k / BARS) * LOOP;
     let h = 0.14 + rnd() * 0.16;
-    CATS.forEach((_, i) => { const d = Math.abs(tm - (FIX_AT(i) + 900)) / 450; if (d < 1) h = Math.max(h, (1 - d) * (0.6 + rnd() * 0.4)); });
+    CATS.forEach((_, i) => { const d = Math.abs(tm - (FIX_AT(i) + 550)) / 320; if (d < 1) h = Math.max(h, (1 - d) * (0.6 + rnd() * 0.4)); });
     if (tm > DONE_AT) h *= 0.35;
     bars += `<i style="height:${Math.round(h * 100)}%"></i>`;
   }
@@ -185,6 +185,9 @@
     const wipe = Math.max(0, Math.min(1, (t - WIPE_FROM) / WIPE_MS));
     el.after.style.setProperty('--wipe', wipe);
     el.after.style.setProperty('--edge', wipe > 0 && wipe < 1 ? 1 : 0);
+    const pop = Math.max(0, Math.min(1, (t - WIPE_FROM - WIPE_MS) / POP_MS));
+    el.after.style.setProperty('--pop', 1 - Math.pow(1 - pop, 3));
+    el.after.style.setProperty('--flash', wipe >= 1 ? Math.max(0, 1 - pop * 1.6) : wipe * 0.6);
 
     // chrome
     el.branch.textContent = t >= 4700 ? 'glowup' : 'main';
@@ -199,7 +202,7 @@
     let busy = '';
     if (t < SCORED) busy = 'Auditing…';
     else if (fixing >= 0 && t < SCORED_AT(fixing)) busy = `Fixing ${CATS[fixing].name}…`;
-    else if (t >= RESCORE_AT && t < RESCORE_AT + 1800) busy = 'Re-scoring…';
+    else if (t >= RESCORE_AT && t < RESCORE_AT + 1300) busy = 'Re-scoring…';
     el.spin.classList.toggle('idle', !busy);
     if (busy) el.spinText.textContent = busy;
     el.star.textContent = SPIN[Math.floor(t / 140) % SPIN.length];
