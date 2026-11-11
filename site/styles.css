@@ -18,6 +18,9 @@
   --cc-orange: #d97757;
   --green: #5fb878;
   --red: #e06c6c;
+  /* Install buttons only. Deliberately off-palette: nothing else on the page is this colour, so they're what the eye lands on. */
+  --go: #d4ff3a;
+  --go-hover: #e3ff75;
   color-scheme: dark;
 }
 
@@ -48,6 +51,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .btn-sm { height: 34px; padding: 0 16px; font-size: 14px; }
 .btn-wide { width: 100%; height: 48px; background: var(--fg); color: #0b0b0c; }
 .btn-wide:hover { background: #fff; }
+.btn.btn-go { background: var(--go); color: #0b0b0c; box-shadow: 0 0 0 1px rgba(212, 255, 58, .35), 0 8px 30px -8px rgba(212, 255, 58, .55); }
+.btn.btn-go:hover { background: var(--go-hover); transform: translateY(-1px); }
+.btn.btn-go.done { background: var(--go-hover); }
 .btn.done span::after { content: " ✓"; }
 
 /* header */
@@ -316,8 +322,6 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 40px; }
 .plan { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 36px 40px; border-radius: 18px; background: #18181a; }
 .plan-rec { grid-column: 1 / -1; background: linear-gradient(170deg, #1d2540 0%, #171a24 45%, #18181a 100%); }
-.plan-rec .btn-wide { background: var(--blue); color: #fff; }
-.plan-rec .btn-wide:hover { background: #5b82ff; }
 .plan-rec li::before { color: var(--link); }
 .plan.mine .badge { display: inline-block !important; }
 /* The installer download: copy and steps on the left, a looping "file lands in the folder" scene on the right. */
@@ -341,6 +345,8 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .dl-go:hover { background: #5b82ff; transform: translateY(-1px); }
 .dl-go > :not(.dl-fill) { position: relative; }
 .dl-fill { position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; background: rgba(255, 255, 255, .22); }
+.btn.btn-go.dl-go .dl-fill { background: rgba(255, 255, 255, .45); }
+.btn.btn-go.dl-go.done { background: var(--green); color: #0b0b0c; box-shadow: 0 10px 40px -10px rgba(95, 184, 120, .8); }
 .dl-go.going .dl-fill { transition: transform .9s cubic-bezier(.3, .7, .2, 1); transform: scaleX(1); }
 .dl-go.done { background: var(--green); box-shadow: 0 10px 40px -10px rgba(95, 184, 120, .8); }
 .dl-alt { margin-top: 14px; color: var(--mute-2); font-size: 13.5px; }
