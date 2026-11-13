@@ -19,8 +19,8 @@
   --green: #5fb878;
   --red: #e06c6c;
   /* Install buttons only. Deliberately off-palette: nothing else on the page is this colour, so they're what the eye lands on. */
-  --go: #d4ff3a;
-  --go-hover: #e3ff75;
+  --go: #ff6a2b;
+  --go-hover: #ff8750;
   color-scheme: dark;
 }
 
@@ -51,7 +51,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .btn-sm { height: 34px; padding: 0 16px; font-size: 14px; }
 .btn-wide { width: 100%; height: 48px; background: var(--fg); color: #0b0b0c; }
 .btn-wide:hover { background: #fff; }
-.btn.btn-go { background: var(--go); color: #0b0b0c; box-shadow: 0 0 0 1px rgba(212, 255, 58, .35), 0 8px 30px -8px rgba(212, 255, 58, .55); }
+.btn.btn-go { background: var(--go); color: #0b0b0c; box-shadow: 0 0 0 1px rgba(255, 106, 43, .4), 0 8px 30px -8px rgba(255, 106, 43, .6); }
 .btn.btn-go:hover { background: var(--go-hover); transform: translateY(-1px); }
 .btn.btn-go.done { background: var(--go-hover); }
 .btn.done span::after { content: " ✓"; }
@@ -346,7 +346,7 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .dl-go > :not(.dl-fill) { position: relative; }
 .dl-fill { position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; background: rgba(255, 255, 255, .22); }
 .btn.btn-go.dl-go .dl-fill { background: rgba(255, 255, 255, .45); }
-.btn.btn-go.dl-go.done { background: var(--green); color: #0b0b0c; box-shadow: 0 10px 40px -10px rgba(95, 184, 120, .8); }
+.btn.btn-go.dl-go.done { background: var(--go-hover); color: #0b0b0c; box-shadow: 0 10px 40px -10px rgba(255, 106, 43, .8); }
 .dl-go.going .dl-fill { transition: transform .9s cubic-bezier(.3, .7, .2, 1); transform: scaleX(1); }
 .dl-go.done { background: var(--green); box-shadow: 0 10px 40px -10px rgba(95, 184, 120, .8); }
 .dl-alt { margin-top: 14px; color: var(--mute-2); font-size: 13.5px; }
