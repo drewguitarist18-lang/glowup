@@ -52,6 +52,15 @@ for (const [i, f] of (manifest.features ?? []).entries()) {
       errors.push(`${where}: file not found at features/${f.file}`);
     }
   }
+
+  // extras: files the command runs (the scanner), installed under ~/.claude/<to>
+  for (const e of f.extras ?? []) {
+    if (typeof e.file !== "string" || typeof e.to !== "string" || e.to.startsWith("/") || e.to.includes("..")) {
+      errors.push(`${where}: each extra needs "file" and a relative "to"`);
+      continue;
+    }
+    try { await access(join(featuresDir, e.file)); } catch { errors.push(`${where}: extra not found at features/${e.file}`); }
+  }
 }
 
 if (errors.length) {

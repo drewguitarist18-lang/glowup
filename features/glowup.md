@@ -18,7 +18,17 @@ Detect the stack: language, framework, package manager, database, how it runs, h
 Then **run the app** and look at it: start it, open every page or screen, click through the main flow (sign up, create the main thing, see it listed). If you have a browser or screenshot tool, take screenshots and look at them; otherwise read the rendered HTML/CSS closely. Write down in two lines what the product is, who it's for, and what each page is for. You need this for the UI category.
 
 ## 2. Scorecard — BEFORE
-Score each category 0–10 from what you actually found. Cite evidence (`path:line`) for every score under 7. If a category truly doesn't apply (no database, no UI), mark it `n/a` and score the total out of the remaining categories, scaled to 100.
+**The score comes from the Glowup scanner, not from you.** It is a program that reads the project and scores it the same way every time, with a file and line for every point lost. Find it and run it:
+
+1. Find `glowup-scan.mjs`. Look, in this order, at `${CLAUDE_PLUGIN_ROOT}/features/glowup-scan.mjs` (plugin install), `~/.claude/glowup/glowup-scan.mjs` (script install), then anywhere under `~/.claude/plugins`. If it's nowhere, download it once: `mkdir -p ~/.claude/glowup && curl -fsSL https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/features/glowup-scan.mjs -o ~/.claude/glowup/glowup-scan.mjs`.
+2. Run `node <scanner> . --json --save <snapshot>`, where `<snapshot>` is `.git/glowup-before.json` (or a file in the system temp folder if there is no `.git` yet). It never goes in the working tree.
+3. Print the scorecard exactly as the scanner scored it: `node <scanner> .` prints it ready to show. Never change a number. A category the scanner marks `n/a` stays `n/a`.
+
+Then add what a program can't see, under a heading **Also found (not scored)**: things you verified by reading or running the app, each with `path:line`. Typical ones: a route that checks sign-in but not ownership (one user can read another's data), business logic that is wrong, a UI that has none of the scanner's tells and still looks generated. These get fixed in their category too; they just don't move the number.
+
+If Node isn't installed or the scanner can't run, say so in one line, score each category 0–10 by hand from the table below with `path:line` evidence, and label the result an estimate.
+
+What each category means:
 
 | # | Category | What "10" looks like |
 |---|---|---|
@@ -33,11 +43,11 @@ Score each category 0–10 from what you actually found. Cite evidence (`path:li
 | 9 | 📈 Observability | structured logging, no stray `console.log` / `print`, request logging |
 | 10 | 💅 UI polish | looks designed for this product (see section 5), honest copy, loading + empty + error states, responsive, accessible |
 
-Print the table with scores and a **TOTAL /100**, then a big line like:
-`Glow Score: 38/100 — 🫧 Vibe Prototype`
+The scanner's output ends with the big line, like:
+`Glow Score: 38/100 — Vibe Prototype`
 Tiers: 0–39 🫧 Vibe Prototype · 40–59 🛠️ Side Project · 60–79 🚀 Launch-Ready · 80–89 💼 Professional · 90–100 🏆 Production Grade
 
-If mode is `audit`: list the top 10 fixes in priority order (biggest score gain per effort, security first) and stop.
+If mode is `audit`: show the scanner's list of fixes worth the most (it is already in priority order), add your "Also found" items, and stop. Read only the files the findings point at; an audit should cost almost nothing.
 
 ## 3. Safety net
 Before changing anything:
@@ -48,10 +58,10 @@ Tell the user they can undo everything with `git checkout -` (or by deleting the
 ## 4. Fix, one category at a time
 Go in the table's order, 1 → 10. For **each** category, in this loop:
 
-1. Make focused, real changes for that category only. Match the existing stack; don't rewrite it in a new framework. If a later category's work is tangled in (e.g. moving files while fixing the API), do the minimum now and finish it in its own turn.
+1. Start from the scanner's findings for that category (each has the files and lines) and your "Also found" items, and make focused, real changes for that category only. Fix the cause, not the pattern the scanner matched: deleting a `catch` to clear "empty catch", or renaming a variable to hide a secret, is cheating and makes the app worse. Match the existing stack; don't rewrite it in a new framework. If a later category's work is tangled in (e.g. moving files while fixing the API), do the minimum now and finish it in its own turn.
 2. Prove the app still works: run the build/tests/lint that exist, **and** smoke-test the running app: start it, hit the health or home route, and run the main flow from recon (sign up or log in, create the main thing, read it back). Fix anything broken before moving on.
 3. Commit: `glowup: <category> — <short summary>`. One commit per category, ten in all for a full run, so each can be reviewed or reverted alone. Never fold two categories into one commit; if a category needs nothing, skip it and say so.
-4. Print one line: `✅ Security 2 → 8 — moved keys to .env, added auth middleware, parameterized queries`.
+4. Run the scanner again and print one line with its numbers: `✅ Security 2 → 8 — moved keys to .env, added auth middleware, parameterized queries`. If the category's score didn't go up, read what the scanner still reports there and fix that before moving on, or say plainly why it can't be fixed.
 
 Rules:
 - Never delete user features, change what the app does, add paid services, or commit secrets.
@@ -84,7 +94,7 @@ This is the category people see, and it's last so it gets the final word. Tidyin
 **Look at it and iterate.** Run the app and view every page at desktop and phone width (screenshot if you can). Ask: would this pass for a funded startup's product? Does any item from the strip list remain? Is anything misaligned, cramped or default-looking? Fix what you see and look again. Do at least two rounds before you commit this category.
 
 ## 6. Scorecard — AFTER
-Re-score honestly with the same rubric. An after-score needs evidence too: for each category give the `path` (or commit) that earns it, and name what's still missing if it's under 10. Don't score UI polish above 7 unless you looked at the running pages and nothing from the strip list remains. Show before/after side by side:
+Run `node <scanner> . --before <snapshot>`: it prints before and after side by side, what got fixed and what is still open. Show it as printed. For anything still open, say in a line why (needs a decision, out of scope, would change what the app does). Then list which "Also found" items you fixed and which remain. It looks like this:
 
 ```
             BEFORE  AFTER

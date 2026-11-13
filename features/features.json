@@ -6,7 +6,8 @@
       "name": "Glow Up",
       "command": "glowup",
       "file": "glowup.md",
-      "summary": "Scores your app out of 100 across 10 categories, fixes them in priority order, and re-scores it. Before and after, with a git branch you can undo.",
+      "extras": [{ "file": "glowup-scan.mjs", "to": "glowup/glowup-scan.mjs" }],
+      "summary": "A scanner scores your app out of 100 across 10 categories, Claude fixes them in priority order, and the scanner scores it again. Before and after, with a git branch you can undo.",
       "usage": "/glowup  ·  /glowup audit  ·  /glowup security",
       "tags": ["audit", "security", "tests", "ui"],
       "status": "stable"

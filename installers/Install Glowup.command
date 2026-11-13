@@ -1,12 +1,14 @@
 #!/bin/bash
 # Glowup installer for macOS. Double-click it: it puts /glowup into your Claude Code commands folder.
-# Downloads features/glowup.md (the only stable feature) straight into ~/.claude/commands.
+# Downloads features/glowup.md (the only stable feature) into ~/.claude/commands, and the scanner it runs into ~/.claude/glowup.
 DEST="${CLAUDE_HOME:-$HOME/.claude}/commands"
 URL="https://raw.githubusercontent.com/drewguitarist18-lang/glowup/main/features/glowup.md"
 echo "Installing Glowup..."
 echo
 mkdir -p "$DEST"
-if curl -fsSL "$URL" -o "$DEST/glowup.md"; then
+SCAN="${CLAUDE_HOME:-$HOME/.claude}/glowup"
+mkdir -p "$SCAN"
+if curl -fsSL "$URL" -o "$DEST/glowup.md" && curl -fsSL "${URL%glowup.md}glowup-scan.mjs" -o "$SCAN/glowup-scan.mjs"; then
   echo "Installed /glowup -> $DEST/glowup.md"
   echo
   echo "Done. Restart Claude Code, open any project and type /glowup"

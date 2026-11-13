@@ -17,6 +17,14 @@ foreach ($feature in $manifest.features) {
     $out = Join-Path $dest $feature.file
     Invoke-WebRequest -Uri "$base/$($feature.file)" -OutFile $out -UseBasicParsing
     Write-Host "Installed /$($feature.command) -> $out"
+
+    # what the command runs (the scanner): kept beside the commands folder, not in it
+    foreach ($extra in @($feature.extras)) {
+        if (-not $extra) { continue }
+        $to = Join-Path (Join-Path $HOME ".claude") $extra.to
+        New-Item -ItemType Directory -Force -Path (Split-Path $to) | Out-Null
+        Invoke-WebRequest -Uri "$base/$($extra.file)" -OutFile $to -UseBasicParsing
+    }
 }
 
 Write-Host ""
