@@ -252,6 +252,18 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .sub { max-width: 560px; margin-top: 14px; color: var(--mute); font-size: 17px; }
 
 .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+/* the scanner: what it prints, and why that matters */
+.scan { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; align-items: start; margin-top: 44px; }
+.scan-out { margin: 0; padding: 26px 28px; border-radius: 18px; background: #0c0c0d; border: 1px solid var(--line); font: 500 13.5px/1.75 var(--mono); color: var(--fg-2); overflow-x: auto; white-space: pre; }
+.scan-out .d { color: var(--mute-2); }
+.scan-out b { display: block; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--line-2); color: var(--fg); font-weight: 600; }
+.scan-out u { color: var(--link); text-decoration: none; }
+.scan-out i { display: inline-block; width: 100px; height: 8px; border-radius: 4px; vertical-align: middle; background: linear-gradient(90deg, var(--go) calc(var(--n) * 10%), #2a2a2d calc(var(--n) * 10%)); }
+.ways.scan-why { grid-template-columns: repeat(2, 1fr); gap: 36px 40px; }
+.ways.scan-why h2 { font-size: 22px; letter-spacing: -.4px; }
+.ways.scan-why p { margin-top: 10px; font-size: 15px; }
+.scan-note { margin-top: 36px; max-width: 760px; color: var(--mute); font-size: 15px; }
+
 .ways h2 { font-size: 30px; font-weight: 500; letter-spacing: -.6px; line-height: 1.2; }
 .ways h2 span { display: block; color: var(--mute); }
 .ways p { margin-top: 18px; color: var(--mute); font-size: 15.5px; max-width: 360px; }
@@ -430,6 +442,9 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
   .clips { height: 32px; }
   .playhead em { display: none; }
   .ways { grid-template-columns: 1fr; gap: 48px; }
+  .scan { grid-template-columns: 1fr; gap: 40px; }
+  .ways.scan-why { grid-template-columns: 1fr; gap: 28px; }
+  .scan-out { font-size: 12px; padding: 20px; }
   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .plans { grid-template-columns: 1fr; }
   .cta .wrap { flex-direction: column; align-items: flex-start; }

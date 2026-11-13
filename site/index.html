@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>glowup · Your vibe-coded app deserves a glow up</title>
-  <meta name="description" content="glowup is a Claude Code command that scores your project out of 100, fixes it one category at a time on its own git branch, and scores it again.">
+  <meta name="description" content="glowup scans your project and scores it out of 100, then Claude Code fixes it one category at a time on its own git branch and the scanner scores it again.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="glowup · Your vibe-coded app deserves a glow up">
-  <meta property="og:description" content="One Claude Code command scores your project out of 100, fixes it category by category on its own branch, and scores it again.">
+  <meta property="og:description" content="A real scanner scores your project out of 100. Claude Code fixes it category by category on its own branch, and the scanner scores it again.">
   <meta property="og:url" content="https://glowup-swart-nu.vercel.app/">
   <meta name="theme-color" content="#101011">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="styles.css?v=47">
+  <link rel="stylesheet" href="styles.css?v=48">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -46,12 +46,12 @@
     <div class="wrap">
       <p class="eyebrow">Code review, then the fixes</p>
       <h1>Your vibe-coded app<br> deserves a glow up.</h1>
-      <p class="lede">One Claude Code command scores your project out of 100, fixes it one category at a time on its own branch, and scores it again.</p>
+      <p class="lede">A real scanner scores your project out of 100. Claude Code fixes it one category at a time on its own branch, and the scanner scores it again.</p>
       <div class="actions">
         <button type="button" class="btn btn-go" data-copy-install><span>Copy install command</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <a class="btn btn-dark" href="#checks">What it checks</a>
       </div>
-      <p class="trust"><span>Free</span><b>Every fix is its own commit</b><span>Undo with one command</span></p>
+      <p class="trust"><span>Free</span><b>Same code, same score</b><span>Every fix is its own commit</span><span>Undo with one command</span></p>
     </div>
 
     <!-- The product shot: Claude Code on the left, your app in the middle, the score on the
@@ -156,13 +156,13 @@
       <div class="ways">
         <div>
           <h2><span>Glow up</span> the whole app.</h2>
-          <p><code>/glowup</code> audits, fixes all ten categories one commit at a time on a <code>glowup</code> branch, and scores it again.</p>
+          <p><code>/glowup</code> scans, fixes all ten categories one commit at a time on a <code>glowup</code> branch, and scans again.</p>
           <p class="links"><a href="#studio">Watch a run</a><a href="#install">Install it</a></p>
         </div>
         <div>
           <h2><span>Just get</span> the score.</h2>
-          <p><code>/glowup audit</code> prints the scorecard and the ten fixes worth the most, security first. It changes nothing.</p>
-          <p class="links"><a href="https://github.com/drewguitarist18-lang/glowup/blob/main/features/glowup.md">Read the rubric</a><a href="#tiers">See the tiers</a></p>
+          <p><code>/glowup audit</code> runs the scanner and prints the scorecard and the fixes worth the most. It changes nothing and costs almost no tokens.</p>
+          <p class="links"><a href="#scanner">How it scores</a><a href="#tiers">See the tiers</a></p>
         </div>
         <div>
           <h2><span>Fix</span> one category.</h2>
@@ -173,10 +173,51 @@
     </div>
   </section>
 
+  <section class="sec" id="scanner">
+    <div class="wrap">
+      <h2 class="h2">A real scanner, not a prompt</h2>
+      <p class="sub">The score comes from a program that reads your code. Claude does the fixing; it never decides the number.</p>
+      <div class="scan">
+        <pre class="scan-out" aria-label="What the scanner prints"><span class="d"> 1  Security          2/10</span>  <i style="--n:2"></i>
+<span class="d"> 2  Backend &amp; API     4/10</span>  <i style="--n:4"></i>
+<span class="d"> 3  Database          6/10</span>  <i style="--n:6"></i>
+<span class="d"> 7  Tests             0/10</span>  <i style="--n:0"></i>
+<span class="d"> 8  DevOps            2/10</span>  <i style="--n:2"></i>
+<b>Glow Score: 38/100 — Vibe Prototype</b>
+
+Worth the most, in order:
+ 1. A secret is written in the code  <span class="d">(Security, −4)</span>
+    <u>lib/db.js:3</u>
+ 2. No tests  <span class="d">(Tests, −8)</span>
+ 3. A query runs inside a loop  <span class="d">(Database, −1.5)</span>
+    <u>app/api/invoices/route.js:6</u></pre>
+        <div class="ways scan-why">
+          <div>
+            <h2><span>Same code,</span> same score.</h2>
+            <p>Run it twice and you get the same number. About 55 checks, each one a rule you can read in the source.</p>
+          </div>
+          <div>
+            <h2><span>Every point</span> has an address.</h2>
+            <p>Each finding names the file and the line, and says how to fix it. A key it finds is never printed in full.</p>
+          </div>
+          <div>
+            <h2><span>The audit</span> is nearly free.</h2>
+            <p>Scanning uses no AI, so <code>/glowup audit</code> costs almost no tokens. Claude only opens the files the scanner points at.</p>
+          </div>
+          <div>
+            <h2><span>Fixes are</span> measured.</h2>
+            <p>The scanner runs again after every category. If the score didn't move, the fix didn't count.</p>
+          </div>
+        </div>
+      </div>
+      <p class="scan-note">It runs on its own too, with Node and nothing else: <code>node ~/.claude/glowup/glowup-scan.mjs .</code> What takes judgment, like whether one user can read another's data, <code>/glowup</code> lists separately without changing the number.</p>
+    </div>
+  </section>
+
   <section class="sec" id="checks">
     <div class="wrap">
       <h2 class="h2">What it checks</h2>
-      <p class="sub">Ten categories, scored 0 to 10 and fixed in this order. Every low score points to a file and a line.</p>
+      <p class="sub">Ten categories, scored 0 to 10 by the scanner and fixed in this order. Every point lost names a file and a line.</p>
       <ol class="tiles">
         <li>
           <div class="tile" aria-hidden="true">
@@ -274,7 +315,7 @@
             <p class="t-score"><s>38</s><b>86</b><span>Professional</span></p>
             <p class="t-bars"><i style="--v:.9"></i><i style="--v:.9"></i><i style="--v:.9"></i><i style="--v:.8"></i><i style="--v:.9"></i><i style="--v:.9"></i><i style="--v:.8"></i><i style="--v:.8"></i><i style="--v:.8"></i><i style="--v:.9"></i></p>
           </div>
-          <h3>Before and after</h3><p>Scored at the start and the end, so you see what changed.</p>
+          <h3>Before and after</h3><p>Scanned at the start and the end, so the change is measured, not claimed.</p>
         </li>
         <li>
           <div class="tile" aria-hidden="true">
