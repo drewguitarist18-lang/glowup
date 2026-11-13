@@ -67,7 +67,12 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .head-link { font-size: 14.5px; font-weight: 500; color: var(--mute); }
 
 /* hero */
-.hero { padding: 64px 0 0; text-align: center; }
+.hero { position: relative; isolation: isolate; padding: 64px 0 0; text-align: center; }
+/* backdrop: the score climbing, from an uneven grey mess to a clean lit climb. Sits behind the copy and runs in behind the product shot. */
+.rise { position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 600px; display: flex; align-items: flex-end; gap: 10px; padding: 0 10px; pointer-events: none; -webkit-mask-image: radial-gradient(60% 75% at 50% 42%, rgba(0, 0, 0, .3), #000 100%); mask-image: radial-gradient(60% 75% at 50% 42%, rgba(0, 0, 0, .3), #000 100%); }
+.rise::before { content: ""; position: absolute; inset: 0; background: radial-gradient(55% 90% at 92% 100%, rgba(74, 116, 245, .2), transparent 70%); }
+.rise i { position: relative; flex: 1; height: var(--h); transform-origin: bottom; opacity: calc(.05 + var(--t) * var(--t) * .3); background: linear-gradient(to top, transparent, color-mix(in srgb, var(--link) calc(var(--t) * 100%), #9a9aa0)); box-shadow: 0 -1px 0 color-mix(in srgb, #fff calc(var(--t) * 70%), transparent); animation: bars-up 1.1s cubic-bezier(.2, .7, .2, 1) calc(var(--t) * .7s) backwards; }
+@keyframes bars-up { from { transform: scaleY(0); } }
 .eyebrow { font: 600 12.5px/1 var(--body); letter-spacing: 2px; text-transform: uppercase; color: var(--mute); margin-bottom: 24px; }
 .hero h1 { font-size: 80px; font-weight: 600; letter-spacing: -3.6px; line-height: 1.02; }
 .lede { max-width: 640px; margin: 24px auto 0; font-size: 19px; line-height: 1.6; color: var(--mute); }
@@ -455,6 +460,8 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
   .wrap { padding: 0 16px; }
   .head-link { display: none; }
   .hero { padding-top: 48px; }
+  .rise { height: 720px; gap: 6px; padding: 0 6px; }
+  .rise i:nth-child(even) { display: none; }
   .hero h1 { font-size: 40px; letter-spacing: -1.4px; line-height: 1.06; }
   .hero h1 br { display: none; }
   .lede { font-size: 16px; }
