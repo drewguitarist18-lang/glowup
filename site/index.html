@@ -16,13 +16,14 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="styles.css?v=49">
+  <link rel="stylesheet" href="styles.css?v=51">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div id="top" aria-hidden="true"></div>
 
-<header class="site">
-  <div class="wrap">
+<header class="site" id="nav">
+  <div class="bar">
     <a class="brand" href="./">
       <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 19h5v8H5zM13.5 12h5v15h-5zM22 5h5v22h-5z" fill="currentColor"/></svg>
       glowup
@@ -43,13 +44,14 @@
 <main id="main">
 
   <section class="hero">
-    <!-- Backdrop: the score climbing. Uneven grey bars on the left, a clean lit climb on the right. -->
-    <div class="rise" aria-hidden="true"><i style="--h:4.0%;--t:0.000"></i><i style="--h:24.4%;--t:0.029"></i><i style="--h:9.2%;--t:0.057"></i><i style="--h:8.1%;--t:0.086"></i><i style="--h:20.2%;--t:0.114"></i><i style="--h:16.7%;--t:0.143"></i><i style="--h:13.6%;--t:0.171"></i><i style="--h:22.7%;--t:0.200"></i><i style="--h:23.6%;--t:0.229"></i><i style="--h:21.2%;--t:0.257"></i><i style="--h:24.8%;--t:0.286"></i><i style="--h:25.4%;--t:0.314"></i><i style="--h:29.4%;--t:0.343"></i><i style="--h:23.5%;--t:0.371"></i><i style="--h:27.1%;--t:0.400"></i><i style="--h:33.0%;--t:0.429"></i><i style="--h:34.8%;--t:0.457"></i><i style="--h:30.6%;--t:0.486"></i><i style="--h:38.8%;--t:0.514"></i><i style="--h:39.3%;--t:0.543"></i><i style="--h:45.1%;--t:0.571"></i><i style="--h:46.6%;--t:0.600"></i><i style="--h:45.0%;--t:0.629"></i><i style="--h:50.0%;--t:0.657"></i><i style="--h:54.8%;--t:0.686"></i><i style="--h:56.5%;--t:0.714"></i><i style="--h:59.3%;--t:0.743"></i><i style="--h:62.1%;--t:0.771"></i><i style="--h:66.1%;--t:0.800"></i><i style="--h:69.1%;--t:0.829"></i><i style="--h:71.6%;--t:0.857"></i><i style="--h:75.1%;--t:0.886"></i><i style="--h:79.0%;--t:0.914"></i><i style="--h:82.4%;--t:0.943"></i><i style="--h:86.1%;--t:0.971"></i><i style="--h:90.0%;--t:1.000"></i></div>
+    <!-- Backdrop: the score climbing. Uneven grey bars on the left, a clean lit climb on the right, and above them the line from 38 to 86 (the demo's scores). -->
+    <div class="rise" aria-hidden="true"><i style="--h:4.0%;--t:0.000"></i><i style="--h:24.4%;--t:0.029"></i><i style="--h:9.2%;--t:0.057"></i><i style="--h:8.1%;--t:0.086"></i><i style="--h:20.2%;--t:0.114"></i><i style="--h:16.7%;--t:0.143"></i><i style="--h:13.6%;--t:0.171"></i><i style="--h:22.7%;--t:0.200"></i><i style="--h:23.6%;--t:0.229"></i><i style="--h:21.2%;--t:0.257"></i><i style="--h:24.8%;--t:0.286"></i><i style="--h:25.4%;--t:0.314"></i><i style="--h:29.4%;--t:0.343"></i><i style="--h:23.5%;--t:0.371"></i><i style="--h:27.1%;--t:0.400"></i><i style="--h:33.0%;--t:0.429"></i><i style="--h:34.8%;--t:0.457"></i><i style="--h:30.6%;--t:0.486"></i><i style="--h:38.8%;--t:0.514"></i><i style="--h:39.3%;--t:0.543"></i><i style="--h:45.1%;--t:0.571"></i><i style="--h:46.6%;--t:0.600"></i><i style="--h:45.0%;--t:0.629"></i><i style="--h:50.0%;--t:0.657"></i><i style="--h:54.8%;--t:0.686"></i><i style="--h:56.5%;--t:0.714"></i><i style="--h:59.3%;--t:0.743"></i><i style="--h:62.1%;--t:0.771"></i><i style="--h:66.1%;--t:0.800"></i><i style="--h:69.1%;--t:0.829"></i><i style="--h:71.6%;--t:0.857"></i><i style="--h:75.1%;--t:0.886"></i><i style="--h:79.0%;--t:0.914"></i><i style="--h:82.4%;--t:0.943"></i><i style="--h:86.1%;--t:0.971"></i><i style="--h:90.0%;--t:1.000"></i><svg class="rise-line" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="rise-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#9a9aa0" stop-opacity=".25"/><stop offset="1" stop-color="#7c9cff"/></linearGradient></defs><path d="M1.39 87.00L4.17 86.81L6.94 86.38L9.72 85.77L12.50 85.00L15.28 84.07L18.06 83.01L20.83 81.81L23.61 80.49L26.39 79.05L29.17 77.49L31.94 75.82L34.72 74.03L37.50 72.14L40.28 70.15L43.06 68.05L45.83 65.86L48.61 63.56L51.39 61.17L54.17 58.68L56.94 56.10L59.72 53.43L62.50 50.67L65.28 47.82L68.06 44.88L70.83 41.85L73.61 38.74L76.39 35.54L79.17 32.26L81.94 28.89L84.72 25.44L87.50 21.91L90.28 18.30L93.06 14.62L95.83 10.85L98.61 7.00" fill="none" stroke="url(#rise-g)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg><span class="rise-dot" style="left:98.61%;top:7.00%"></span><p class="rise-tag rise-from"><b>38</b><span>Vibe Prototype</span></p><p class="rise-tag rise-to"><b>86</b><span>Professional</span></p></div>
     <div class="wrap">
       <p class="eyebrow">Code review, then the fixes</p>
       <h1>Your vibe-coded app<br> deserves a glow up.</h1>
       <p class="lede">A real scanner scores your project out of 100. Claude Code fixes it one category at a time on its own branch, and the scanner scores it again.</p>
       <div class="actions">
+        <a class="btn btn-go" href="#install">Install</a>
         <button type="button" class="btn btn-go" data-copy-install><span>Copy install command</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <a class="btn btn-dark" href="#checks">What it checks</a>
       </div>

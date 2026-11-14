@@ -27,6 +27,13 @@
     btn.classList.add('done');
     setTimeout(() => { label.textContent = was; btn.classList.remove('done'); }, 1600);
   }
+  // Floating pill nav (matches lithnode.com)
+  const topEl = document.getElementById('top');
+  const navEl = document.getElementById('nav');
+  if (topEl && navEl) {
+    new IntersectionObserver(([e]) => navEl.classList.toggle('pill', !e.isIntersecting)).observe(topEl);
+  }
+
   document.querySelectorAll('[data-copy-install]').forEach((b) =>
     b.addEventListener('click', () => copy(CMD.plugin, b)));
   document.querySelectorAll('[data-copy]').forEach((b) =>
