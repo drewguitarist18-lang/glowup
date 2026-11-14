@@ -440,6 +440,8 @@ header nav a:hover, .head-link:hover { color: var(--fg); }
 .foot-col a { color: var(--mute); }
 .foot-col a:hover { color: var(--fg); }
 .foot-base { display: flex; justify-content: space-between; gap: 16px; margin-top: 72px; color: var(--mute-2); font-size: 12.5px; flex-wrap: wrap; }
+.foot-base a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+.foot-base a:hover { color: #fff; }
 
 /* ============ responsive ============ */
 @media (max-width: 1180px) {
