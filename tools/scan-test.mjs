@@ -68,6 +68,50 @@ try {
   check("categories are 0 to 10 or n/a", [...mess.categories, ...clean.categories].every((c) => c.score === null || (Number.isInteger(c.score) && c.score >= 0 && c.score <= 10)));
   check("tiers", tier(39) === "Vibe Prototype" && tier(40) === "Side Project" && tier(60) === "Launch-Ready" && tier(80) === "Professional" && tier(90) === "Production Grade");
 
+  // a tidy app that still looks like a template: the look alone holds it back
+  const page = (cls) => ({ "index.html": `<html><body class="${cls}"><h1>Invoices that get paid on time</h1><a href="/signup">Start free</a></body></html>`,
+    "about.html": "<html><body><h1>About</h1></body></html>", "pricing.html": "<html><body><h1>Pricing</h1></body></html>", "app.js": "document.title = 'Tally';\n" });
+  const template = make({ ...page("bg-gradient-to-br from-purple-500 to-pink-500"), "styles.css": "@media (min-width: 600px) { body { margin: 0; } }\n:root { --font-sans: ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif; }\n" });
+  const designed = make({ ...page("page"), "styles.css": "@media (min-width: 600px) { body { margin: 0; } }\nbody { font-family: \"Inter\", system-ui, sans-serif; }\n" });
+  const t = scan(template), d = scan(designed);
+  check("a template look: UI polish is 5 or lower", cat(t, "ui") <= 5 && ids(t).includes("gradient-look"), `ui ${cat(t, "ui")}`);
+  // the clean app with one purple gradient on it: everything else is right, and it still can't be Professional
+  writeFileSync(join(CLEAN, "app/promo.tsx"), `export function Promo() { return <div className="bg-gradient-to-br from-purple-500 to-pink-500">Send your first invoice</div>; }\n`);
+  const held = scan(CLEAN);
+  rmSync(join(CLEAN, "app/promo.tsx"));
+  check("a template look: the score is held below Professional", held.score === 79 && held.capped?.from > 79 && cat(held, "ui") <= 5, `score ${held.score}, capped ${JSON.stringify(held.capped)}, ui ${cat(held, "ui")}`);
+  check("a system font stack is not a chosen typeface", ids(t).includes("default-font"));
+  check("a named typeface counts as chosen", !ids(d).includes("default-font"), ids(d).join(", "));
+  check("no template look: nothing is held", !d.capped && !ids(d).includes("template-look") && cat(d, "ui") >= 9, `ui ${cat(d, "ui")}, ${ids(d).join(", ")}`);
+  rmSync(template, { recursive: true, force: true }); rmSync(designed, { recursive: true, force: true });
+
+  // a whole Flask app in one file, with the page built inside Python strings
+  const flask = make({
+    "requirements.txt": "flask\n",
+    "static/app.js": "console.log('loaded');\n",
+    "app.py": [
+      "from flask import Flask, request", "import sqlite3", "app = Flask(__name__)", "app.secret_key = \"hunter2hunter\"", "ADMIN_PASSWORD = \"letmein99\"",
+      "CSS = \"\"\"<style>", "body { font-family: Arial, sans-serif; }", ".card { backdrop-filter: blur(20px); }", ".nav { backdrop-filter: blur(20px); }", ".a { backdrop-filter: blur(9px); }",
+      ".b { backdrop-filter: blur(9px); }", "h1 { background: linear-gradient(90deg, cyan, magenta); }", "</style>\"\"\"",
+      "@app.route('/')", "def home():", "    conn = sqlite3.connect('app.db')",
+      "    html = \"<html><body><nav><a href='#'>\u{1F680} Pricing</a></nav><h1>Unleash Your Gains</h1><div class='card'>AI-powered</div><form><button>Go</button></form>\" + CSS",
+      "    for e in conn.execute('select name from lifts').fetchall():", "        conn2 = sqlite3.connect('app.db')",
+      "        best = conn2.execute(\"select max(weight) from lifts where name = '\" + e[0] + \"'\").fetchone()", "        html += \"<div>\" + str(best) + \"</div>\"",
+      "    return html + \"</body></html>\"",
+      "@app.route('/delete')", "def delete():", "    sqlite3.connect('app.db').execute('delete from lifts where id = ' + request.args['id'])", "    return 'ok'",
+      "@app.route('/api/lifts')", "def lifts():", "    return 'ok'",
+      "app.run(debug=True)", "",
+    ].join("\n"),
+  });
+  const fl = scan(flask);
+  check("a page built in Python strings is still UI", cat(fl, "ui") !== null && cat(fl, "ui") <= 5, `ui ${cat(fl, "ui")}`);
+  for (const id of ["gradient-look", "glass-cards", "emoji-icons", "hype-copy", "default-font", "not-responsive", "dead-links", "routes-without-auth", "query-in-loop", "many-connections", "debug-on", "unsafe-html", "secret-in-code", "sql-injection"])
+    check(`the Flask app: finds ${id}`, ids(fl).includes(id));
+  check("a Python app isn't told to move to TypeScript", !ids(fl).includes("no-typescript") && fl.findings.filter((f) => f.id === "no-linter").every((f) => /ruff/.test(f.fix)), ids(fl).join(", "));
+  check("the Flask app: finds no-error-screen", ids(fl).includes("no-error-screen"));
+  check("the Flask app scores below Launch-Ready", fl.score < 60, `scored ${fl.score}`);
+  rmSync(flask, { recursive: true, force: true });
+
   const noDb = make({ "index.html": "<html><body><h1>Hello</h1></body></html>", "app.js": "document.title = 'x';\n" });
   const r = scan(noDb);
   check("no database or server: those categories are n/a", cat(r, "database") === null && cat(r, "backend") === null);

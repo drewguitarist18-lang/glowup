@@ -46,6 +46,7 @@ What each category means:
 The scanner's output ends with the big line, like:
 `Glow Score: 38/100 — Vibe Prototype`
 Tiers: 0–39 🫧 Vibe Prototype · 40–59 🛠️ Side Project · 60–79 🚀 Launch-Ready · 80–89 💼 Professional · 90–100 🏆 Production Grade
+If the scanner prints `Held at 79`, the app still looks generated: the score can't pass 79 until the UI polish findings are cleared (section 5).
 
 If mode is `audit`: show the scanner's list of fixes worth the most (it is already in priority order), add your "Also found" items, and stop. Read only the files the findings point at; an audit should cost almost nothing.
 
@@ -60,7 +61,7 @@ Go in the table's order, 1 → 10. For **each** category, in this loop:
 
 1. Start from the scanner's findings for that category (each has the files and lines) and your "Also found" items, and make focused, real changes for that category only. Fix the cause, not the pattern the scanner matched: deleting a `catch` to clear "empty catch", or renaming a variable to hide a secret, is cheating and makes the app worse. Match the existing stack; don't rewrite it in a new framework. If a later category's work is tangled in (e.g. moving files while fixing the API), do the minimum now and finish it in its own turn.
 2. Prove the app still works: run the build/tests/lint that exist, **and** smoke-test the running app: start it, hit the health or home route, and run the main flow from recon (sign up or log in, create the main thing, read it back). Fix anything broken before moving on.
-3. Commit: `glowup: <category> — <short summary>`. One commit per category, ten in all for a full run, so each can be reviewed or reverted alone. Never fold two categories into one commit; if a category needs nothing, skip it and say so.
+3. Commit: `glowup: <category> — <short summary>`. One commit per category, ten in all for a full run, so each can be reviewed or reverted alone. Never fold two categories into one commit (a message like `glowup: structure + UI polish` means you did it wrong); if a category needs nothing, skip it and say so.
 4. Run the scanner again and print one line with its numbers: `✅ Security 2 → 8 — moved keys to .env, added auth middleware, parameterized queries`. If the category's score didn't go up, read what the scanner still reports there and fix that before moving on, or say plainly why it can't be fixed.
 
 Rules:
@@ -91,7 +92,15 @@ This is the category people see, and it's last so it gets the final word. Tidyin
 - The app itself: tables or lists with aligned numbers and status badges, forms with labels and inline errors, and real loading, empty and error states. Empty states say what to do next.
 - Responsive down to a phone, visible focus, labelled controls, sufficient contrast.
 
-**Look at it and iterate.** Run the app and view every page at desktop and phone width (screenshot if you can). Ask: would this pass for a funded startup's product? Does any item from the strip list remain? Is anything misaligned, cramped or default-looking? Fix what you see and look again. Do at least two rounds before you commit this category.
+**Look at it and iterate.** Run the app and view every page at desktop (1440 px) and phone (375 px) width (screenshot if you can). Ask: would this pass for a funded startup's product? Does any item from the strip list remain? Is anything misaligned, cramped, clipped or default-looking? Does any page scroll sideways? Fix what you see and look again. Do at least two rounds before you commit this category.
+
+**It isn't done until all of this is true.** Don't commit UI polish, and don't print the AFTER scorecard, before it is:
+- The scanner reports none of `gradient-look`, `emoji-icons`, `hype-copy`, `glass-cards`, `default-font` or `template-look`. While any of them is left it holds UI polish at 5 and the whole score at 79, on purpose: an app that still looks like a template isn't Professional, whatever is under the hood.
+- UI polish scores 9 or 10.
+- You looked at every page at both widths after your last change, and nothing is clipped, overlapping or scrolling sideways.
+- It is its own commit, `glowup: UI polish — <the direction you chose>`, with nothing from another category in it.
+
+If you couldn't run the app or take screenshots, say so in the report and call the look unverified; don't claim it.
 
 ## 6. Scorecard — AFTER
 Run `node <scanner> . --before <snapshot>`: it prints before and after side by side, what got fixed and what is still open. Show it as printed. For anything still open, say in a line why (needs a decision, out of scope, would change what the app does). Then list which "Also found" items you fixed and which remain. It looks like this:
