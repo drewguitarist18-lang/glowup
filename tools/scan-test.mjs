@@ -116,6 +116,44 @@ try {
   const r = scan(noDb);
   check("no database or server: those categories are n/a", cat(r, "database") === null && cat(r, "backend") === null);
   rmSync(noDb, { recursive: true, force: true });
+  // a landing page that shows a deliberate "before" mockup, fenced off with glowup-ignore markers
+  const demo = make({
+    "index.html": [
+      "<html><head><link href=\"https://fonts.googleapis.com/css2?family=Inter\" rel=\"stylesheet\"></head><body>",
+      "<!-- glowup-ignore-start -->",
+      "<div class=\"before\"><h1>✨ Revolutionize Your Invoicing</h1><p>Supercharge your workflow 🚀</p></div>",
+      "<!-- glowup-ignore-end -->",
+      "<h1>Your invoices, paid on time</h1></body></html>",
+    ].join("\n"),
+    "styles.css": "/* glowup-ignore-start */\n.before { background: linear-gradient(90deg, #ec4899, #8b5cf6); }\n/* glowup-ignore-end */\nbody { font-family: Inter, sans-serif; }\n@media (max-width: 600px) { body { padding: 1rem; } }\n",
+    "app.js": "document.title = 'x';\n",
+  });
+  const dm = scan(demo);
+  check("glowup-ignore: a fenced-off mockup isn't scored", !["gradient-look", "emoji-icons", "hype-copy", "template-look"].some((id) => ids(dm).includes(id)) && !dm.capped, ids(dm).join(", "));
+  check("glowup-ignore: the skipped lines are reported", dm.ignored?.length === 2, JSON.stringify(dm.ignored));
+  rmSync(demo, { recursive: true, force: true });
+  const unclosed = make({ "index.html": "<html><body>\n<!-- glowup-ignore-start -->\n<h1>✨ Revolutionize everything 🚀</h1>\n</body></html>\n", "app.js": "document.title = 'x';\n" });
+  const uc = scan(unclosed);
+  check("glowup-ignore: a start with no end skips nothing", ids(uc).includes("hype-copy") && uc.ignored?.[0]?.unclosed === true, ids(uc).join(", "));
+  rmSync(unclosed, { recursive: true, force: true });
+
+  // a monorepo: frontend/ and backend/ each carry their own config, with nothing at the root
+  const mono = make({
+    "frontend/package.json": JSON.stringify({ dependencies: { react: "19" }, devDependencies: { typescript: "5", "@biomejs/biome": "2" } }),
+    "frontend/tsconfig.json": JSON.stringify({ compilerOptions: { strict: true } }), "frontend/biome.json": "{}",
+    "frontend/src/main.tsx": "export const x: number = 1;\n",
+    "backend/pyproject.toml": "[project]\ndependencies = [\"fastapi\", \"sqlmodel\", \"alembic\"]\n\n[tool.ruff]\nline-length = 100\n",
+    "backend/app/main.py": "from fastapi import FastAPI\napp = FastAPI()\n\n@app.get('/health')\ndef health() -> dict:\n    return {'ok': True}\n",
+  });
+  const mo = scan(mono);
+  check("monorepo: tsconfig strict in a subfolder counts", !ids(mo).includes("not-strict"), ids(mo).join(", "));
+  check("monorepo: ruff in a subfolder pyproject counts", !mo.findings.some((f) => f.id === "no-linter"), ids(mo).join(", "));
+  check("monorepo: sqlmodel in a subfolder pyproject is a database", cat(mo, "database") !== null);
+  rmSync(mono, { recursive: true, force: true });
+  const loose = make({ "web/tsconfig.json": JSON.stringify({ compilerOptions: { strict: false } }), "web/src/a.ts": "export const a = 1;\n", "web/package.json": "{}" });
+  check("monorepo: a non-strict tsconfig in a subfolder is still found", scan(loose).findings.find((f) => f.id === "not-strict")?.where[0]?.file === "web/tsconfig.json");
+  rmSync(loose, { recursive: true, force: true });
+
   const empty = make({ "notes.txt": "nothing here" });
   check("an empty folder scores 0, not 100", scan(empty).score === 0);
   rmSync(empty, { recursive: true, force: true });

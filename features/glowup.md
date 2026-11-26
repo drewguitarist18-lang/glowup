@@ -66,6 +66,7 @@ Go in the table's order, 1 → 10. For **each** category, in this loop:
 
 Rules:
 - Never delete user features, change what the app does, add paid services, or commit secrets.
+- Never add `glowup-ignore-start` / `glowup-ignore-end` markers to clear a finding. They exist only for code that is a deliberate bad example (a "before" mockup, a fixture). If the project already has them, say in the report what they fence off.
 - Existing data must survive: migrate it, don't drop it.
 - If you found a real secret in the code or git history, moving it to `.env` isn't enough. Tell the user plainly in the report that it leaked and must be rotated.
 - If a fix needs a decision only the user can make (e.g. which auth provider), pick the most standard free option, say so, and keep going.

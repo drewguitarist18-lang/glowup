@@ -78,6 +78,7 @@
   if (!studio) return;
 
   // Ten categories in fix order; from/to add up to 38 and 86. x/y place the issue pin on the app.
+  // glowup-ignore-start: sample findings from an imaginary app, quoted as text ('catch {}', 'console.log ×61')
   const CATS = [
     { name: 'Security', from: 2, to: 9, file: 'lib/supabase.ts', del: 'SERVICE_KEY in client', add: 'anon key + RLS', msg: 'move service key server-side', issue: 'service key in the bundle', x: 84, y: 9, left: true },
     { name: 'Backend & API', short: 'Backend', from: 4, to: 9, file: 'api/checkout/route.ts', del: 'await req.json()', add: 'Checkout.parse(body)', msg: 'validate checkout input', issue: 'trusts req.body', x: 63, y: 60 },
@@ -90,6 +91,7 @@
     { name: 'Observability', short: 'Logs', from: 6, to: 8, file: 'lib/log.ts', del: 'console.log ×61', add: 'log.info(event)', msg: 'structured logs', issue: 'console.log × 61', x: 50, y: 82 },
     { name: 'UI polish', short: 'UI', from: 6, to: 9, file: 'app/(landing)/*', del: 'gradients, emoji', add: 'one type scale', msg: 'drop the template look', issue: 'template look', x: 50, y: 30 },
   ];
+  // glowup-ignore-end
   const START = CATS.reduce((s, c) => s + c.from, 0);
   const END = CATS.reduce((s, c) => s + c.to, 0);
   const TIERS = [[90, 'Production Grade'], [80, 'Professional'], [60, 'Launch-Ready'], [40, 'Side Project'], [0, 'Vibe Prototype']];

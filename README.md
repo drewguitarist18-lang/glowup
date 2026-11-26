@@ -49,6 +49,8 @@ node ~/.claude/glowup/glowup-scan.mjs . --save a.json   # keep a snapshot
 node ~/.claude/glowup/glowup-scan.mjs . --before a.json # before and after
 ```
 
+In a monorepo it reads every `package.json`, `tsconfig.json`, `pyproject.toml` and requirements file, not only the ones at the root. If a file holds a deliberate bad example, such as a "before" mockup on a landing page, put `glowup-ignore-start` and `glowup-ignore-end` in comments around it: those lines aren't scored, and the scorecard says how many were skipped.
+
 It checks what a program can be sure of (a key in the code, a query in a loop, no tests, no CI, a 1,200-line file). What takes judgment, like whether one user can read another's data or whether the UI looks designed, `/glowup` adds on top without changing the number.
 
 ## Repo layout
