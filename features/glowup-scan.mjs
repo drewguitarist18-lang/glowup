@@ -13,7 +13,7 @@ import { readdirSync, readFileSync, statSync, existsSync, writeFileSync } from "
 import { join, relative, extname, basename } from "node:path";
 import { execFileSync } from "node:child_process";
 
-export const VERSION = "1.2.0";
+export const VERSION = "1.3.0";
 const SKIP_DIRS = new Set(["node_modules", ".git", "dist", "build", "out", ".next", ".nuxt", ".svelte-kit", ".vercel", ".turbo", "coverage",
   "venv", ".venv", "env", "__pycache__", "vendor", "target", ".cache", ".idea", ".vscode", "tmp", ".lithnode-shots", "public/vendor"]);
 const CODE = new Set([".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".py", ".vue", ".svelte", ".go", ".rb", ".php"]);
@@ -73,12 +73,35 @@ function find(ctx, files, re, { max = 400, keep } = {}) {
   return hits;
 }
 
+// A deliberate example of bad code (a "before" mockup on a landing page, a fixture that shows what not to do) can be
+// fenced off so it isn't scored: put glowup-ignore-start and glowup-ignore-end in comments around it. The lines are
+// kept (line numbers stay right) but read as blank, and the report says how many were skipped, so nothing hides quietly.
+export const IGNORE_START = "glowup-ignore-start", IGNORE_END = "glowup-ignore-end";
+function blankIgnored(file, t, ignored) {
+  const lines = t.split(/\r?\n/);
+  let from = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (from < 0 && lines[i].includes(IGNORE_START)) from = i;
+    else if (from >= 0 && lines[i].includes(IGNORE_END)) {
+      ignored.push({ file, line: from + 1, lines: i - from + 1 });
+      for (let j = from; j <= i; j++) lines[j] = "";
+      from = -1;
+    }
+  }
+  if (from >= 0) ignored.push({ file, line: from + 1, lines: 0, unclosed: true }); // no end marker: nothing is skipped
+  return lines.join("\n");
+}
+
+/** Every file in the project with one of these names, at any depth (a monorepo keeps them in its packages). */
+const named = (all, ...names) => all.filter((f) => names.includes(basename(f)));
+
 function load(root) {
-  const all = walk(root), cache = new Map();
+  const all = walk(root), cache = new Map(), ignored = [];
   const text = (f) => {
     if (!cache.has(f)) {
       let t = "";
       try { if (statSync(join(root, f)).size <= MAX_BYTES) t = readFileSync(join(root, f), "utf8"); } catch { /* unreadable: treated as empty */ }
+      if (TEXT.has(extname(f)) && t.includes(IGNORE_START)) t = blankIgnored(f, t, ignored); // code and styles only, not docs that mention the markers
       cache.set(f, t);
     }
     return cache.get(f);
@@ -88,8 +111,10 @@ function load(root) {
   const has = (re) => all.some((f) => re.test(f));
   const json = (f) => { try { return JSON.parse(text(f).replace(/^\uFEFF/, "")); } catch { return null; } };
   const pkg = json("package.json") || {};
-  const deps = { ...pkg.dependencies, ...pkg.devDependencies };
-  const pyReq = ["requirements.txt", "pyproject.toml", "Pipfile", "setup.py"].filter((f) => all.includes(f)).map(text).join("\n").toLowerCase();
+  // dependencies come from every package.json and Python manifest, so a frontend/ + backend/ monorepo is read whole
+  const deps = {};
+  for (const f of named(all, "package.json")) { const p = f === "package.json" ? pkg : json(f) || {}; Object.assign(deps, p.dependencies, p.devDependencies); }
+  const pyReq = named(all, "requirements.txt", "pyproject.toml", "Pipfile", "setup.py").map(text).join("\n").toLowerCase();
   const dep = (...names) => names.some((n) => n in deps || new RegExp(`(^|[\\s"'\\[,])${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([\\s"'=<>~!\\],]|$)`, "m").test(pyReq));
   const src = all.filter((f) => TEXT.has(extname(f)) && !isGenerated(f));
   const code = src.filter((f) => CODE.has(extname(f)) && !isTest(f));
@@ -101,14 +126,14 @@ function load(root) {
   const routes = code.filter((f) => /(^|\/)(src\/)?app\/.*\/route\.[cm]?[jt]s$|(^|\/)pages\/api\/|(^|\/)(routes?|api|controllers?|handlers?|endpoints?)\/[^/]+\.([cm]?[jt]s|py)$/.test(f)
     || (/\.py$/.test(f) && /@(app|router|bp|blueprint)\.(get|post|put|patch|delete|route)\(/.test(text(f)))
     || (/\.[cm]?[jt]s$/.test(f) && /\b(app|router)\.(get|post|put|patch|delete)\(\s*['"`]\//.test(text(f))));
-  const ctx = { root, all, src, code, tests, ui, styles, routes, text, lines, has, json, pkg, deps, dep };
+  const ctx = { root, all, src, code, tests, ui, styles, routes, text, lines, has, json, pkg, deps, dep, ignored };
   ctx.py = code.some((f) => f.endsWith(".py"));
   ctx.js = code.some((f) => /\.[cm]?[jt]sx?$/.test(f));
   ctx.ts = code.some((f) => /\.tsx?$/.test(f));
   ctx.hasUI = ui.length > 0;
   ctx.hasServer = routes.length > 0 || dep("express", "fastify", "koa", "hono", "next", "@nestjs/core", "flask", "fastapi", "django");
   ctx.hasDB = dep("prisma", "@prisma/client", "@supabase/supabase-js", "drizzle-orm", "mongoose", "pg", "mysql2", "sqlite3", "better-sqlite3", "knex",
-    "sequelize", "typeorm", "sqlalchemy", "psycopg2", "psycopg", "django", "pymongo", "peewee") || has(/\.(sql|prisma)$/)
+    "sequelize", "typeorm", "sqlalchemy", "sqlmodel", "alembic", "psycopg2", "psycopg", "django", "pymongo", "peewee") || has(/\.(sql|prisma)$/)
     || code.some((f) => /\bimport sqlite3\b|from ['"]node:sqlite['"]/.test(text(f)));
   return ctx;
 }
@@ -225,7 +250,7 @@ function audit(ctx) {
   if (ctx.hasUI) {
     const nextApp = has(/(^|\/)(src\/)?app\/.*page\.[jt]sx?$/);
     rule("errors", "no-error-screen", "No error screen", nextApp ? "Add app/error.tsx and app/not-found.tsx." : "Add an error boundary so one broken component doesn't blank the page.", 2, 2,
-      nextApp ? !has(/(^|\/)app\/(.*\/)?(error|global-error)\.[jt]sx?$/) : (dep("react") && !ui.some((f) => /ErrorBoundary|componentDidCatch|errorElement/.test(text(f)))));
+      nextApp ? !has(/(^|\/)app\/(.*\/)?(error|global-error)\.[jt]sx?$/) : (dep("react") && !ui.some((f) => /ErrorBoundary|componentDidCatch|errorElement|errorComponent/.test(text(f)))));
   }
   rule("errors", "bare-except", "A bare except catches everything", "Catch the specific error you expect.", 0.5, 1, find(ctx, pyCode, /^\s*except\s*:/));
   // a Python web app that serves pages and has no error handler: a crash shows the visitor a stack trace or a blank 500
@@ -252,9 +277,12 @@ function audit(ctx) {
   // 6. Types & quality
   // a Python app with a script or two for the page isn't a JavaScript project: don't tell it to move to TypeScript
   if (ctx.js && (ctx.all.includes("package.json") || !ctx.py)) {
-    const ts = ctx.json("tsconfig.json");
     rule("types", "no-typescript", "No types", "Move to TypeScript (or turn on checkJs) so mistakes show up before users do.", 3, 3, !ctx.ts && !has(/(^|\/)jsconfig\.json$/));
-    rule("types", "not-strict", "TypeScript is not in strict mode", "Set \"strict\": true in tsconfig.json and fix what it finds.", 2, 2, ctx.ts && !(ts?.compilerOptions?.strict === true || /"strict"\s*:\s*true/.test(text("tsconfig.json")) || /"extends"/.test(text("tsconfig.json"))));
+    // every tsconfig.json in the project counts (a monorepo has one per package); each must be strict or extend a base
+    const strict = (f) => ctx.json(f)?.compilerOptions?.strict === true || /"strict"\s*:\s*true/.test(text(f)) || /"extends"/.test(text(f));
+    const tsconfigs = named(ctx.all, "tsconfig.json");
+    rule("types", "not-strict", "TypeScript is not in strict mode", "Set \"strict\": true in tsconfig.json and fix what it finds.", 2, 2,
+      ctx.ts && (!tsconfigs.length ? true : tsconfigs.filter((f) => !strict(f)).map((file) => ({ file, line: 1, text: "strict is not on" }))));
     const anys = find(ctx, jsCode.filter((f) => /\.tsx?$/.test(f)), /:\s*any\b|\bas any\b|<any>|any\[\]/);
     rule("types", "any", "any switches the type checker off", "Give the value its real type; use unknown when you truly don't know.", 0.2, 3, anys);
     rule("types", "checks-silenced", "Checks are switched off with comments", "Fix what the checker found instead of silencing it.", 0.25, 2, find(ctx, jsCode, /@ts-ignore|@ts-nocheck|eslint-disable(?!-next-line no-console)/));
@@ -262,7 +290,7 @@ function audit(ctx) {
     rule("types", "no-formatter", "No formatter", "Add Prettier or Biome so the code is formatted one way.", 1, 1, !has(/(^|\/)(\.prettierrc(\.\w+)?|prettier\.config\.[cm]?js|biome\.jsonc?)$/) && !pkg.prettier && !dep("prettier"));
   }
   if (ctx.py) {
-    const pyproject = text("pyproject.toml") + text("setup.cfg") + text("ruff.toml") + text(".flake8");
+    const pyproject = named(ctx.all, "pyproject.toml", "setup.cfg", "ruff.toml", ".flake8").map(text).join("\n");
     rule("types", "no-linter", "No linter", "Add ruff (it lints and formats) with a config in pyproject.toml.", 2, 2, !/\[tool\.ruff|\[flake8\]|\[tool\.pylint|\[lint\]/.test(pyproject) && !has(/(^|\/)(ruff\.toml|\.flake8|\.pylintrc)$/));
     const defs = find(ctx, pyCode, /^\s*def \w+\(/, { max: 3000 }), typed = defs.filter((h) => /->|:\s*\w/.test(h.text.replace(/^\s*def \w+\(self\)?/, "")));
     rule("types", "no-type-hints", "Most functions have no type hints", "Add hints to function signatures, starting with the public ones.", 2, 2, defs.length >= 10 && typed.length / defs.length < 0.3 ? [{ file: defs[0].file, line: defs[0].line, text: `${typed.length} of ${defs.length} functions have hints` }] : []);
@@ -350,6 +378,7 @@ export function scan(root) {
   rules.sort((a, b) => (b.lost - a.lost) || (order[a.category] - order[b.category]));
   return {
     glowup: VERSION, score, tier: tier(score), ...(score < raw ? { capped: { from: raw, to: score, why: "it still looks generated" } } : {}), categories, findings: rules,
+    ...(ctx.ignored.length ? { ignored: ctx.ignored } : {}),
     project: { files: ctx.code.length, tests: ctx.tests.length, routes: ctx.routes.length,
       stack: [ctx.ts ? "TypeScript" : ctx.js ? "JavaScript" : null, ctx.py ? "Python" : null, ...["next", "react", "vue", "svelte", "express", "fastify", "hono", "flask", "fastapi", "django", "prisma", "drizzle-orm"].filter((d) => ctx.dep(d)),
         ctx.dep("@supabase/supabase-js") ? "supabase" : null].filter(Boolean) },
@@ -374,6 +403,11 @@ function report(r, before) {
   out.push("─".repeat(before ? 28 : 38));
   out.push(before ? `GLOW SCORE     ${String(before.score).padStart(3)}  →  ${String(r.score).padStart(3)}   ${before.tier} → ${r.tier}` : `Glow Score: ${r.score}/100 — ${r.tier}`);
   if (r.capped) out.push(`Held at ${r.capped.to} (the categories add up to ${r.capped.from}): ${r.capped.why}. Fix the UI polish findings to lift it.`);
+  if (r.ignored?.length) {
+    const skipped = r.ignored.filter((g) => !g.unclosed), open = r.ignored.filter((g) => g.unclosed);
+    if (skipped.length) out.push(`Not scored: ${skipped.reduce((a, g) => a + g.lines, 0)} lines inside glowup-ignore markers (${[...new Set(skipped.map((g) => g.file))].join(", ")}).`);
+    for (const g of open) out.push(`${g.file}:${g.line} has glowup-ignore-start with no glowup-ignore-end, so nothing there was skipped.`);
+  }
   if (!r.project.files) out.push("", "No source code found here. Run it in your project's folder.");
   if (!before && r.findings.length) {
     const worst = r.categories.filter((c) => c.score !== null).sort((a, b) => a.score - b.score)[0];
